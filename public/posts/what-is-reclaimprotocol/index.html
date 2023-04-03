@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>What Is Reclaim Protocol | Reclaim Protocol Official Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Reclaim Protocol unlocks unlimited possibilities by making HTTPS verifiable in zero knowledge. If you want to prove to me that you have more than a million dollars in your bank account, how would you do it? One option is you send me a screenshot. However, I cannot be sure that you didn&rsquo;t morph the screenshot. The other option is for you to send me your username password and let me login and check your balance myself.">
+<meta name="author" content="">
+<link rel="canonical" href="https://blog.reclaimprotocol.org/posts/what-is-reclaimprotocol/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4879321a85a1040010a43a83d47225cf717d7cb0d8f565bf0bfabfd9db2f9183.css" integrity="sha256-SHkyGoWhBAAQpDqD1HIlz3F9fLDY9WW/C/q/2dsvkYM=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://blog.reclaimprotocol.org/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.reclaimprotocol.org/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.reclaimprotocol.org/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://blog.reclaimprotocol.org/apple-touch-icon.png">
+<link rel="mask-icon" href="https://blog.reclaimprotocol.org/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="What Is Reclaim Protocol" />
+<meta property="og:description" content="Reclaim Protocol unlocks unlimited possibilities by making HTTPS verifiable in zero knowledge. If you want to prove to me that you have more than a million dollars in your bank account, how would you do it? One option is you send me a screenshot. However, I cannot be sure that you didn&rsquo;t morph the screenshot. The other option is for you to send me your username password and let me login and check your balance myself." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.reclaimprotocol.org/posts/what-is-reclaimprotocol/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-03T09:29:02-07:00" />
+<meta property="article:modified_time" content="2023-04-03T09:29:02-07:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="What Is Reclaim Protocol"/>
+<meta name="twitter:description" content="Reclaim Protocol unlocks unlimited possibilities by making HTTPS verifiable in zero knowledge. If you want to prove to me that you have more than a million dollars in your bank account, how would you do it? One option is you send me a screenshot. However, I cannot be sure that you didn&rsquo;t morph the screenshot. The other option is for you to send me your username password and let me login and check your balance myself."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "What Is Reclaim Protocol",
+      "item": "https://blog.reclaimprotocol.org/posts/what-is-reclaimprotocol/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "What Is Reclaim Protocol",
+  "name": "What Is Reclaim Protocol",
+  "description": "Reclaim Protocol unlocks unlimited possibilities by making HTTPS verifiable in zero knowledge. If you want to prove to me that you have more than a million dollars in your bank account, how would you do it? One option is you send me a screenshot. However, I cannot be sure that you didn\u0026rsquo;t morph the screenshot. The other option is for you to send me your username password and let me login and check your balance myself.",
+  "keywords": [
+    
+  ],
+  "articleBody": "Reclaim Protocol unlocks unlimited possibilities by making HTTPS verifiable in zero knowledge. If you want to prove to me that you have more than a million dollars in your bank account, how would you do it? One option is you send me a screenshot. However, I cannot be sure that you didn’t morph the screenshot. The other option is for you to send me your username password and let me login and check your balance myself. This option obviously assumes that you trust me to not drain your bank account. How can you send some information to a stranger on the internet where trust assumptions fail? That’s what Reclaim Procotol solves for.\nReclaim Protocol generates a zk proof for a TLS session data exchange. When you open an HTTPS website, your browser conducts a ceremony with the server called the TLS Handshake. This handshake involves the passing around of public keys and certificates. These certificates are linked to domain names using a Certificate Authority. All of this tech already exists and works. Reclaim Protocol uses this ceremony to generate zk proofs.\nPreserving Privacy If you are trying to prove to me your bank balance and you send me a screenshot of your webpage, I know not only your bank balance, but also your name, address, phone number, or any other personally identifiable information available on that webpage. That isn’t desirable. Reclaim Protocol lets you prove that certain text (or more accurately an html element) exists on a webpage that was rendered on your browser.\nHow does it work There are multiple approaches to this. There’s a solution proposed by Deco using MPC for the session keys. TLSNotary uses Garbled Circuits to genereate TLS session keys. Reclaim protocol introduces an HTTP Proxy to witness the handshake and data transfer. Any webpage you open, goes through a randomly selected HTTP Proxy Witness. HTTP Proxies are a common infrastructure on the internet. The HTTP Proxy Witness checks that (1) The handshake was done with the correct domain name, (2) The correct webpage was opened in the request, (3) An encrypted response was received. Please note, the HTTP Proxy Witness can see only the encrypted response - and it cannot view the contents of the response. This encrypted response is then fed to a zk circuit that runs completely on client side. The AES/ChaCha20 decryption happens inside the zk circuit, and a search is performed on the decrypted html page.\nTrust Assumptions The HTTP Proxy Witness is not a man-in-the-middle attack. HTTP Proxies are a common, secure internet infrastructure. However there are a few trust assumptions, albeit weak. To be able to generate these proofs using the HTTP Proxy Witness, you need to install a mobile app. If you download it from Google Playstore or Apple Appstore, you will have to trust that we did not publish a malicious verion of the app. However, if you don’t trust us, you can always download the sourcecode and manually install the app on the phone. Outside of that there are no trust assumptions, because all of the zk circuit proof generation happens on client side. To know more about how the protocol works check out our docs and whitepaper\nUnlimited possibilities Reclaim protocol enables unlimited possibilities. Before this, web2 and web3 were seen as isolated islands. There is no reason for it to be. With Reclaim protocol, developers can build apps that harness the best of both worlds. Websites are great at transferring information, smart contracts are great at trustless execution of logic. Now developers have access to userdata upon which trustless computation can be executed. If you’re building something that utilizes user data to execute a program, hit us up here. Or follow this blog or twitter for new usecases that are being built everyday. Onwards!\n",
+  "wordCount" : "631",
+  "inLanguage": "en",
+  "datePublished": "2023-04-03T09:29:02-07:00",
+  "dateModified": "2023-04-03T09:29:02-07:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.reclaimprotocol.org/posts/what-is-reclaimprotocol/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Reclaim Protocol Official Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.reclaimprotocol.org/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.reclaimprotocol.org/" accesskey="h" title="Reclaim Protocol Official Blog (Alt + H)">Reclaim Protocol Official Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      What Is Reclaim Protocol
+    </h1>
+    <div class="post-meta"><span title='2023-04-03 09:29:02 -0700 PDT'>April 3, 2023</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>Reclaim Protocol unlocks unlimited possibilities by making HTTPS verifiable in zero knowledge. If you want to prove to me that you have more than a million dollars in your bank account, how would you do it? One option is you send me a screenshot. However, I cannot be sure that you didn&rsquo;t morph the screenshot. The other option is for you to send me your username password and let me login and check your balance myself. This option obviously assumes that you trust me to not drain your bank account. How can you send some information to a stranger on the internet where trust assumptions fail? That&rsquo;s what Reclaim Procotol solves for.</p>
+<p>Reclaim Protocol generates a zk proof for a TLS session data exchange. When you open an HTTPS website, your browser conducts a ceremony with the server called the TLS Handshake. This handshake involves the passing around of public keys and certificates. These certificates are linked to domain names using a Certificate Authority. All of this tech already exists and works. Reclaim Protocol uses this ceremony to generate zk proofs.</p>
+<p><em>Preserving Privacy</em> If you are trying to prove to me your bank balance and you send me a screenshot of your webpage, I know not only your bank balance, but also your name, address, phone number, or any other personally identifiable information available on that webpage. That isn&rsquo;t desirable. Reclaim Protocol lets you prove that certain text (or more accurately an html element) exists on a webpage that was rendered on your browser.</p>
+<p><em>How does it work</em>  There are multiple approaches to this. There&rsquo;s a solution proposed by <a href="https://deco.works">Deco</a> using MPC for the session keys. <a href="https://tlsnotary.org">TLSNotary</a> uses Garbled Circuits to genereate TLS session keys. Reclaim protocol introduces an HTTP Proxy to witness the handshake and data transfer. Any webpage you open, goes through a randomly selected HTTP Proxy Witness. HTTP Proxies are a common infrastructure on the internet. The HTTP Proxy Witness checks that (1) The handshake was done with the correct domain name, (2) The correct webpage was opened in the request, (3) An encrypted response was received. Please note, the HTTP Proxy Witness can see only the encrypted response - and it cannot view the contents of the response. This encrypted response is then fed to a zk circuit that runs completely on client side. The AES/ChaCha20 decryption happens inside the zk circuit, and a search is performed on the decrypted html page.</p>
+<p><em>Trust Assumptions</em> The HTTP Proxy Witness is not a man-in-the-middle attack. HTTP Proxies are a common, secure internet infrastructure. However there are a few trust assumptions, albeit weak. To be able to generate these proofs using the HTTP Proxy Witness, you need to install a mobile app. If you download it from Google Playstore or Apple Appstore, you will have to trust that we did not publish a malicious verion of the app. However, if you don&rsquo;t trust us, you can always download the sourcecode and manually install the app on the phone. Outside of that there are no trust assumptions, because all of the zk circuit proof generation happens on client side. To know more about how the protocol works check out our <a href="https://docs.reclaimprotocol.org">docs and whitepaper</a></p>
+<p><em>Unlimited possibilities</em> Reclaim protocol enables unlimited possibilities. Before this, web2 and web3 were seen as isolated islands. There is no reason for it to be. With Reclaim protocol, developers can build apps that harness the best of both worlds. Websites are great at transferring information, smart contracts are great at trustless execution of logic. Now developers have access to userdata upon which trustless computation can be executed. If you&rsquo;re building something that utilizes user data to execute a program, hit us up <a href="https://reclaimprotocol.org">here</a>. Or follow this blog or <a href="https://twitter.com/protocolreclaim">twitter</a> for new usecases that are being built everyday. Onwards!</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://blog.reclaimprotocol.org/">Reclaim Protocol Official Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
