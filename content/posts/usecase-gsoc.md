@@ -1,5 +1,5 @@
 ---
-title: "Claim GSoC bounty using Reclaim Protocol"
+title: "Casestudy: Claim GSoC bounty using Reclaim Protocol"
 date: 2023-04-12T16:23:15-07:00
 draft: false
 ---
