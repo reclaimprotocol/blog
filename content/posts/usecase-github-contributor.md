@@ -1,5 +1,5 @@
 ---
-title: "Usecase : Blue tick for verified devs on Lens Protocol"
+title: "Casestudy: Blue tick for verified devs on Lens Protocol"
 date: 2023-04-25T06:05:04-07:00
 draft: false
 ---
