@@ -6,7 +6,46 @@
     <description>Recent content in Posts on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Apr 2023 09:29:02 -0700</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Apr 2023 06:05:04 -0700</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Usecase : Blue tick for verified devs on Lens Protocol</title>
+      <link>https://blog.reclaimprotocol.org/posts/usecase-github-contributor/</link>
+      <pubDate>Tue, 25 Apr 2023 06:05:04 -0700</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/usecase-github-contributor/</guid>
+      <description>On any social media it is hard to say whether the user is who they really claim to be. For example, a developer may say that they are one of the core contributors to the Aave Github repository and run a scam on social media. One option is for the social media website to ask users to login using Github on their app, use Github API show a blue tick next to the user if they are a core contributor on the repository they claim to be of.</description>
+    </item>
+    
+    <item>
+      <title>Reclaim protocol ensures privacy</title>
+      <link>https://blog.reclaimprotocol.org/posts/reclaim-works-on-tls-1-3/</link>
+      <pubDate>Tue, 18 Apr 2023 18:02:09 -0700</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/reclaim-works-on-tls-1-3/</guid>
+      <description>Reclaim Protocol can prove that a user opened a certain webpage and the said webpage had some information on it. For example, a user opens their bank account webpage and generates a proof of their bank balance as mentioned on the web page. There are two parts to opening a webpage. The request, and the response. User&amp;rsquo;s privacy needs to be maintained in the request as well as the response. This post is going to talk about how the request is validated yet keeping the request private.</description>
+    </item>
+    
+    <item>
+      <title>Casestudy: Claim GSoC bounty using Reclaim Protocol</title>
+      <link>https://blog.reclaimprotocol.org/posts/usecase-gsoc/</link>
+      <pubDate>Wed, 12 Apr 2023 16:23:15 -0700</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/usecase-gsoc/</guid>
+      <description>By @solvedbiscuit71
+GSoC is an annual program sponsored by Google that offers a stipend to student who complete coding project for chosen open source organisation. At the end of the program, students present their completed project to the community and receive stipend for their contribution.
+A student becomes a contributor to an Open Source repository byt fixing issues and raising PRs. They then need to get the certificate and stipend for the contribution.</description>
+    </item>
+    
+    <item>
+      <title>Casestudy : Verified YC Founders NFT Airdrop</title>
+      <link>https://blog.reclaimprotocol.org/posts/yc-founders-nft-airdrop/</link>
+      <pubDate>Mon, 03 Apr 2023 10:38:05 -0700</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/yc-founders-nft-airdrop/</guid>
+      <description>Using Reclaim Protocol, YCombinator Alum DAO could airdrop NFTs and Tokens only to YC Alumni without needing any website or API change from YC.
+YC doesn&amp;rsquo;t have an API to authorize YC Alumni. So, for a DAO that is not directly affiliated to YC, how can it conduct an Airdrop only to YC Founders? Also, how can a YC Founder make sure that they cannot be left out of the airdrop because of censoring or a human error?</description>
+    </item>
+    
     <item>
       <title>What Is Reclaim Protocol</title>
       <link>https://blog.reclaimprotocol.org/posts/what-is-reclaimprotocol/</link>
