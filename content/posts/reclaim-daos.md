@@ -1,7 +1,7 @@
 ---
 title: "Leapfrogging DAOs w/ Reclaim Protocol"
 date: 2023-07-03T16:01:57Z
-draft: true
+draft: false
 ---
 
 Despite their promise, current Decentralized Autonomous Organizations (DAOs) aren't quite decentralized or autonomous. They often resemble traditional democracies with unequal voting power, posing challenges to their efficiency. The Reclaim Protocol is an innovation that can enhance DAOs.
