@@ -1,0 +1,176 @@
+---
+title: "ZK in Reclaim - an approximate explanation"
+date: 2023-07-14T07:32:07Z
+draft: false
+---
+Understanding ZK Proofs is not intuitive. I've explained how Reclaim Works to over a dozen people spending several hours each, to distill what actually clicks - so that you don't have to sit through one of those sessions filled with banging heads on to the table.
+
+_Note, this post deliberately provides incomplete or incorrect information - in the interest of appealing to intuition. For an accurate explanation refer the [whitepaper](https://docs.reclaimprotocol.org)_
+
+# Problem
+
+If we want to ask _Is the user above 18?_, in Reclaim it is translated to _Does the webpage of the govt ID when this user logged in contain the string "Age: 25"?_. 
+
+Given 
+- a website url, U
+- the encrypted html page, E (response to url U)
+- a set of signatures, S
+- the substring to look for, V
+- the decryption key, D
+
+We need to prove that 
+1. When url U is opened, the response is E
+2. E when decrypted with decryption key D, generates an intermediate plain text P
+3. Plain text P has the substring V in it 
+
+# Background
+We can prove that opening url U, yields the response E using the signatures S derived from TLS Session keys. You can refer to how that works [here](https://blog.reclaimprotocol.org/posts/reclaim-works-on-tls-1-3/). However, understanding how that works is not critical to understanding this post. All that you need to assume is that there is a way to prove that (U, E, S) is an immutable tuple. We will understand how the ZK Proofs work given this immutability.
+
+# Naive proof
+Ok, now that we know (U, E, S) is immutable how may I prove to you that substring V exists in the encrypted html page E when decrypted with decryption key D?
+
+Let's say I give you a program `proof.py` with the following contents
+```
+def verify(u, e, s, v, d):
+  assert(correct_response(u,e,s))
+  p = decrypt(e, d)
+  return v in p
+```
+
+I will send you this function, and I will send you the parameters to run this function `U, E, S, V, D`
+You can 
+1. see the source of the code and be convinced that this is what you want the code to be doing
+2. when you run the code with the parameters I sent you, you get a boolean output
+
+If the output is `True`, you can be convinced that V is a substring of the decryption of E.
+
+But, this relies on the fact that I reveal to you the decryption key D. Which is highly undesireable. 
+OK, what can we do better? ZK Proofs? Yes, but let's build to it. 
+
+# Little Math?
+## Binary and polynomials
+The program we saw above can be compiled into a binary. That is how it is executed. If it is converted into a binary, means the code turns into a bunch of 1s and 0s - that is, numbers. And numbers can be expressed as an equation or polynomial. 
+
+The way to convert this program into polynomials is called QAP and sliding in the assert functions is called R1CS - [if you want to read up more](https://electriccoin.co/blog/snark-explain5/). But, jargon aside - programs are nothing but mathematical equations.
+
+This equation will check out, only if the variables U, E, S, V, D are the parameters fed in statically.
+So, from now on, we'll refer to the program above as the equation Q.
+
+## Modulo math
+`a % b` is read as `a mod b` represents the remainder when a is divided by b.
+There exists a problem called the [Discrete Log Problem](https://www.doc.ic.ac.uk/~mrh/330tutor/ch06s02.html) in mathematics that says given `p^q % n` it is impossible to find `p` given `q` and `n`. 
+
+# Homomorphic Encryption-ish
+This section has nothing to do with zk proofs that are used in the Reclaim Protocol. But I use it as a stepping stone to convince you that it is possible for me to prove that I know a D such that U, E, S, V, D satisfy Q; without revealing D to you.
+
+```
+if a % n = (b*c) %n
+also written as,
+a = b*c % n 
+
+it is also true that
+a^p = (b*c)^p % n
+
+also,
+a^p = (b^p * c^p) % n
+```
+See [homomorphic encryption](https://en.wikipedia.org/wiki/Homomorphic_encryption#Partially_homomorphic_cryptosystems)
+
+In the above equation, i want to prove to you that i know a, b, c such that the equation `a = b*c %n` holds. But I don't want to reveal c to you.
+So, what I'll do is send you `a, b, cp, p` for some number `p`. I will compute `cp` to be `c^p`. I will send `cp` but never `c` itself.
+
+What you can do is you can check if 
+```
+a^p = b^p * cp %n
+```
+
+If this equation holds, it also means `a = b*c %n` holds.
+The only way I was able to give you a `cp` that satisfied the equation when you raised `a` and `b` to the power `p` is if I actually knew `c` and raised it to `p` so as to calculate `cp` before sending it to you.
+As we saw above, because of the discrete log problem, it is impossible for you to derive c from cp.
+
+Yay, so I have proven to you that i know value `c` such that it satisfies equation `a = b*c % n` given a, b, n, without revealing the value of `c` that I know.
+So, this is a zero knowledge proof. A zero knowledge proof is, there is no information other than what was being tried to be proven. Specifically I prove that I know `c` without revealing the value of `c.
+
+So, we could use the same method to prove that I know D such that U, E, S, V, D satisfies Q - without revealing D itself.
+Right? Kinda. But it'd be too impractically expensive to do it this way especially when Q gets very very large for complex programs.
+
+That's why we need ZK SNARKs. the S in SNARK stands for succinct. So, it is designed to be cheap to share and verify. 
+
+# ZK SNARKS
+## Not yet...
+First we're going to understad an interactive proof. More math incoming.
+We have the equation Q and known variables U, E, S, V and an unknown variable D that we want to prove the knowledge of.
+let us represent that as Q(U, E, S, V, d) or just Q(d) for short.
+
+Q(d) can be written as 
+```
+Q(d^2) = A(d^2) + d*B(d^2)
+```
+The only way I can do this is if I know the factorization of Q. 
+The only way for me to know the factorization of Q is if I know `D`. 
+So if I can prove to you that I know the correct factorization - of Q, I have indirectly proven to you that I know D. 
+
+I will first commit to the polynomials Q, A, B. A commitment to a polynomial is the merkel root of the evaluation of the polynomial on all possible values of `d`. In practice, a [more efficient commitment scheme](https://www.iacr.org/archive/asiacrypt2010/6477178/6477178.pdf) is used, but we'll use this for simplicity. Once i have committed to these polynomials, I can't go back and change the polynomials to my convenience in the rest of the proof generation.
+
+Once i send you the commitments to Q, A, B ; you will send me a random number `r`
+I will construct a new equation 
+```
+H(d) = A(d) + r*B(d)
+```
+
+I will send you a commitment to this polynomial H back.
+
+Ok, so at this point you have commitments to polynomials Q, A, B, H
+I have the secret decryption key, or number, D
+
+Now you will send me 100 random values of `d`
+
+I will send you the merkel branches for each of Q, A, B, S when evaluated on these 100 values and 100 more branches for the squares of the values.
+
+You will check that the merkel branches lead up to the committed merkel root, so I've definitely not changed my polynomials.
+
+You will also check
+```
+Q(x^2) = A(x^2) + x*B(x^2)
+and 
+H(x) = A(x) + r*B(x)
+
+for each of the 100 selected values of x
+```
+
+if this checks out you may have some confidence that I know the the correct factorization. But I might have gotten lucky inspite of me cheating in some way.
+So you'd tell me to do the entire thing again. But this time, you'd ask me to redo the entire thing, but this time replacing Q(d) with H(d).
+
+So now, 
+```
+Q'(d^2) = A(d^2) + r*B(d^2)
+and
+H'(d) = A(d^2) + r'*r*B(d^2)
+```
+
+If you do this enough number of times, the probability of me getting lucky for every set of equations that are randomly generated via the randomly picked `r` is lower and lower.
+The intuition here for halving the power of `d` in each round is that the total size of the proof is only `log(degree of Q)` in size. Which is what makes it succinct. Ofcourse this is a [simplified version](https://vitalik.ca/general/2021/01/26/snarks.html) of the actual protocol which has optimizations. 
+
+## Non interactive
+The above protocol implies that both you and me have to be online at the same time for me to be able to generate the proofs. Because it involves you sending me random numbers and me doing the compute and sending it back. But that isn't how zk proofs work - how?
+
+The final trick we're going to use is - called a fiat shamir heuristic. Instead of you picking the random number, I will pick the random number myself. But the way I would do it is just by hashing all the commitments I was making to you. that is, hash of the merkel roots of the polynomial commitments. It is random enough that i can't predict it before making the commitment, so it is as good as you giving me this random number. 
+
+So, you are not required in the proof generation stage. I will generate all the random numbers and send that across to you.
+You can then check that I correctly derived the random numbers as per the agreed upon hash function. Along with, ofcourse, the checks you were doing in each round can now be done all at once on your end!
+
+That is, you can verify the proof I've sent you. If the proof checks out, you'll know that I know the factorization of Q which then implies that I know the value D that satisfied the equation and thus the computer program Q represents.
+
+# Is this secure?
+Remember, (U, E, S) is immutable because of the way in which the request is made. 
+Which leaves me with only 2 variables to play with. `V` and `D`.
+Let's say I want to create a zk proof for `V'` instead. 
+That would mean, (U, E, S, V') become fixed and the only free variable is `D`.
+So I now need to find a `D'` such that it still satisfies the equation `Q`. And that, is impossible because the only way is to try all the possible values of D, which is 2^64 values. It'll take millions of years to try out all the values of D on the most powerful computer to find a value of D so that it checks out for the particular `V'` you want to prove.
+
+
+
+
+Phew. 
+
+_Reminder, this post is grossly inaccurate in terms of what actually happens. It is meant only to appeal to intuition._
