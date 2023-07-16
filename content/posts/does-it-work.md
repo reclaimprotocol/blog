@@ -24,7 +24,7 @@ We need to prove that
 3. Plain text P has the substring V in it 
 
 # Background
-We can prove that opening url U, yields the response E using the signatures S derived from TLS Session keys. You can refer to how that works [here](https://blog.reclaimprotocol.org/posts/reclaim-works-on-tls-1-3/). However, understanding how that works is not critical to understanding this post. All that you need to assume is that there is a way to prove that (U, E, S) is an immutable tuple. We will understand how the ZK Proofs work given this immutability.
+We can prove that opening url U, yields the response E that can be verified to be true using signatures S. You can refer to how that works [here](https://blog.reclaimprotocol.org/posts/reclaim-works-on-tls-1-3/). However, understanding how that works is not critical to understanding this post. All that you need to assume for this post is that that (U, E, S) is a public known tuple. We will understand how the ZK Proofs work given this public knowledge.
 
 # Naive proof
 Ok, now that we know (U, E, S) is immutable how may I prove to you that substring V exists in the encrypted html page E when decrypted with decryption key D?
