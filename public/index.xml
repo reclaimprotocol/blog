@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Reclaim Protocol Official Blog</title>
     <link>https://blog.reclaimprotocol.org/</link>
     <description>Recent content on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Jul 2023 16:01:57 +0000</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Jul 2023 22:31:37 +0000</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Proof of Personhood</title>
+      <link>https://blog.reclaimprotocol.org/posts/proofofpersonhood/</link>
+      <pubDate>Mon, 24 Jul 2023 22:31:37 +0000</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/proofofpersonhood/</guid>
+      <description>Vitalik published a comprehensive study and opinions on Proof of Personhood here. Though I agree with most of the article, there are a few more points I&amp;rsquo;d like to add.
+Proof of personhood and Sybil resistance Proof of Personhood is a subset of Sybil resistance schemes. A common mistake is to collate the two. From wikipedia - &amp;ldquo;A Sybil attack is a type of attack on a computer network service in which an attacker subverts the service&amp;rsquo;s reputation system by creating a large number of pseudonymous identities and uses them to gain a disproportionately large influence.</description>
+    </item>
+    
+    <item>
+      <title>ZK in Reclaim - an approximate explanation</title>
+      <link>https://blog.reclaimprotocol.org/posts/does-it-work/</link>
+      <pubDate>Fri, 14 Jul 2023 07:32:07 +0000</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/does-it-work/</guid>
+      <description>Understanding ZK Proofs is not intuitive. I&amp;rsquo;ve explained how Reclaim Works to over a dozen people spending several hours each, to distill what actually clicks - so that you don&amp;rsquo;t have to sit through one of those sessions filled with banging heads on to the table.
+Note, this post deliberately provides incomplete or incorrect information - in the interest of appealing to intuition. For an accurate explanation refer the whitepaper</description>
+    </item>
+    
     <item>
       <title>Leapfrogging DAOs w/ Reclaim Protocol</title>
       <link>https://blog.reclaimprotocol.org/posts/reclaim-daos/</link>
