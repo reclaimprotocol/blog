@@ -1,5 +1,5 @@
 ---
-title: "Proof of Personhood"
+title: "Tradeoffs in Proof of Personhood and Credentials"
 date: 2023-07-24T22:31:37Z
 draft: false
 ---
