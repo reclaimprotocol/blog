@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Reclaim protocol ensures privacy | Reclaim Protocol Official Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="Reclaim Protocol can prove that a user opened a certain webpage and the said webpage had some information on it. For example, a user opens their bank account webpage and generates a proof of their bank balance as mentioned on the web page. There are two parts to opening a webpage. The request, and the response. User&rsquo;s privacy needs to be maintained in the request as well as the response. This post is going to talk about how the request is validated yet keeping the request private.">
+<meta name="author" content="">
+<link rel="canonical" href="https://blog.reclaimprotocol.org/posts/reclaim-works-on-tls-1-3/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4879321a85a1040010a43a83d47225cf717d7cb0d8f565bf0bfabfd9db2f9183.css" integrity="sha256-SHkyGoWhBAAQpDqD1HIlz3F9fLDY9WW/C/q/2dsvkYM=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://blog.reclaimprotocol.org/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.reclaimprotocol.org/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.reclaimprotocol.org/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://blog.reclaimprotocol.org/apple-touch-icon.png">
+<link rel="mask-icon" href="https://blog.reclaimprotocol.org/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Reclaim protocol ensures privacy" />
+<meta property="og:description" content="Reclaim Protocol can prove that a user opened a certain webpage and the said webpage had some information on it. For example, a user opens their bank account webpage and generates a proof of their bank balance as mentioned on the web page. There are two parts to opening a webpage. The request, and the response. User&rsquo;s privacy needs to be maintained in the request as well as the response. This post is going to talk about how the request is validated yet keeping the request private." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.reclaimprotocol.org/posts/reclaim-works-on-tls-1-3/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-18T18:02:09-07:00" />
+<meta property="article:modified_time" content="2023-04-18T18:02:09-07:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Reclaim protocol ensures privacy"/>
+<meta name="twitter:description" content="Reclaim Protocol can prove that a user opened a certain webpage and the said webpage had some information on it. For example, a user opens their bank account webpage and generates a proof of their bank balance as mentioned on the web page. There are two parts to opening a webpage. The request, and the response. User&rsquo;s privacy needs to be maintained in the request as well as the response. This post is going to talk about how the request is validated yet keeping the request private."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Reclaim protocol ensures privacy",
+      "item": "https://blog.reclaimprotocol.org/posts/reclaim-works-on-tls-1-3/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Reclaim protocol ensures privacy",
+  "name": "Reclaim protocol ensures privacy",
+  "description": "Reclaim Protocol can prove that a user opened a certain webpage and the said webpage had some information on it. For example, a user opens their bank account webpage and generates a proof of their bank balance as mentioned on the web page. There are two parts to opening a webpage. The request, and the response. User\u0026rsquo;s privacy needs to be maintained in the request as well as the response. This post is going to talk about how the request is validated yet keeping the request private.",
+  "keywords": [
+    
+  ],
+  "articleBody": "Reclaim Protocol can prove that a user opened a certain webpage and the said webpage had some information on it. For example, a user opens their bank account webpage and generates a proof of their bank balance as mentioned on the web page. There are two parts to opening a webpage. The request, and the response. User’s privacy needs to be maintained in the request as well as the response. This post is going to talk about how the request is validated yet keeping the request private.\nUsing the app to generate proof When generating a proof, the user logs in into a website, say bankofamerica.com, using the browser on Reclaim Wallet. This browser is just a standard browser but with two changes.\n It routes all the traffic through a transparent HTTP Proxy It uses a custom implementation of TLS Library, as we’ll see further in this post Both of these have no impact on the security and privacy of the connection between the user and the website.  Transparent Http Proxy Common HTTP Proxies are common parts of the infrastructure of the internet. Useres routinely use HTTP Proxies. When you’re accessing the internet from a cafe, from an office, you’re probably using a HTTP Proxy. The Reclaim App, routes all the http traffic through a HTTP Proxy too, without compromising any security of the connection to bankofamerica.com.\nRole The job of the HTTP Proxy is just to forward all the request and response between the user and the website. But it also stores the encrypted request and the response. Please note, it forwards and stores only the encrypted request and response. It can’t see the contents thereof.\nCustom Implementation Of TLS1.3 libtls is a common TLS library used to send and receive https data. HTTPS is a protocol built on top of TLS. When a user opens a HTTPS website, they’re using TLS to send the request to open a webpage and receive the response as an html page.\nTo recap, we’re trying to prove using Reclaim Protocol that a user opened the webpage W and the server responded with html response H, in response to W.\nThe http proxy is seeing all the encrypted request and response between the user and the webserver. The request it sees is E(W). It knows the user sent a request, but doesn’t know the contents of the request. Similarly it also sees that the webserver responded with E(H).\nBut how to we prove to the http proxy that the user opened the correct webpage? How do we know that the user opened bankofamerica.com/myaccount and not fake-bank-of-america.com/myaccount? One simple way is for the user to reveal to the http proxy the decryption key. This is the key that the user and the webserver are using to encrypt and decrypt messages. So, if the user reveals the key to the http proxy, the http proxy can decrypt E(W).\nDecrypt(E(W), key) = W.\nOnce it has access to W, the http proxy can read the request and acertain that the request was made to bankofamerica.com indeed. However, there’s a problem. To access bankofamerica.com/myaccount, the user would have logged in. And, W would contain the authentication token in it. What that means is, the http proxy will also be able to read the authentication token from W. If it has that authentication token or cookie, it can login on behalf of the user and initiate a transaction to siphon out all the money from the said bank account. Oops.\nKey Update This is where the custom implementation of TLS comes into play. When a request is being made, the request W is broken into 3 parts\nW1 - domain, path, other headers W2 - cookie/authentication token W3 - request body Instead of sending E(W), the user now sends the request in three parts E(W1), E(W2), E(W3). But after sending each part it also sends a special TLS 1.3 message called KeyUpdate. The message, well, updates the key used for encryption. So, W1, W2, and W3 are all encrypted with different keys.\nOnce the request is complete and the response has been received by the user, they send another TLS message saying CloseSession to indicate the session should be closed and no new requests should be handled using the existing keys.\nOnce the session is closed, the user will reveal keys K1 pertaining to E(W1) and K3 pertaining to E(W3). So, the http proxy is able to see that the correct domain was sent the request, the correct path was called and the correct request body was sent. But, it won’t be able to see the authentication token held in W2, because the user never revealed K2 to the http proxy.\nThus, using this construct the http proxy is able to attest that the correct request was sent and some response was sent by the server. The correctness of the response also needs to be checked, but that’s a totally different construct using zkcircuits because we don’t want to ask bankofamerica.com to make any changes. That is for another blog!\n",
+  "wordCount" : "842",
+  "inLanguage": "en",
+  "datePublished": "2023-04-18T18:02:09-07:00",
+  "dateModified": "2023-04-18T18:02:09-07:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.reclaimprotocol.org/posts/reclaim-works-on-tls-1-3/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Reclaim Protocol Official Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.reclaimprotocol.org/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://blog.reclaimprotocol.org/" accesskey="h" title="Reclaim Protocol Official Blog (Alt + H)">Reclaim Protocol Official Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Reclaim protocol ensures privacy
+    </h1>
+    <div class="post-meta"><span title='2023-04-18 18:02:09 -0700 PDT'>April 18, 2023</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>Reclaim Protocol can prove that a user opened a certain webpage and the said webpage had some information on it. For example, a user opens their bank account webpage and generates a proof of their bank balance as mentioned on the web page. There are two parts to <em>opening a webpage</em>. The request, and the response. User&rsquo;s privacy needs to be maintained in the request as well as the response. This post is going to talk about how the request is validated yet keeping the request private.</p>
+<p><em>Using the app to generate proof</em> When generating a proof, the user logs in into a website, say bankofamerica.com, using the browser on Reclaim Wallet. This browser is just a standard browser but with two changes.</p>
+<ol>
+<li>It routes all the traffic through a transparent HTTP Proxy</li>
+<li>It uses a custom implementation of TLS Library, as we&rsquo;ll see further in this post
+Both of these have no impact on the security and privacy of the connection between the user and the website.</li>
+</ol>
+<h1 id="transparent-http-proxy">Transparent Http Proxy<a hidden class="anchor" aria-hidden="true" href="#transparent-http-proxy">#</a></h1>
+<p><em>Common</em> HTTP Proxies are common parts of the infrastructure of the internet. Useres routinely use HTTP Proxies. When you&rsquo;re accessing the internet from a cafe, from an office, you&rsquo;re probably using a HTTP Proxy. The Reclaim App, routes all the http traffic through a HTTP Proxy too, without compromising any security of the connection to bankofamerica.com.</p>
+<p><em>Role</em> The job of the HTTP Proxy is just to forward all the request and response between the user and the website. But it also stores the encrypted request and the response. Please note, it forwards and stores only the encrypted request and response. It can&rsquo;t see the contents thereof.</p>
+<h1 id="custom-implementation-of-tls13">Custom Implementation Of TLS1.3<a hidden class="anchor" aria-hidden="true" href="#custom-implementation-of-tls13">#</a></h1>
+<p><a href="https://www.npmjs.com/package/node-tls">libtls</a> is a common TLS library used to send and receive https data. HTTPS is a protocol built on top of TLS. When a user opens a HTTPS website, they&rsquo;re using TLS to send the request to open a webpage and receive the response as an html page.</p>
+<p>To recap, we&rsquo;re trying to prove using Reclaim Protocol that a user opened the webpage W and the server responded with html response H, in response to W.</p>
+<p>The http proxy is seeing all the encrypted request and response between the user and the webserver. The request it sees is <code>E(W)</code>. It knows the user sent a request, but doesn&rsquo;t know the contents of the request. Similarly it also sees that the webserver responded with <code>E(H)</code>.</p>
+<p>But how to we prove to the http proxy that the user opened the correct webpage? How do we know that the user opened bankofamerica.com/myaccount and not fake-bank-of-america.com/myaccount? One simple way is for the user to reveal to the http proxy the decryption key. This is the key that the user and the webserver are using to <a href="">encrypt and decrypt messages</a>. So, if the user reveals the key to the http proxy, the http proxy can decrypt <code>E(W)</code>.</p>
+<p><code>Decrypt(E(W), key) = W</code>.</p>
+<p>Once it has access to <code>W</code>, the http proxy can read the request and acertain that the request was made to bankofamerica.com indeed. However, there&rsquo;s a problem. To access bankofamerica.com/myaccount, the user would have logged in. And, <code>W</code> would contain the authentication token in it. What that means is, the http proxy will also be able to read the authentication token from <code>W</code>. If it has that authentication token or cookie, it can login on behalf of the user and initiate a transaction to siphon out all the money from the said bank account. Oops.</p>
+<p><em>Key Update</em> This is where the custom implementation of TLS comes into play. When a request is being made, the request <code>W</code> is broken into 3 parts</p>
+<pre><code>W1 - domain, path, other headers
+W2 - cookie/authentication token
+W3 - request body
+</code></pre><p>Instead of sending <code>E(W)</code>, the user now sends the request in three parts <code>E(W1)</code>, <code>E(W2)</code>, <code>E(W3)</code>. But after sending each part it also sends a special TLS 1.3 message called <code>KeyUpdate</code>. The message, well, updates the key used for encryption. So, <code>W1</code>, <code>W2</code>, and <code>W3</code> are all encrypted with different keys.</p>
+<p>Once the request is complete and the response has been received by the user, they send another TLS message saying <code>CloseSession</code> to indicate the session should be closed and no new requests should be handled using the existing keys.</p>
+<p>Once the session is closed, the user will reveal keys K1 pertaining to E(W1) and K3 pertaining to E(W3). So, the http proxy is able to see that the correct domain was sent the request, the correct path was called and the correct request body was sent. But, it won&rsquo;t be able to see the authentication token held in W2, because the user never revealed K2 to the http proxy.</p>
+<p>Thus, using this construct the http proxy is able to attest that the correct request was sent and <em>some</em> response was sent by the server.
+The correctness of the response also needs to be checked, but that&rsquo;s a totally different construct using zkcircuits because we don&rsquo;t want to ask bankofamerica.com to make any changes. That is for another blog!</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://blog.reclaimprotocol.org/">Reclaim Protocol Official Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
