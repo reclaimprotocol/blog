@@ -70,7 +70,7 @@ One can prove that the input dataset is from an authentic source.
 
 If you are building any of these ideas, we'd love to speak to you. Hit [madhavanmalolan](https://t.me/madhavanmalolan) up on Telegram or apply for a [grant on Questbook](https://www.questbook.app/dashboard/?grantId=0x7b9762f7584de695dbd8c8fdb1a8ce77e2bbad3b&chainId=10&role=community&proposalId=0x2e9). 
 
-
+Thanks to [Abhilash](https://twitter.com/abhilashi?lang=en) for working out the insights and ideas mentioned on this blog.
 
 
 
