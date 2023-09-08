@@ -1,7 +1,7 @@
 ---
 title: "Usecases to build using Reclaim"
 date: 2023-09-08T03:40:52-07:00
-draft: true
+draft: false
 ---
 Reclaim protocol enables various usecases that were previously never possible. It unlocks a new design space letting builders build novel solutions that leverages the identity and credentials of the user - identities and credentials the users have accrued over time all over the internet. If you are building any of these ideas or products in the periphery of these ideas, [we'd love to support](https://t.me/madhavanmalolan) with grants, funding, and engineering.
 
