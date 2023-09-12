@@ -5,9 +5,9 @@ draft: false
 ---
 
 Reclaim Protocol can be used to create numerous tools that can fastforward us towards a [network state](https://thenetworkstate.com).
-We are going to be running hacker houses around the world for builders to hack on their ideas for a three to six months with all their basics covered. If you're a builder who is passionate about network states and is building tools to fastforward the future, join our discord and tell us what you're building.
+We are going to be running hacker houses around the world for builders to hack on their ideas for a three to six months with all their basics covered. If you're a builder who is passionate about network states and is building tools to fastforward the future, [join our discord](https://link.reclaimprotocol.org/discord) and tell us what you're building.
 
-You can also apply for joining a hacker house [here]().
+You can also apply for joining a hacker house [here](https://k7ry2bpd8ed.typeform.com/to/QTcMKxE5).
 
 Below are some ideas that we'd like to see built at the hacker houses.
 
