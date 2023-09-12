@@ -16,15 +16,8 @@ A network for news that is not controlled by any entity. Instead, anyone can pub
 
 This product has two parts to it : the storage of data itself while proving the authenticity using Reclaim Protocol, and building the first AI model that utilizes the on chain facts.
 
-# Dashboard to start Discord servers to bootstrap startup societies
-A simple UX for a community manager to define rules basis which users can join their discord. A community manager should come to the UI, pick and choose from many available rules like contributions to open source, donations to philantrophy etc. If a rule is not available be able to define a rule. Users can prove that they satisfy these rules using Reclaim Protocol. 
-
-For rules that haven't already been defined by others in code, a [few lines of code](https://docs.reclaimprotocol.org/providers/http-provider) would have to be written by the community manager. Bonus points if you can train a GPT model to translate natural language into these few lines of code.
-
-Once these rules are defined, in one tap let the community manager spin up a Discord server where anyone who joins is asked to prove qualification on the set rules. 
-
 # Yearly Census Dashboard
-Every year (or quarter, or month), members of a network state can pledge their continued allegiance to a said startup society by participating in census. This is a way for the society to signal its power. The census displays a dashboard consisting of the most important health metrics of a startup society. This could include, networth of individuals (crypto & fiat), country of residence, donations to philantrophy, revenue from businesses they've started.
+Every year (or quarter, or month), members of a network state can pledge their continued allegiance to a said startup society by participating in census. This is a way for the society to signal its power. The census displays a dashboard consisting of the most important health metrics of a startup society. This could include, networth of individuals (crypto & fiat), country of residence, donations to philanthropy, revenue from businesses they've started. Maybe even do a token for Census.
 
 All of the off chain census data can be fetched using Reclaim Protocol. This would require understanding of societies, philosophy and technology to be able to identify what metrics actually matter. Some signals are mentioned in the book, however practical implementation would require quick experimentation.
 
@@ -32,6 +25,29 @@ All of the off chain census data can be fetched using Reclaim Protocol. This wou
 A GPT bot for online arbitration of conflict. Train an AI on legal documents over the years. The documents used to train should have been retrieved from trust worthy sources. The startup society approves amends to the constitution via onchain voting. When a dispute occurs, the GPT is asked to provide a judgement based on the data it was trained on, the constitution that has been created by the startup society and evidences submitted by the involved parties.
 
 The data used to train the model, and the evidences submitted by the parties must be from authentic sources as proven by Reclaim Protocol. 
+
+# Social Networks for Network States
+## Dashboard to start Discord servers to bootstrap startup societies
+A simple UX for a community manager to define rules basis which users can join their discord. A community manager should come to the UI, pick and choose from many available rules like contributions to open source, donations to philanthropy etc. If a rule is not available be able to define a rule. Users can prove that they satisfy these rules using Reclaim Protocol. 
+
+For rules that haven't already been defined by others in code, a [few lines of code](https://docs.reclaimprotocol.org/providers/http-provider) would have to be written by the community manager. Bonus points if you can train a GPT model to translate natural language into these few lines of code.
+
+Once these rules are defined, in one tap let the community manager spin up a Discord server where anyone who joins is asked to prove qualification on the set rules. 
+
+## Onchain self-audit
+A simple way for users to declare information about themselves like their annual income, real estate footprint etc. "The history of an Uber driver or rider’s on-platform behavior partially predicts their future behavior".
+
+Use Reclaim to retrieve this information from existing portals and apps.
+
+## Cancel Insurance
+A way for users to be compensated in tokens if they get cancelled. A person who's provably part of the network, and has been cancelled in some form can claim an insurance. This would be a new kind of a community, where you *cannot* get cancelled. The community itself may reside in an existing social network like farcaster, discord  or could be a new social network.
+
+Use Reclaim to generate proofs of being cancelled on the said platform.
+
+## Authentic Bios
+Let people add authentic claims to their bio on twitter, telegram etc. Think [linktree](https://linktr.ee) but with additional information like "Army Retired", "American", "Philanthropist" etc.
+
+Use Reclaim protocol to attach proofs to each of the claims on the bio.
 
 # Some ideas for Network State
 ## Based on Futarchy
@@ -48,9 +64,4 @@ Use Reclaim Protocol to define the profession and credibility of the user joinin
 Create a network state startup society based on the fan following of an influencer online. Build tools and dashboards that will best let the society shape itself into a self sustaining community.
 
 Use Reclaim Protocol to identify who are fans of the creator to bootstrap the society with.
-
-# Crypto Foot Bridges Marketplace
-Imagine a [foot bridge](https://thenetworkstate.com/on-network-states#the-digital-map) that comes up suddenly from New York to Sydney. Suddenly, NYC and Sydney are neighbours who were previously on different hemispheres of the planet. Build tooling for Uber to integrate with Lyft, without Lyft's permission.
-
-Use Reclaim Protocol to aide movement of users' data across apps in the form of an integration marketplace. Prebuilt tools, components, docker images for a quick integration
 
