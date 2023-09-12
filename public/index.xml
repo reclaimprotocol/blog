@@ -6,7 +6,26 @@
     <description>Recent content on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Aug 2023 12:48:26 -0700</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Sep 2023 17:14:31 -0700</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Network State Tools using Reclaim Protocol</title>
+      <link>https://blog.reclaimprotocol.org/posts/network-state-tools/</link>
+      <pubDate>Mon, 11 Sep 2023 17:14:31 -0700</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/network-state-tools/</guid>
+      <description>Reclaim Protocol can be used to create numerous tools that can fastforward us towards a network state. We are going to be running hacker houses around the world for builders to hack on their ideas for a three to six months with all their basics covered. If you&amp;rsquo;re a builder who is passionate about network states and is building tools to fastforward the future, join our discord and tell us what you&amp;rsquo;re building.</description>
+    </item>
+    
+    <item>
+      <title>Usecases to build using Reclaim</title>
+      <link>https://blog.reclaimprotocol.org/posts/usecases/</link>
+      <pubDate>Fri, 08 Sep 2023 03:40:52 -0700</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/usecases/</guid>
+      <description>Reclaim protocol enables various usecases that were previously never possible. It unlocks a new design space letting builders build novel solutions that leverages the identity and credentials of the user - identities and credentials the users have accrued over time all over the internet. If you are building any of these ideas or products in the periphery of these ideas, we&amp;rsquo;d love to support with grants, funding, and engineering.
+Verification Usecases Address verification Currently address verification is done in one of the following modes - either by sending a person physically to the said address, or by utilizing addresses on official documentation like national ID, financial documents.</description>
+    </item>
+    
     <item>
       <title>Audits</title>
       <link>https://blog.reclaimprotocol.org/posts/audits/</link>

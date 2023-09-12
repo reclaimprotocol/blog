@@ -3,17 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.reclaimprotocol.org/posts/audits/</loc>
-    <lastmod>2023-08-15T12:48:26-07:00</lastmod>
+    <loc>https://blog.reclaimprotocol.org/posts/network-state-tools/</loc>
+    <lastmod>2023-09-11T17:14:31-07:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.reclaimprotocol.org/posts/</loc>
-    <lastmod>2023-08-15T12:48:26-07:00</lastmod>
+    <lastmod>2023-09-11T17:14:31-07:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.reclaimprotocol.org/</loc>
+    <lastmod>2023-09-11T17:14:31-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.reclaimprotocol.org/posts/usecases/</loc>
+    <lastmod>2023-09-08T03:40:52-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.reclaimprotocol.org/posts/audits/</loc>
     <lastmod>2023-08-15T12:48:26-07:00</lastmod>
   </url>
   
