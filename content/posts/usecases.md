@@ -66,6 +66,9 @@ Prove your travel on all the ride sharing apps to get a Lyft credit card. Prove 
 ## Authentic training data for AI Models
 One can prove that the input dataset is from an authentic source.
 
+# Network State
+This is a large section in itself! Please visit the dedicated blog post for [Network State Tools ideas](https://blog.reclaimprotocol.org/posts/network-state-tools/).
+
 -----------
 
 If you are building any of these ideas, we'd love to speak to you. Hit [madhavanmalolan](https://t.me/madhavanmalolan) up on Telegram or apply for a [grant on Questbook](https://www.questbook.app/dashboard/?grantId=0x7b9762f7584de695dbd8c8fdb1a8ce77e2bbad3b&chainId=10&role=community&proposalId=0x2e9). 
