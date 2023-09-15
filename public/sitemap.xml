@@ -1,83 +1,54 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <url>
-    <loc>https://blog.reclaimprotocol.org/posts/network-state-tools/</loc>
-    <lastmod>2023-09-11T17:14:31-07:00</lastmod>
-  </url>
-  
   <url>
     <loc>https://blog.reclaimprotocol.org/posts/</loc>
-    <lastmod>2023-09-11T17:14:31-07:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2023-09-14T18:22:37+04:00</lastmod>
+  </url><url>
+    <loc>https://blog.reclaimprotocol.org/posts/proof-metrics/</loc>
+    <lastmod>2023-09-14T18:22:37+04:00</lastmod>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/</loc>
+    <lastmod>2023-09-14T18:22:37+04:00</lastmod>
+  </url><url>
+    <loc>https://blog.reclaimprotocol.org/posts/network-state-tools/</loc>
     <lastmod>2023-09-11T17:14:31-07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/usecases/</loc>
     <lastmod>2023-09-08T03:40:52-07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/audits/</loc>
     <lastmod>2023-08-15T12:48:26-07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/self-sovereign/</loc>
     <lastmod>2023-08-15T12:36:44-07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/proofofpersonhood/</loc>
     <lastmod>2023-07-24T22:31:37+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/does-it-work/</loc>
     <lastmod>2023-07-14T07:32:07+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/reclaim-daos/</loc>
     <lastmod>2023-07-03T16:01:57+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/usecase-github-contributor/</loc>
     <lastmod>2023-04-25T06:05:04-07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/reclaim-works-on-tls-1-3/</loc>
     <lastmod>2023-04-18T18:02:09-07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/usecase-gsoc/</loc>
     <lastmod>2023-04-12T16:23:15-07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/yc-founders-nft-airdrop/</loc>
     <lastmod>2023-04-03T10:38:05-07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/what-is-reclaimprotocol/</loc>
     <lastmod>2023-04-03T09:29:02-07:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.reclaimprotocol.org/tags/</loc>
   </url>
-  
 </urlset>
