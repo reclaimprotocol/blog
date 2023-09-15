@@ -4,7 +4,6 @@ date: 2023-09-14T18:22:37+04:00
 draft: false
 ---
 
-# Proof Metrics
 ## _How Reclaim is Revolutionizing Proof Metrics: A Guide for Forward-Thinking Developers_
 
 In the context of both Web2 and Web3 applications, there exists a multifaceted need for establishing various forms of proof to address day-to-day use cases. These proofs serve as indicators of user engagement and commitment within digital ecosystems. The following are some key categories of proof, each with distinct criteria and utility:
