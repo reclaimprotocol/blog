@@ -6,7 +6,17 @@
     <description>Recent content on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Sep 2023 17:14:31 -0700</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Sep 2023 18:22:37 +0400</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Proof Metrics</title>
+      <link>https://blog.reclaimprotocol.org/posts/proof-metrics/</link>
+      <pubDate>Thu, 14 Sep 2023 18:22:37 +0400</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/proof-metrics/</guid>
+      <description>Proof Metrics How Reclaim is Revolutionizing Proof Metrics: A Guide for Forward-Thinking Developers In the context of both Web2 and Web3 applications, there exists a multifaceted need for establishing various forms of proof to address day-to-day use cases. These proofs serve as indicators of user engagement and commitment within digital ecosystems. The following are some key categories of proof, each with distinct criteria and utility:
+Proof of Stewardship (Proxy = Holding Toekns): This pertains to individuals who demonstrate care and dedication to the ecosystem.</description>
+    </item>
+    
     <item>
       <title>Network State Tools using Reclaim Protocol</title>
       <link>https://blog.reclaimprotocol.org/posts/network-state-tools/</link>
@@ -33,7 +43,7 @@ Verification Usecases Address verification Currently address verification is don
       
       <guid>https://blog.reclaimprotocol.org/posts/audits/</guid>
       <description>Here is the list of audits in progress
-Phase : External Audit  ZK Circuits (By ZkSecurity)  Phase : Internal Audit  TLS Libraries Reclaim SDKs Reclaim Wallet App Reclaim Wallet App Backend Reclaim Attestor  </description>
+Phase : External Audit ZK Circuits (By ZkSecurity) Phase : Internal Audit TLS Libraries Reclaim SDKs Reclaim Wallet App Reclaim Wallet App Backend Reclaim Attestor </description>
     </item>
     
     <item>

@@ -12,7 +12,7 @@ GSoC is an annual program sponsored by Google that offers a stipend to student w
 A student becomes a contributor to an Open Source repository byt fixing issues and raising PRs. They then need to get the certificate and stipend for the contribution.">
 <meta name="author" content="">
 <link rel="canonical" href="https://blog.reclaimprotocol.org/posts/usecase-gsoc/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.4879321a85a1040010a43a83d47225cf717d7cb0d8f565bf0bfabfd9db2f9183.css" integrity="sha256-SHkyGoWhBAAQpDqD1HIlz3F9fLDY9WW/C/q/2dsvkYM=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3613efbd0b1772781e8f49935e973cae632a7f61471c05b17be155505ccf87b5.css" integrity="sha256-NhPvvQsXcngej0mTXpc8rmMqf2FHHAWxe&#43;FVUFzPh7U=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://blog.reclaimprotocol.org/favicon.ico">
@@ -78,7 +78,13 @@ A student becomes a contributor to an Open Source repository byt fixing issues a
 {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": [, 
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://blog.reclaimprotocol.org/posts/"
+    }, 
     {
       "@type": "ListItem",
       "position":  2 ,
@@ -98,7 +104,7 @@ A student becomes a contributor to an Open Source repository byt fixing issues a
   "keywords": [
     
   ],
-  "articleBody": "By @solvedbiscuit71\nGSoC is an annual program sponsored by Google that offers a stipend to student who complete coding project for chosen open source organisation. At the end of the program, students present their completed project to the community and receive stipend for their contribution.\nA student becomes a contributor to an Open Source repository byt fixing issues and raising PRs. They then need to get the certificate and stipend for the contribution. They need to prove their work to Google. This is where Reclaim Protocol comes into picture.\n Using Reclaim protocol, you can export data from any website and generate zk proof for it. This proof generation is completely privacy preserving.\n Why use Reclaim instead of Github’s API? Though Github provides the collaborators API to verify whether a user is a contributor of a particular repository.\nFor using this API,\n The contributor must authenticate using OAuth The organisation must enable members and metadata permission  There is also the fact that members of the organisation, with high privileges, can add or remove collaborators manually.\nReclaim protocol doesn’t need any endpoints from Github. Using Reclaim Protocol, a user can generate a claim and then create a zkproof for it. Here, the claim is user U is a contributor of repository R.\nDemo \u0026 Technical Details Below sequential diagram shows Reclaim protocol in action, or watch a demo video. You can also see the sourcecode here.\nThe project uses the MERN stack and Questbook’s reclaim-sdk to generate Template and Callback URL. The tech stack includes,\n Node Server ExpressJS React MongoDB Reclaim SDK  The verification is done by the @reclaimprotocol/reclaim-sdk node package. However, it can also be done using smart contract.\nConclusion Reclaim protocol can be used in GSoC to automate the process of processing certificates and stipends to the student-developers.\nRepository Link: Github\nFor further information you can contact the developer @solvedbiscuit71\n",
+  "articleBody": "By @solvedbiscuit71\nGSoC is an annual program sponsored by Google that offers a stipend to student who complete coding project for chosen open source organisation. At the end of the program, students present their completed project to the community and receive stipend for their contribution.\nA student becomes a contributor to an Open Source repository byt fixing issues and raising PRs. They then need to get the certificate and stipend for the contribution. They need to prove their work to Google. This is where Reclaim Protocol comes into picture.\nUsing Reclaim protocol, you can export data from any website and generate zk proof for it. This proof generation is completely privacy preserving.\nWhy use Reclaim instead of Github’s API? Though Github provides the collaborators API to verify whether a user is a contributor of a particular repository.\nFor using this API,\nThe contributor must authenticate using OAuth The organisation must enable members and metadata permission There is also the fact that members of the organisation, with high privileges, can add or remove collaborators manually.\nReclaim protocol doesn’t need any endpoints from Github. Using Reclaim Protocol, a user can generate a claim and then create a zkproof for it. Here, the claim is user U is a contributor of repository R.\nDemo \u0026 Technical Details Below sequential diagram shows Reclaim protocol in action, or watch a demo video. You can also see the sourcecode here.\nThe project uses the MERN stack and Questbook’s reclaim-sdk to generate Template and Callback URL. The tech stack includes,\nNode Server ExpressJS React MongoDB Reclaim SDK The verification is done by the @reclaimprotocol/reclaim-sdk node package. However, it can also be done using smart contract.\nConclusion Reclaim protocol can be used in GSoC to automate the process of processing certificates and stipends to the student-developers.\nRepository Link: Github\nFor further information you can contact the developer @solvedbiscuit71\n",
   "wordCount" : "310",
   "inLanguage": "en",
   "datePublished": "2023-04-12T16:23:15-07:00",
@@ -170,7 +176,7 @@ A student becomes a contributor to an Open Source repository byt fixing issues a
     <h1 class="post-title">
       Casestudy: Claim GSoC bounty using Reclaim Protocol
     </h1>
-    <div class="post-meta"><span title='2023-04-12 16:23:15 -0700 PDT'>April 12, 2023</span>
+    <div class="post-meta"><span title='2023-04-12 16:23:15 -0700 -0700'>April 12, 2023</span>
 
 </div>
   </header> 

@@ -1,0 +1,30 @@
+---
+title: "Proof Metrics"
+date: 2023-09-14T18:22:37+04:00
+draft: false
+---
+
+# Proof Metrics
+## _How Reclaim is Revolutionizing Proof Metrics: A Guide for Forward-Thinking Developers_
+
+In the context of both Web2 and Web3 applications, there exists a multifaceted need for establishing various forms of proof to address day-to-day use cases. These proofs serve as indicators of user engagement and commitment within digital ecosystems. The following are some key categories of proof, each with distinct criteria and utility:
+1. **Proof of Stewardship (Proxy = Holding Toekns)**: This pertains to individuals who demonstrate care and dedication to the ecosystem. Historically, it has often been tied to token ownership. However, this approach may exclude those who have contributed significantly but do not possess the requisite tokens. Consider, for example, individuals who have actively moderated online communities, organized physical events, or promoted the ecosystem through social media engagement. These contributions should also be acknowledged.
+2. **Proof of Impact (Proxy = Cost Per Click)**: This category deals with actions taken by users that influence the ecosystem positively. It is often associated with Call-to-Action (CTA) responses, indicating a user's responsiveness to community-driven initiatives.
+3. **Proof of Research (Proxy = Number of articles/books read)**: Users can provide evidence of their commitment to knowledge acquisition within the ecosystem, typically through activities such as reading relevant literature or publications.
+4. **Proof of Expertise (Proxy = Certification)**: This proof category involves demonstrating a level of expertise or competency within the ecosystem, often through certification or validated credentials.
+5. **Proof of Effort (Proxy = Number of hours)**: This is quantified by the amount of time and effort individuals invest in ecosystem-related activities, measured in hours or similar units.
+6. **Proof of Commitment/Seriousness (Proxy = Money)**: This pertains to users' financial commitment to the ecosystem, which can be indicated by their monetary contributions or investments. This includes spending on paid courses, products, or services.
+
+It is imperative to acknowledge that these forms of proof remain incomplete in their coverage. For instance, the conventional understanding of Proof of Care based on token ownership disregards the substantial contributions of individuals who actively participate in community-building endeavors. Furthermore, Proof of Stewardship could benefit from a more inclusive approach.
+
+Reclaim is anticipated to raise the bar for these proof metrics by building on the concept of a **[Network State](https://thenetworkstate.com/) ID.** This development enables a more comprehensive evaluation of a user's dedication and impact within the ecosystem.
+
+The concept of a "[Dedicated Online Community](https://thenetworkstate.com/the-network-state-in-one-thousand-words#:~:text=dedicated%20online%20community)," as referenced in the Network State ID framework, necessitates defining criteria for inclusion. This effectively characterizes "dedication" within the community context. For instance, a dedicated investor might be someone actively trading through platforms like Groww and Smallcase, in addition to engaging in extensive reading on platforms such as Kindle.
+
+The Network State ID framework also emphasizes the importance of "[Building Trust Offline](https://thenetworkstate.com/the-network-state-in-one-thousand-words#:~:text=a%20common%20cause.-,Build%20trust%20offline,-and%20a%20cryptoeconomy)." However, in the digital age, this trust-building process can be effectively transferred to online platforms. With Reclaim's capabilities, users can furnish tamper-proof evidence of their digital footprint, offering a novel means to establish trustworthiness. Users are empowered to define their network affiliations based on their digital interactions.
+
+In summary, these proof categories underscore the evolving landscape of user engagement and commitment within digital ecosystems. The introduction of Reclaim and the [Network State](https://thenetworkstate.com/) ID framework are poised to revolutionize the assessment of these proofs, enabling a more holistic understanding of user contributions and dedication.
+
+If you want to jam more on these ideas hit up [Harsha](https://twitter.com/HarshaKaramchat) up on Twitter.
+
+
