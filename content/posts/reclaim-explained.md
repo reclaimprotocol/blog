@@ -19,8 +19,8 @@ If you’re a company and need to vet your users, Reclaim gives you a massive ne
 
 Reclaim uses state of the art cryptographic technology, but the ideas are simple. Check out our video below to see how it works, or for more in-depth information:
 
-- See our [whitepaper](https://www.notion.so/9a3902766be44abd85876dfd0310fa77?pvs=21) to learn about the details of the protocol design
-- Get started building with Reclaim in only a few minutes with our [developer blog](https://www.notion.so/4105969231d84626a2ffe67ebd4f857b?pvs=21)
+- See our [whitepaper](https://link.reclaimprotocol.org/whitepaper-draft) to learn about the details of the protocol design
 - Read our full [developer documentation](https://docs.reclaimprotocol.org/)
+- Get started building with Reclaim in only a few minutes with our [developer blog](https://www.notion.so/4105969231d84626a2ffe67ebd4f857b?pvs=21) (Coming Soon)
 
 {{<youtube id="vfuuj6h1XPg">}}
