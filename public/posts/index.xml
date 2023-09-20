@@ -6,7 +6,18 @@
     <description>Recent content in Posts on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Sep 2023 18:22:37 +0400</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Sep 2023 23:10:45 +0000</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reclaim Explained, Simply</title>
+      <link>https://blog.reclaimprotocol.org/posts/reclaim-explained/</link>
+      <pubDate>Wed, 20 Sep 2023 23:10:45 +0000</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/reclaim-explained/</guid>
+      <description>By Maxwell Allman
+When you log in to your rideshare app, it might say that you’re a 5-star driver. Or when you log in to a banking website, it might say that you’ve never been late on a credit card payment. But how do you prove this information to someone else?
+The Reclaim Protocol lets you take ownership over the data that you receive online. Reclaim lets you share your data with others while:</description>
+    </item>
+    
     <item>
       <title>Proof Metrics</title>
       <link>https://blog.reclaimprotocol.org/posts/proof-metrics/</link>
