@@ -23,4 +23,4 @@ Reclaim uses state of the art cryptographic technology, but the ideas are simple
 - Read our full [developer documentation](https://docs.reclaimprotocol.org/)
 - Get started building with Reclaim in only a few minutes with our [developer blog](https://www.notion.so/4105969231d84626a2ffe67ebd4f857b?pvs=21) (Coming Soon)
 
-{{<youtube id="vfuuj6h1XPg">}}
+{{<youtube id="ECaYpIqJ4v0">}}
