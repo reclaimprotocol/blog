@@ -1,11 +1,8 @@
 ---
-title: "Chacha Circuit Audit"
+title: "Reclaim Successfully Passed the ZK Circuit Security Audit"
 date: 2023-10-02T21:41:13+05:00
 draft: false
 ---
-
-
-# Reclaim Successfully Passed the ZK Circuit Security Audit 
 
 
 We are thrilled to announce a significant milestone in our journey towards providing robust and secure ZK proofs! Reclaim by Questbook has successfully passed the [ZK Circuit Security Audit](https://www.zksecurity.xyz/blog/posts/reclaim/) by David Wong, the author of [Real World Cryptography](https://www.amazon.com/Real-World-Cryptography-David-Wong/dp/1617296716). It is a crucial step in ensuring the reliability and safety of our cryptographic solutions, a foundational milestone. In this article, we'll talk about the audit process, ChaCha20 algorithm, and why it's gonna be vital for our users.
