@@ -6,7 +6,16 @@
     <description>Recent content on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 20 Sep 2023 23:10:45 +0000</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 02 Oct 2023 21:41:13 +0500</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chacha Circuit Audit</title>
+      <link>https://blog.reclaimprotocol.org/posts/chacha-circuit-audit/</link>
+      <pubDate>Mon, 02 Oct 2023 21:41:13 +0500</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/chacha-circuit-audit/</guid>
+      <description>Reclaim Successfully Passed the ZK Circuit Security Audit We are thrilled to announce a significant milestone in our journey towards providing robust and secure ZK proofs! Reclaim by Questbook has successfully passed the ZK Circuit Security Audit by David Wong, the author of Real World Cryptography. It is a crucial step in ensuring the reliability and safety of our cryptographic solutions, a foundational milestone. In this article, we&amp;rsquo;ll talk about the audit process, ChaCha20 algorithm, and why it&amp;rsquo;s gonna be vital for our users.</description>
+    </item>
+    
     <item>
       <title>Reclaim Explained, Simply</title>
       <link>https://blog.reclaimprotocol.org/posts/reclaim-explained/</link>
