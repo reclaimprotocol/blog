@@ -1,0 +1,30 @@
+---
+title: "Infeasibility of Fake Key Reveal attacks"
+date: 2023-10-12T15:08:58+04:00
+draft: false
+---
+
+The goal of an Adversary in the Fake Key Reveal attacks is to compute a key such that the result of decryption of the TLS response (that came from the Website) using this key will be a plaintext that contains some specific substrings on the Adversary’s choice. Let’s take a closer look at how the Reclaim's selective disclosure of the Server's TLS response works to understand how these attacks can potentially harm Reclaim:
+
+1. The Server sends the encrypted TLS response to the Attestor
+2. The Attestor transfers this ciphertext further to the User
+3. The User decrypts the TLS response using the key K1 (that is unknown to the Attestor, and was derived between the User and the Server during the TLS Handshake phase), and replaces all the symbols they want to hide with a gibberish symbol
+4. Now, the User wants to trick the Attestor and prove them that this ciphertext can be decrypted into a string that contains some information that the User wants there to be
+5. For this purpose the User (somehow) computes a different key K2 such that the encrypted TLS response will be decrypted to a plaintext containing an arbitrary substring (on User’s choice)
+6. After that, the User creates a zk-proof of knowledge of the key K2, and reveals the result of decryption of the TLS response using K2 to the Attestor. Thus, this revealed plaintext includes the data that the User wanted to show, and not the data that really came from the Website
+
+# Why does this issue arise?
+
+The issue of the computation of the second key such that it decrypts a chosen ciphertext into a chosen by the Adversary plaintext first got attention in two papers [[1](https://eprint.iacr.org/2017/664.pdf), [2](https://eprint.iacr.org/2019/016.pdf)]. Those papers offer attacks that can be exploited against differently encryption schemes with authentication tag (AEAD). The issue they emphasize is that under some conditions an encryption scheme with authentication tag does not provide a unique correct decryption (the decryption is considered correct if the authentication tag verification is successful).
+
+# Reclaim’s protection against such attacks
+
+There are two main reasons why the attack vector mentioned above is infeasible against the Reclaim protocol:
+
+1. First of all, the attacks above are possible if and only if the Adversary (the User in our case) controls or can choose both ciphertexts and keys. This and only this can lead them to exploiting the vulnerabilities mentioned above. However, in Reclaim the User does not control the ciphertext of the Website’s TLS response, and does not control the encryption key (which has been derived following the TLS protocol). This means that the fake key reveal attack is not applicable here.
+2. Second, the success of these attacks is determined by the correct tag check while decrypting the ciphertext. However, in Reclaim there is no tag check at all. The reason behind the absence of tag verification is that Reclaim verifies the content of the decrypted TLS response instead. So, the mechanism of determination of success or failure of an attack would work differently in our case. This also means that attacks mentioned above are not applicable here.
+
+These all lead the Adversary to the only strategy they can use against Reclaim in order to perform a fake key reveal attack: a key brute-force. The key brute-force attack, however, would be quite easy for an adversary to perform if Reclaim does not require Users to disclose enough (known in advance by an Attestor) bytes of TLS response. 
+
+Let’s say, a User is proving that they have $1000 on their bank account, and the TLS Response from the bank’s website is “Good morning Mike; account number: 123; balance: 1000”. If Reclaim asks the user to disclose one number only (the number that represents the balance), then it would be extremely easy for a User to brute-force the key such that the decryption contains “1000” even at a specific position in the string. However, we can require a User to disclose more bytes of the TLS response to be sure that it is not just a random number appeared in the decryption but indeed the bank balance of the User. Moreover, since the format of the TLS response is well-known to an Attestor (since it is specified by the provider parameters), a User will have to disclose exactly the same bytes as the real TLS response contains (e.g. “account number: ***; balance: 1000”). This makes the brute-force a way more challenging problem. The reason behind this is that a User has to iterate through 2^N keys, where N is the number of *bits* they have to disclose. In the case of Reclaim, we require Users to disclose 16 bytes of data. Hence, even if a User exploits one of the most high-speed ChaCha20 implementations (560 MB/s encryption speed) it will take them about *200 trillion years* to perform such a brute-force.
+
