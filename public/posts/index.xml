@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 02 Oct 2023 21:41:13 +0500</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 12 Oct 2023 15:08:58 +0400</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Infeasibility of Fake Key Reveal attacks</title>
+      <link>https://blog.reclaimprotocol.org/posts/fake-key-reveal/</link>
+      <pubDate>Thu, 12 Oct 2023 15:08:58 +0400</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/fake-key-reveal/</guid>
+      <description>The goal of an Adversary in the Fake Key Reveal attacks is to compute a key such that the result of decryption of the TLS response (that came from the Website) using this key will be a plaintext that contains some specific substrings on the Adversary’s choice. Let’s take a closer look at how the Reclaim&amp;rsquo;s selective disclosure of the Server&amp;rsquo;s TLS response works to understand how these attacks can potentially harm Reclaim:</description>
+    </item>
+    
     <item>
       <title>Reclaim Successfully Passed the ZK Circuit Security Audit</title>
       <link>https://blog.reclaimprotocol.org/posts/chacha-circuit-audit/</link>
@@ -34,7 +43,7 @@ The Reclaim Protocol lets you take ownership over the data that you receive onli
       
       <guid>https://blog.reclaimprotocol.org/posts/proof-metrics/</guid>
       <description>How Reclaim is Revolutionizing Proof Metrics: A Guide for Forward-Thinking Developers In the context of both Web2 and Web3 applications, there exists a multifaceted need for establishing various forms of proof to address day-to-day use cases. These proofs serve as indicators of user engagement and commitment within digital ecosystems. The following are some key categories of proof, each with distinct criteria and utility:
-Proof of Stewardship (Proxy = Holding Toekns): This pertains to individuals who demonstrate care and dedication to the ecosystem.</description>
+ Proof of Stewardship (Proxy = Holding Toekns): This pertains to individuals who demonstrate care and dedication to the ecosystem.</description>
     </item>
     
     <item>
@@ -63,7 +72,7 @@ Verification Usecases Address verification Currently address verification is don
       
       <guid>https://blog.reclaimprotocol.org/posts/audits/</guid>
       <description>Here is the list of audits in progress
-Phase : External Audit ZK Circuits (By ZkSecurity) Phase : Internal Audit TLS Libraries Reclaim SDKs Reclaim Wallet App Reclaim Wallet App Backend Reclaim Attestor </description>
+Phase : External Audit  ZK Circuits (By ZkSecurity)  Phase : Internal Audit  TLS Libraries Reclaim SDKs Reclaim Wallet App Reclaim Wallet App Backend Reclaim Attestor  </description>
     </item>
     
     <item>
