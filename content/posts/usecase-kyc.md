@@ -1,7 +1,7 @@
 ---
 title: "Progressive KYC"
 date: 2024-01-09T19:10:15-08:00
-draft: true
+draft: false
 ---
 
 KYC is a loaded term. Depending on your business, jurisdiction and usecase, you'd have different KYC requirements. Reclaim Protocol works with various customers across the spectrum. In this post, I'll walk you through some of our customers and how they think about KYC - incase, some of it is suitable to you.
