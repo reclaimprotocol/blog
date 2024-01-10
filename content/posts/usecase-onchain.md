@@ -1,0 +1,23 @@
+---
+title: "Onchain Attestations"
+date: 2024-01-09T20:33:55-08:00
+draft: false
+---
+
+Reclaim Protocol is available in any format the developer wants to consume proofs on chain.
+Below are adapters that are used by many dapps.
+
+Check out the [demo video]() or [live demo](https://publish-credentials.reclaimprotocol.org)
+
+## PolygonID, on Polygon
+Reclaim Proofs can be created using PolygonID. It can also be stored securely for later use on the PolygonID Wallet.
+
+## EAS, on Ethereum, Optimism and Arbitrum
+Ethereum Attestation Service is a simple attestation framework. One can consume and publish Reclaim Proofs as EAS Attestations.
+
+### Verax, on Linea and Arbitrum
+Verax by consensys is an improvement over EAS. A developer can use Verax to consume and publish Reclaim Proofs too. Verax is yet to be released for public use. 
+
+### Disco
+Reclaim proofs can also be stored on disco.xyz data backpacks.
+

@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.reclaimprotocol.org/posts/</loc>
-    <lastmod>2023-12-08T18:14:50+05:00</lastmod>
+    <loc>https://blog.reclaimprotocol.org/posts/usecase-loyalty/</loc>
+    <lastmod>2024-01-09T18:26:21-08:00</lastmod>
   </url><url>
-    <loc>https://blog.reclaimprotocol.org/posts/proof-of-provenance/</loc>
-    <lastmod>2023-12-08T18:14:50+05:00</lastmod>
+    <loc>https://blog.reclaimprotocol.org/posts/</loc>
+    <lastmod>2024-01-09T18:26:21-08:00</lastmod>
   </url><url>
     <loc>https://blog.reclaimprotocol.org/</loc>
+    <lastmod>2024-01-09T18:26:21-08:00</lastmod>
+  </url><url>
+    <loc>https://blog.reclaimprotocol.org/posts/proof-of-provenance/</loc>
     <lastmod>2023-12-08T18:14:50+05:00</lastmod>
   </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/fake-key-reveal/</loc>

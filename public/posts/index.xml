@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 08 Dec 2023 18:14:50 +0500</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 09 Jan 2024 18:26:21 -0800</lastBuildDate><atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Onboarding &amp; Loyalty Using Reclaim Protocol</title>
+      <link>https://blog.reclaimprotocol.org/posts/usecase-loyalty/</link>
+      <pubDate>Tue, 09 Jan 2024 18:26:21 -0800</pubDate>
+      
+      <guid>https://blog.reclaimprotocol.org/posts/usecase-loyalty/</guid>
+      <description>Most apps start with a zerostate for a new user, primarily because there is no data available about the said user. Not any more. Using Reclaim Protocol, app developers can ask their users to import their user profile and activity from a website they already use.
+Until today, it was not possible for a user to import their persona from one website into another. This is largely because of unavailability of APIs on most websites.</description>
+    </item>
+    
     <item>
       <title>Proof of Provenance</title>
       <link>https://blog.reclaimprotocol.org/posts/proof-of-provenance/</link>
