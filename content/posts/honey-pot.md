@@ -11,7 +11,7 @@ Here is how the Honeypot mechanism works. For reasons that will be clear shortly
 
  
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a286e6c7-2514-47c8-a776-44b02bb2aa86/a004f6f6-cda0-47a2-b50a-0f6db5650458/Untitled.png)
+![](/images/honey-pot-2.png)
 
 The encryption keys that users can commit to will serve to set up traps that can later be sprung on dishonest attestors. 
 
@@ -24,7 +24,7 @@ Now, suppose a user has certified a false claim by bribing the attestors. The us
 
 Once the attestor has provided this information, it can be verified that the encrypted data and the ZK-proof indeed show that the claim is true. 
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a286e6c7-2514-47c8-a776-44b02bb2aa86/00440360-e216-4d74-84fc-138c82ef2a67/Untitled.png)
+![](/images/honey-pot-3.png)
 
 If the verification does not work, or if the attestor does not provide the information within some given time frame, then the attestor is marked as *******trapped*******. When an attestor is trapped, they are charged a set penalty which is taken from their staked funds. 
 
@@ -54,6 +54,6 @@ Summarizing everything together, suppose a user wants to bribe some attestors to
 
 So, there is no way (we know of) for both the user and the attestors to trust that they are not being trapped, which creates a disincentive for dishonest behavior. 
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a286e6c7-2514-47c8-a776-44b02bb2aa86/c039c6c3-c41d-4761-b3ff-56adfe265180/Untitled.png)
+![](/images/honey-pot-4.png)
 
 While people may try to come up with clever new ways to avoid getting trapped, the financial reward for catching others in traps will incentivize people to come up with clever new ways to trap! And critically, anyone behaving honestly will have nothing to worry about.
