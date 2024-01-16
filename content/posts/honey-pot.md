@@ -2,6 +2,7 @@
 title: "Honeypot Mechanism for additional protocol security"
 date: 2024-01-16T13:54:06-08:00
 draft: False
+math: true
 ---
 To discourage attestors from certifying false claims, we want to make this dishonest behavior as financially risky as possible. While the [Reporting Mechanism](https://www.notion.so/Reporting-Mechanism-51306b54f4b94a4cba81090f7461acca?pvs=21) already provides some such financial risk, even more risk can be added through the Honeypot Mechanism. This mechanism which allows users to prepare trap claims, and attestors who accept a bribe to certify a trap claim will get caught in the trap. Trapped attestors are then charged a penalty, and the penalty is given to the user who trapped them as a reward.
 
