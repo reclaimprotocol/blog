@@ -58,3 +58,4 @@ So, there is no way (we know of) for both the user and the attestors to trust th
 ![](/images/honey-pot-4.png)
 
 While people may try to come up with clever new ways to avoid getting trapped, the financial reward for catching others in traps will incentivize people to come up with clever new ways to trap! And critically, anyone behaving honestly will have nothing to worry about.
+![](/images/honey-pot-5.png)
