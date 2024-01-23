@@ -6,8 +6,16 @@
     <description>Recent content in Posts on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 22 Jan 2024 10:36:44 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jan 2024 16:13:58 -0500</lastBuildDate>
     <atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Login Using Anything</title>
+      <link>https://blog.reclaimprotocol.org/posts/login-using/</link>
+      <pubDate>Tue, 23 Jan 2024 16:13:58 -0500</pubDate>
+      <guid>https://blog.reclaimprotocol.org/posts/login-using/</guid>
+      <description>Sign in with Google is all over the internet, but have you seen a Sign in with Uber, Sign in with Fortnite, or Sign in with Amazon? No - that&amp;rsquo;s because these websites don&amp;rsquo;t expose an OAuth API.
+Skip if you already know what OAuth is. OAuth API is an API that, for example, Google exposes. This OAuth API has two steps. The first step is to retrieve the Auth Token.</description>
+    </item>
     <item>
       <title>Try Reclaim</title>
       <link>https://blog.reclaimprotocol.org/posts/try/</link>
