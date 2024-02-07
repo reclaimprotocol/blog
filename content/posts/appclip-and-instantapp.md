@@ -1,5 +1,5 @@
 ---
-title: "Appcli and Instantapp"
+title: "Appclip and Instantapp"
 date: 2024-02-07T14:05:33-05:00
 draft: false
 ---

@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 07 Feb 2024 14:05:33 -0500</lastBuildDate>
     <atom:link href="https://blog.reclaimprotocol.org/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Appcli and Instantapp</title>
-      <link>https://blog.reclaimprotocol.org/posts/appcli-and-instantapp/</link>
+      <title>Appclip and Instantapp</title>
+      <link>https://blog.reclaimprotocol.org/posts/appclip-and-instantapp/</link>
       <pubDate>Wed, 07 Feb 2024 14:05:33 -0500</pubDate>
-      <guid>https://blog.reclaimprotocol.org/posts/appcli-and-instantapp/</guid>
+      <guid>https://blog.reclaimprotocol.org/posts/appclip-and-instantapp/</guid>
       <description>Most people assume that to generate proofs using Reclaim Protocol, you need to install a chrome extension or a mobile app. This is true for most zk-tls solutions out there, including Reclaim Protocol until early 2024. Not any more.
 All that you need is a mobile phone. You don&amp;rsquo;t need to install anything on it. You just scan a QR code, and the Reclaim Protocol proof generation starts.
 Check out the Demo Appclips and InstantApps Appclips and InstantApps are mini apps that can be opened on iOS and Android respectively without having to install an app.</description>
