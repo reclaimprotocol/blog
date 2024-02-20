@@ -9,7 +9,7 @@ Most people assume that to generate proofs using Reclaim Protocol, you need to i
 All that you need is a mobile phone. You don't need to install anything on it. You just scan a QR code, and the Reclaim Protocol proof generation starts. 
 
 Check out the Demo
-{{< youtube id="txvSnvS07ZM " >}}
+{{< youtube txvSnvS07ZM >}}
 
 # Appclips and InstantApps
 Appclips and InstantApps are mini apps that can be opened on iOS and Android respectively without having to install an app. 
