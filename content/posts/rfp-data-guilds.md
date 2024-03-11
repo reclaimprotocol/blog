@@ -1,7 +1,7 @@
 ---
 title: "RFP: Decentralized Oracles & Data Guilds"
 date: 2024-03-11T16:34:13-04:00
-draft: true
+draft: false
 ---
 
 Chainlink, but for long tail data sources.

@@ -9,6 +9,16 @@
     <lastBuildDate>Mon, 11 Mar 2024 16:34:13 -0400</lastBuildDate>
     <atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>RFP: Decentralized Oracles &amp; Data Guilds</title>
+      <link>https://blog.reclaimprotocol.org/posts/rfp-data-guilds/</link>
+      <pubDate>Mon, 11 Mar 2024 16:34:13 -0400</pubDate>
+      <guid>https://blog.reclaimprotocol.org/posts/rfp-data-guilds/</guid>
+      <description>Chainlink, but for long tail data sources.
+Data Guilds A data guild is a DAO setup on chain to source certain data feeds. For example, there may be a Data Guild for Weather in Mumbai, another for NBA scores etc.
+In this DAO, there are two key participants.
+Subscribers - who use the data feeds Oracles - who provide the data onchain Coins Each Data Guild has its own coin. This coin governs the data feeds coming on chain.</description>
+    </item>
+    <item>
       <title>Appclip and Instantapp</title>
       <link>https://blog.reclaimprotocol.org/posts/appclip-and-instantapp/</link>
       <pubDate>Wed, 07 Feb 2024 14:05:33 -0500</pubDate>
