@@ -1,0 +1,55 @@
+---
+title: "RFP: Decentralized Oracles & Data Guilds"
+date: 2024-03-11T16:34:13-04:00
+draft: true
+---
+
+Chainlink, but for long tail data sources.
+
+# Data Guilds
+A data guild is a DAO setup on chain to source certain data feeds. For example, there may be a Data Guild for Weather in Mumbai, another for NBA scores etc.
+
+In this DAO, there are two key participants.
+1. Subscribers - who use the data feeds
+2. Oracles - who provide the data onchain
+
+# Coins
+Each Data Guild has its own coin. 
+This coin governs the data feeds coming on chain. 
+This coin is used to 
+1. subscribe to feeds
+2. stake to become an oracle
+
+These coins are sold off a bonding curve, against USDC.
+
+# Becoming an oracle
+An oracle must commit to the API they're going to hit in order to fetch a certain data point.
+Some APIs maybe behind paid plans. The API keys do not have to be revealed. They must use Reclaim Protocol to execute this.
+
+The oracle stakes 1000 coins to start providing the feed, and committing to provide the latest data point every, say, 30 min or relevant refresh time.
+There can be multiple oracles per Data Guild.
+
+# Becoming a subscriber
+The data needs to be submitted onchain only once - after which the data is accessible to everyone.
+
+To incentivize oracles to join, subscribers should pool together enough coins. Every refresh, all the oracles are paid proportional to their stake.
+If there is a way to offset tragedy of commons issue here - that'd be a huge bonus.
+
+# Slashing
+Every oracle must provide data at the refresh time. If not provided, they get slashed a little.
+
+Each time a data point is provided, there must be consensus between the oracles within an agreed upon margin of error. If the data provided by an oracle is not within accepted margin of error, they get slashed.
+
+The Reclaim proof provided must be a valid proof. If not, they're slashed fully.
+
+# DAO
+Many decisions will be in the control of the DAO like
+1. API to be used
+2. Refresh time
+3. Price per datapoint
+
+# Willing to build?
+Apply here for a [grant upto $10K](https://questbook.app/dashboard/?grantId=0x7b9762f7584de695dbd8c8fdb1a8ce77e2bbad3b&chainId=10&role=community&proposalId=65e73f398bf7331fd0c729c2)
+
+
+
