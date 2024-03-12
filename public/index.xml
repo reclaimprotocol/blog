@@ -6,8 +6,15 @@
     <description>Recent content on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Mar 2024 16:34:13 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 12 Mar 2024 16:42:01 -0400</lastBuildDate>
     <atom:link href="https://blog.reclaimprotocol.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RFP - AI friendly ZK Captcha</title>
+      <link>https://blog.reclaimprotocol.org/posts/zk-captcha/</link>
+      <pubDate>Tue, 12 Mar 2024 16:42:01 -0400</pubDate>
+      <guid>https://blog.reclaimprotocol.org/posts/zk-captcha/</guid>
+      <description>Madhavan (Mads) Malolan Which side is up? Captchas are getting so hard that only AIs will be able to solve it. The key premise of this post is that it is getting increasingly important for AI agents to be able to access web products on behalf of the user. Captchas are an antipattern. They are not any good at keeping AI bots out anyway, at the same time they&amp;rsquo;re detrimental to productivity.</description>
+    </item>
     <item>
       <title>RFP: Decentralized Oracles &amp; Data Guilds</title>
       <link>https://blog.reclaimprotocol.org/posts/rfp-data-guilds/</link>

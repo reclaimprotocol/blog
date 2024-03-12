@@ -3,10 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.reclaimprotocol.org/posts/</loc>
-    <lastmod>2024-03-11T16:34:13-04:00</lastmod>
+    <lastmod>2024-03-12T16:42:01-04:00</lastmod>
   </url><url>
     <loc>https://blog.reclaimprotocol.org/</loc>
-    <lastmod>2024-03-11T16:34:13-04:00</lastmod>
+    <lastmod>2024-03-12T16:42:01-04:00</lastmod>
+  </url><url>
+    <loc>https://blog.reclaimprotocol.org/posts/zk-captcha/</loc>
+    <lastmod>2024-03-12T16:42:01-04:00</lastmod>
   </url><url>
     <loc>https://blog.reclaimprotocol.org/posts/rfp-data-guilds/</loc>
     <lastmod>2024-03-11T16:34:13-04:00</lastmod>
