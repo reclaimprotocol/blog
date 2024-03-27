@@ -6,8 +6,17 @@
     <description>Recent content in Posts on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 Mar 2024 17:32:42 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 27 Mar 2024 10:00:09 -0400</lastBuildDate>
     <atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why Secret is Particularly Interesting for Reclaim</title>
+      <link>https://blog.reclaimprotocol.org/posts/integration-reclaim-secret/</link>
+      <pubDate>Wed, 27 Mar 2024 10:00:09 -0400</pubDate>
+      <guid>https://blog.reclaimprotocol.org/posts/integration-reclaim-secret/</guid>
+      <description>Reclaim Protocol lets users generate credentials without leaking private information. One thing we think about a lot is how to we make sure our users don’t get doxxed.
+Let’s define the problem more concretely.
+Say you, as a user, generated certain credentials for on-chain use. You created a credential from your Uber account, your Tinder account, your Doordash account, your Tax Records and so on. Let us assume that given enough data points on chain, it might be possible to triangulate the particular you, the user, that is interacting with a certain smart contract.</description>
+    </item>
     <item>
       <title>Reclaim Protocol RFPs</title>
       <link>https://blog.reclaimprotocol.org/posts/rfps-mar-24/</link>
