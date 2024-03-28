@@ -6,8 +6,17 @@
     <description>Recent content on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Mar 2024 10:00:09 -0400</lastBuildDate>
+    <lastBuildDate>Thu, 28 Mar 2024 14:10:44 -0400</lastBuildDate>
     <atom:link href="https://blog.reclaimprotocol.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RFP - Investor&#39;s Assistant</title>
+      <link>https://blog.reclaimprotocol.org/posts/rfp-investor-bot/</link>
+      <pubDate>Thu, 28 Mar 2024 14:10:44 -0400</pubDate>
+      <guid>https://blog.reclaimprotocol.org/posts/rfp-investor-bot/</guid>
+      <description>This RFP if for a product that improves an investors&amp;rsquo; deal flow without bombarding them with messages. Obviously, using AI.
+Train on DMs Train a model using an investor&amp;rsquo;s DMs on Whatsapp, Telegram, SMS or Email. Essentially try to figure out what data signals an investor is looking for before agreeing to speak. This could be a standard self hosted 70B Llama finetuned using DMs.
+A frontend Host a front end that is a chat interface.</description>
+    </item>
     <item>
       <title>Why Secret is Particularly Interesting for Reclaim</title>
       <link>https://blog.reclaimprotocol.org/posts/integration-reclaim-secret/</link>
