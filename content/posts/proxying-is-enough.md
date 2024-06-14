@@ -77,6 +77,7 @@ Ok, so that works for the values that have been used by the paper. Let's see wha
 
 Reclaim Protocol supports both AES-GCM and ChaCha20. However, in production we prefer ChaCha20. That is because of the number of constraints in the circuit, which implies performance on consumer grade devices. 
 
+For ChaCha20,
 ![ChaCha Formula](/images/zluo-6.1_corrected.png)
 
 ### Padding, $\lambda$
@@ -118,7 +119,7 @@ Since we use chacha20, the keysize is 256 bits
 $$|k| = 256 $$
 
 ### Putting everything together
-Feeding the above values in the formula, [we get probability](https://wolframalpha.com/https://www.wolframalpha.com/input?i=log_10%281%2F2%5E%2860*8+-+2*96+%2B1%29%29) of breaking the security of Reclaim Protocol as
+Feeding the above values in the formula, [we get probability](https://www.wolframalpha.com/input?i=log_10%281%2F2%5E%2860*8+-+2*96+%2B1%29%29) of breaking the security of Reclaim Protocol as
 $$ 10^-85 \text{\\%}$$ 
 
 Again, that means if all the computers on the planet including everything from your mobile phone to all the A100 gpus used for LLM training, you would need $10^45$ times the age of the universe to break the security.
