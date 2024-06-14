@@ -68,36 +68,67 @@ Plugging in the values for AES,
 
 [That gives us](https://www.wolframalpha.com/input?i=log_10%28%2863*3600%29%5E2%2F%282%5E%288*56+-+2*128+%2B2%29%29%29) the probaility of the proof having been fradulently created to be
 
-$0.0000000000000000000000000000000000000000000001$ %
+$0.0000000000000000000000000000000000000000000001\\%$
 
-That is an extremely small probability, and secure enough to practically say that we can be certain that the proof generated is fully secure. 
-
-## Using ChaCha20 looks ...
-AESGCM is the most popular, but it isn't zk friendly. Writing zk circuits for AESGCM can be very inefficient. So, Reclaim Protocol uses ChaCha20 instead. ChaCha20 is the second most popular cryptographic algorithm in HTTPS. [99%](https://www.f5.com/labs/articles/threat-intelligence/the-2021-tls-telemetry-report) of all the websites support ChaCha20. It is a requirement for every website to support ChaCha20 in TLS1.3 onwards.
-
-Ok, so let's plug in those numbers
-- $|S| = 63 * 3600$ ; stays the same
-- $\lambda = 56*8$ ; stays the same
-- $l=512$ ; block size for ChaCha20 is 512 bits
-
-[That gives us](https://www.wolframalpha.com/input?i=log_10%28%2863*3600%29%5E2%2F%282%5E%288*56+-+2*512+%2B2%29%29%29) ... something wrong.
-
-The formula tells us that the probability that the proof you are looking at is $10^{185}$% a fraud. That doesn't make sense.
-1. Probability can't be greater than 100%, leave alone 1 followed by 185 zeros percent. 
-2. This means, if you use ChaCha20, you can be (beyond) certain that the user has cheated, even when we know that the user is honest. That doesn't feel natural, does it?
-
-## We reached out to Z Luo
-When running our numbers on our actual production parameters, we realized there seems to be an issue - as we saw above. We reached out to Z Luo, who was very receptive and offered to dive deeper. 
-
-![zluo discord](/images/zluo-discord.png)
-
-## The updated formula
-Coming soon ...
+That is an extremely small probability, and secure enough to practically say that we can be certain that the proof generated is fully secure. To put it in perspective, this probability is so low that, if all the computers, including your mobile phone, in the world were dedicated breaking the security of this protocol - it would take _ten million times the age of the universe_ to actually break it!
 
 ## The Real Numbers, in production
-Coming soon ...
+Ok, so that works for the values that have been used by the paper. Let's see what values apply for Reclaim in practice. 
 
+Reclaim Protocol supports both AES-GCM and ChaCha20. However, in production we prefer ChaCha20. That is because of the number of constraints in the circuit, which implies performance on consumer grade devices. 
 
+![ChaCha Formula](/images/zluo-6.1_corrected.png)
 
+### Padding, $\lambda$
+The paper recommends revealing the first two lines of the header in the response - the http status code and date. 
+In our implementation, we reveal the following
+1. HTTP Status code
+2. Connection header
+3. URL
 
+This is very specific to our implementation. On Reclaim Protocol, we have the users commit to the "provider" they are generating a proof for. So, they commit to the URL before executing the HTTPS Handshake. The protocol described in the paper is more generic. That is the user can prove something about any arbitrary HTTPS request they make from their browser, making the URL an unknown. If we get rid of that generalization, the known URL header can be used as _padding_.
+
+Another small modification from the paper is that instead of revealing the first few characters as padding, we mix and match various parts of the headers to form a long enough invariant. We identify various parts of the headers that we know the values of before hand. This is possible because of the product/protocol specific assumptions made, which constrains the things a malicious user can modify in the headers. 
+
+- Shortest status code : `http/1.1 200 OK` ; 15 characters
+- Connection header : `connection: close` ; 17 characters
+- Shortest possible URL : `https://a.co` ; 12 characters
+
+So, we're looking at a minimum of 44 characters being used as padding. 
+$$\lambda = 44 \text{bytes} = 352 \text{bits}$$
+
+### Number of valid openings, $|S|$ 
+|S| represents size of the set of all the values that the padding can map to.
+
+**Http Status Code**
+- HTTP version : only accepted value is `1.1`, which is the most supported version. Versions `2` and `3` are backward compatible with `1.1`
+- Status code : only accepted value is `200`, which is the status code for everything is OK and response is contained in the body
+
+**Connection header**
+- Every https connection is expected to have a `connection close` header. there are no variations for this header. So, there is exactly one valid opening for this header.
+
+**URL**
+- The url is known before hand, so there is exactly one valid opening for the URL
+
+So, total valid openings is exactly $1$.
+$$ |S| = 1 $$
+
+### Key size
+Since we use chacha20, the keysize is 256 bits
+$$|k| = 256 $$
+
+### Putting everything together
+Feeding the above values in the formula, [we get probability](https://wolframalpha.com/https://www.wolframalpha.com/input?i=log_10%281%2F2%5E%2860*8+-+2*96+%2B1%29%29) of breaking the security of Reclaim Protocol as
+$$ 10^-85 \text{\\%}$$ 
+
+Again, that means if all the computers on the planet including everything from your mobile phone to all the A100 gpus used for LLM training, you would need $10^45$ times the age of the universe to break the security.
+
+Not bad. At all.
+
+# Conclusion
+The Proxying method used by Reclaim Protocol is secure for practical use, beyond any doubt -- putting an end to the debate whether or not proxying is secure enough when compared to the MPC based approaches for zk-tls. 
+
+This is not to shit on the work being done by the teams on the MPC approach. That is valuable, and Reclaim Protocol continues to explore the frontiers of what is possible and what is more efficient - in close collaboration with teams working on alternate approaches. ZK is fast evolving. Staying on the bleeding edge is extremely critical. 
+
+That said, it turns out **_Proxying is enough_** to take the solution to market.
 
