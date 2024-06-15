@@ -1,7 +1,7 @@
 ---
 title: "Proxying Is Enough"
 date: 2024-05-29T15:40:12-04:00
-draft: true
+draft: false
 math: true
 ---
 _\- Madhavan Malolan_
