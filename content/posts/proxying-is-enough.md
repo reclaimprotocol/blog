@@ -60,17 +60,25 @@ From the paper :
 ![theorem 6.1](/images/zluo-6.1.png)
 
 ## Using AES-GCM looks very secure
+
 AES GCM is the most popular cryptographic algorithm used in HTTPS. 
+The above formula is what is used to detemine what is the probability of being able to convince a person that certain data showed up on their browser, when it actually didn't. 
+
+- $|S|$ is the number of allowed openings. In other words, the request and response contain some parts that can be revealed publicly. If all you make a set $S$ of all the possible values in the data that is revealed, gives you $|S|$
+- $\lambda$ is the length of the string that can be revealed publicly without compromising privacy. Particularly, the set S of all possible values this string takes should be a finite set.
+- $l$ is the block size for AESGCM, which is a fixed constant
+
+
 Plugging in the values for AES, 
-- $|S| = 63 * 3600$ ; using the padding used in the paper. Note this not the actual padding used by Reclaim Protocol as we will soon see.
-- $\lambda = 56*8$ ; for 56 bytes of padding, 8bits each
+- $|S| = 63 * 3600$ ; using the number of openings for the padding used in the paper. Note this not the actual padding used by Reclaim Protocol as we will soon see. This comes from the fact that the paper assumes 63 allowed http status codes, and last 10 minutes as a valid timestamp. 
+- $\lambda = 56*8$ ; for 56 bytes of padding, 8bits each; the paper uses the first two lines of the https response which contains the http status code and timestamp.
 - $l=128$ ; block size for AESGCM is 128 bits
 
 [That gives us](https://www.wolframalpha.com/input?i=log_10%28%2863*3600%29%5E2%2F%282%5E%288*56+-+2*128+%2B2%29%29%29) the probaility of the proof having been fradulently created to be
 
 $0.0000000000000000000000000000000000000000000001\\%$
 
-That is an extremely small probability, and secure enough to practically say that we can be certain that the proof generated is fully secure. To put it in perspective, this probability is so low that, if all the computers, including your mobile phone, in the world were dedicated breaking the security of this protocol - it would take _ten million times the age of the universe_ to actually break it!
+That is an extremely small probability, and secure enough to practically say that we can be certain that the proof generated is fully secure. To put it in perspective, this probability is so low that, if all the computers, including your mobile phone, were dedicated breaking the security of this protocol - it would take _ten million times the age of the universe_ to actually break it!
 
 ## The Real Numbers, in production
 Ok, so that works for the values that have been used by the paper. Let's see what values apply for Reclaim in practice. 
@@ -122,7 +130,7 @@ $$|k| = 256 $$
 Feeding the above values in the formula, [we get probability](https://www.wolframalpha.com/input?i=log_10%281%2F2%5E%2860*8+-+2*96+%2B1%29%29) of breaking the security of Reclaim Protocol as
 $$ 10^-85 \text{\\%}$$ 
 
-Again, that means if all the computers on the planet including everything from your mobile phone to all the A100 gpus used for LLM training, you would need $10^45$ times the age of the universe to break the security.
+Again, that means if all the computers on the planet including everything from your mobile phone to all the A100 gpus used for LLM training, you would need $10^{45}$ times the age of the universe to break the security.
 
 Not bad. At all.
 
