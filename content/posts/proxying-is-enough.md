@@ -56,62 +56,59 @@ From Z Luo et al, theorem 6.1 the security is defined as the probability that so
 
 That is, if someone gives you a proof generated using Reclaim Protocol or any other proxying based TLS Oracle where the proxy is an honest operator - what is the probablity that the proof is a fraud?
 
-From the paper : 
-![theorem 6.1](/images/zluo-6.1.png)
+From the paper for ChaCha20 : 
+![ChaCha Formula](/images/zluo-6.1_corrected.png)
 
-## Using AES-GCM looks very secure
+## Analysing the numbers on the paper
 
 AES GCM is the most popular cryptographic algorithm used in HTTPS. 
 The above formula is what is used to detemine what is the probability of being able to convince a person that certain data showed up on their browser, when it actually didn't. 
 
 - $|S|$ is the number of allowed openings. In other words, the request and response contain some parts that can be revealed publicly. If all you make a set $S$ of all the possible values in the data that is revealed, gives you $|S|$
 - $\lambda$ is the length of the string that can be revealed publicly without compromising privacy. Particularly, the set S of all possible values this string takes should be a finite set.
-- $l$ is the block size for AESGCM, which is a fixed constant
+- $v$ is the IV size, which is a fixed constant for an encryption scheme
 
 
 Plugging in the values for AES, 
-- $|S| = 63 * 3600$ ; using the number of openings for the padding used in the paper. Note this not the actual padding used by Reclaim Protocol as we will soon see. This comes from the fact that the paper assumes 63 allowed http status codes, and last 10 minutes as a valid timestamp. 
+- $|S| = 1 * 3600$ ; using the number of openings for the padding used in the paper. This comes from the fact that the paper assumes 63 allowed http status codes, and last 10 minutes as a valid timestamp. However, in practice, Reclaim Protocol accepts only 1 status code - 200 as a valid http status code, corresponding to "OK". We reject all other response codes. E.g. if there's a 404 status code, meaning the webpage doesn't exist - there is no point creating a proof of data that exists on the error page.
 - $\lambda = 56*8$ ; for 56 bytes of padding, 8bits each; the paper uses the first two lines of the https response which contains the http status code and timestamp.
-- $l=128$ ; block size for AESGCM is 128 bits
+- $v$ ; IV for ChaCha20 is 12 bytes (96 bits)
 
-[That gives us](https://www.wolframalpha.com/input?i=log_10%28%2863*3600%29%5E2%2F%282%5E%288*56+-+2*128+%2B2%29%29%29) the probaility of the proof having been fradulently created to be
+[That gives us](https://www.wolframalpha.com/input?i=log_10%28%28%281*3600%29%5E2%29%2F%282%5E%288*56+-+2*96+%2B2%29%29%29) the probaility of the proof having been fradulently created to be
 
-$0.0000000000000000000000000000000000000000000001\\%$
+$10^{-70} = 0.0000000000000000000000000000000000000000000000000000000000000000000001\\%$
 
-That is an extremely small probability, and secure enough to practically say that we can be certain that the proof generated is fully secure. To put it in perspective, this probability is so low that, if all the computers, including your mobile phone, were dedicated breaking the security of this protocol - it would take _ten million times the age of the universe_ to actually break it!
+That is an extremely small probability, and secure enough to practically say that we can be certain that the proof generated is fully secure. To put it in perspective, this probability is so low that, if all the computers, including your mobile phone, were dedicated breaking the security of this protocol - it would take _1,000,000,000,000,000,000,000,000,000,000 (one million trillion trillion) times the age of the universe_ to actually break it!
 
 ## The Real Numbers, in production
-Ok, so that works for the values that have been used by the paper. Let's see what values apply for Reclaim in practice. 
-
-Reclaim Protocol supports both AES-GCM and ChaCha20. However, in production we prefer ChaCha20. That is because of the number of constraints in the circuit, which implies performance on consumer grade devices. 
-
-For ChaCha20,
-![ChaCha Formula](/images/zluo-6.1_corrected.png)
+Reclaim Protocol needs provenance of both the request and the response. The response calculation is pretty much the same as what is mentioned in the paper. 
 
 ### Padding, $\lambda$
-The paper recommends revealing the first two lines of the header in the response - the http status code and date. 
-In our implementation, we reveal the following
-1. HTTP Status code
+
+In our implementation, we reveal the following in the request
+1. HTTP version
 2. Connection header
-3. URL
+3. URL (host + path)
 
 This is very specific to our implementation. On Reclaim Protocol, we have the users commit to the "provider" they are generating a proof for. So, they commit to the URL before executing the HTTPS Handshake. The protocol described in the paper is more generic. That is the user can prove something about any arbitrary HTTPS request they make from their browser, making the URL an unknown. If we get rid of that generalization, the known URL header can be used as _padding_.
 
 Another small modification from the paper is that instead of revealing the first few characters as padding, we mix and match various parts of the headers to form a long enough invariant. We identify various parts of the headers that we know the values of before hand. This is possible because of the product/protocol specific assumptions made, which constrains the things a malicious user can modify in the headers. 
 
-- Shortest status code : `http/1.1 200 OK` ; 15 characters
+- Shortest status code : `GET [...] http/1.1` ; 13 characters
 - Connection header : `connection: close` ; 17 characters
-- Shortest possible URL : `https://a.co` ; 12 characters
+- Shortest possible URL : `Host: a.co` and path `/` ; 11 characters 
 
-So, we're looking at a minimum of 44 characters being used as padding. 
-$$\lambda = 44 \text{bytes} = 352 \text{bits}$$
+For ChaCha20,
+![ChaCha Formula](/images/zluo-6.1_corrected.png)
+
+So, we're looking at a minimum of 42 characters being used as padding. 
+$$\lambda = 42 \text{bytes} = 336 \text{bits}$$
 
 ### Number of valid openings, $|S|$ 
 |S| represents size of the set of all the values that the padding can map to.
 
 **Http Status Code**
 - HTTP version : only accepted value is `1.1`, which is the most supported version. Versions `2` and `3` are backward compatible with `1.1`
-- Status code : only accepted value is `200`, which is the status code for everything is OK and response is contained in the body
 
 **Connection header**
 - Every https connection is expected to have a `connection close` header. there are no variations for this header. So, there is exactly one valid opening for this header.
@@ -123,14 +120,14 @@ So, total valid openings is exactly $1$.
 $$ |S| = 1 $$
 
 ### Key size
-Since we use chacha20, the keysize is 256 bits
-$$|k| = 256 $$
+Since we use chacha20, the IV is 12 bytes or 96 bits
+$$v = 96 $$
 
 ### Putting everything together
-Feeding the above values in the formula, [we get probability](https://www.wolframalpha.com/input?i=log_10%281%2F2%5E%2860*8+-+2*96+%2B1%29%29) of breaking the security of Reclaim Protocol as
-$$ 10^-85 \text{\\%}$$ 
+Feeding the above values in the formula, [we get probability](https://www.wolframalpha.com/input?i=log_10%282%2F2%5E%28%2814%2B17%2B5%29*8+-+2*96+%2B1%29%29) of breaking the security of Reclaim Protocol as
+$$ 10^-{40} = 0.00000000000000000000000000000000000000001\text{\\%}$$ 
 
-Again, that means if all the computers on the planet including everything from your mobile phone to all the A100 gpus used for LLM training, you would need $10^{45}$ times the age of the universe to break the security.
+Again, that means if all the computers on the planet including everything from your mobile phone to all the A100 gpus used for LLM training, you would need the age of the universe to break the security. A little less security than the response, but still very secure.
 
 Not bad. At all.
 
