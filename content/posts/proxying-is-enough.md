@@ -6,6 +6,8 @@ math: true
 ---
 _\- Madhavan Malolan_
 
+Special thanks to Kirill Kustenok and Zhongtang Luo for proof reading multiple versions of this draft. 
+
 Recently Z. Luo et al released a paper titled ["Proxying is Enough: Security of Proxying in TLS Oracles and AEAD Context
 Unforgeability"](https://eprint.iacr.org/2024/733.pdf) [(Hash)](https://etherscan.io/tx/0xa0c1f3d7a641a065688e148890a77f360b198e01e49aa28352e856682c4c12c9), where they discuss security of TLS Oracles.
 
@@ -16,7 +18,7 @@ In other words, A TLS Oracle proves what data the user saw when they opened a we
 # Deco formalized security of MPC based TLS Oracles
 The first construction for using https to generate zk proofs of what data was transferred between a user and a website was proposed by F. Zhang et al in their paper ["DECO: Liberating Web Data Using Decentralized Oracles for TLS"](https://arxiv.org/pdf/1909.00938). 
 
-The key contribution was that they showed how they could use [MPC](https://en.wikipedia.org/wiki/Secure_multi-party_computation) to introduce an additional stakeholder in the [TLS handshake](https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/), which can then be used to zk-proofs of data that was sent by the website. Optionally using selective reveals. Details of this are irrelevant for this post. All you need to know is Deco introduced an MPC based solution.
+The key contribution was that they showed how they could use [MPC](https://en.wikipedia.org/wiki/Secure_multi-party_computation) to introduce an additional stakeholder in the [TLS handshake](https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/), which can then be used to zk-proofs of data that was sent by the website. Details of this are irrelevant for this post. All you need to know is Deco introduced an MPC based solution.
 
 Along with this result, they also showed formally that this approach is secure.
 
@@ -31,9 +33,9 @@ But TLS Notary showed that it is possible to implement a garbled circuit based m
 There have been several attempts to optimize the TLS Notary approach to make it viable in the wild. Particularly on mobile devices with low compute, memory and network bandwidth. Opacity, ZKPass, Pado Labs are notable projects exploring this option.
 
 # An alternate model - Proxying
-TLS and thereby HTTPS are secured using symmetric keys. These keys don't help us know who encrypted the data -- the website or the user? Did the user send some data to themselves and are now claiming that this data came from the server? It's impossible to verify. To make HTTPS data verifiable, one must introduce a third party to witness certain aspects of the HTTPS session lifecycle. 
+TLS and thereby HTTPS are secured using symmetric keys. These keys don't help us know who encrypted the data -- the website or the user? Did the user send some data to themselves and are now claiming that this data came from the server? It's impossible to verify. To make HTTPS data verifiable, one must introduce a third party at certain points in the HTTPS session lifecycle. 
 
-MPC based approaches introduce a witness at the tls handshake stage of the lifecycle. An alternate model is a Proxying model where you introduce the witness at the data transfer stage. All that the proxy does is, it witnesses the encrypted data that was tranferred from the user to the website and back. Basically, the request and the response in encrypted form, and provides an attestation to the `(encrypted-request, encrypted-response)` tuple.
+MPC based approaches introduce a notary at the tls handshake stage of the lifecycle. An alternate model is a Proxying model where you introduce the witness at the data transfer stage. All that the proxy does is, it witnesses the encrypted data that was tranferred from the user to the website and back. Basically, the request and the response in encrypted form, and provides an attestation to the `(encrypted-request, encrypted-response)` tuple.
 
 This attested tuple can be fed to a zk circuit to selectively reveal some data from the response. Thereby producing the same output as what a TLS Notary would. _"The response R contains string S, and R was indeed received from website W in response to a user request Q"_.
 
@@ -61,7 +63,6 @@ From the paper for ChaCha20 :
 
 ## Analysing the numbers on the paper
 
-AES GCM is the most popular cryptographic algorithm used in HTTPS. 
 The above formula is what is used to detemine what is the probability of being able to convince a person that certain data showed up on their browser, when it actually didn't. 
 
 - $|S|$ is the number of allowed openings. In other words, the request and response contain some parts that can be revealed publicly. If all you make a set $S$ of all the possible values in the data that is revealed, gives you $|S|$
@@ -70,7 +71,7 @@ The above formula is what is used to detemine what is the probability of being a
 
 
 Plugging in the values for AES, 
-- $|S| = 1 * 3600$ ; using the number of openings for the padding used in the paper. This comes from the fact that the paper assumes 63 allowed http status codes, and last 10 minutes as a valid timestamp. However, in practice, Reclaim Protocol accepts only 1 status code - 200 as a valid http status code, corresponding to "OK". We reject all other response codes. E.g. if there's a 404 status code, meaning the webpage doesn't exist - there is no point creating a proof of data that exists on the error page.
+- $|S| = 1 * 3600$ ; Reclaim Protocol accepts only 1 status code - 200 as a valid http status code, corresponding to "OK". We reject all other response codes. E.g. if there's a 404 status code, meaning the webpage doesn't exist - there is no point creating a proof of data that exists on the error page. And we accept the response with a timestamp within the last 10 min, as suggested by the paper, as valid responses.
 - $\lambda = 56*8$ ; for 56 bytes of padding, 8bits each; the paper uses the first two lines of the https response which contains the http status code and timestamp.
 - $v$ ; IV for ChaCha20 is 12 bytes (96 bits)
 
@@ -94,15 +95,15 @@ This is very specific to our implementation. On Reclaim Protocol, we have the us
 
 Another small modification from the paper is that instead of revealing the first few characters as padding, we mix and match various parts of the headers to form a long enough invariant. We identify various parts of the headers that we know the values of before hand. This is possible because of the product/protocol specific assumptions made, which constrains the things a malicious user can modify in the headers. 
 
-- Shortest status code : `GET [...] http/1.1` ; 13 characters
+- Shortest method and version code : `GET [...] http/1.1` ; 13 characters (we support only http/1.1)
 - Connection header : `connection: close` ; 17 characters
 - Shortest possible URL : `Host: a.co` and path `/` ; 11 characters 
 
 For ChaCha20,
 ![ChaCha Formula](/images/zluo-6.1_corrected.png)
 
-So, we're looking at a minimum of 42 characters being used as padding. 
-$$\lambda = 42 \text{bytes} = 336 \text{bits}$$
+So, we're looking at a minimum of 41 characters being used as padding. 
+$$\lambda = 41 \text{bytes} = 328 \text{bits}$$
 
 ### Number of valid openings, $|S|$ 
 |S| represents size of the set of all the values that the padding can map to.
