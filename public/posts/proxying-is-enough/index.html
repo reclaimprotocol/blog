@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Proxying Is Enough | Reclaim Protocol Official Blog</title>
 <meta name="keywords" content="">
 <meta name="description" content="- Madhavan Malolan
+Special thanks to Kirill Kustenok and Zhongtang Luo for proof reading multiple versions of this draft.
 Recently Z. Luo et al released a paper titled &ldquo;Proxying is Enough: Security of Proxying in TLS Oracles and AEAD Context Unforgeability&rdquo; (Hash), where they discuss security of TLS Oracles.
-From the paper,&quot;TLS oracles allow a TLS client to offer selective data provenance to an external (oracle) node such that the oracle node is ensured that the data is indeed coming from a pre-defined TLS server.&quot;
-In other words, A TLS Oracle proves what data the user saw when they opened a website on their browser.">
+From the paper,&quot;TLS oracles allow a TLS client to offer selective data provenance to an external (oracle) node such that the oracle node is ensured that the data is indeed coming from a pre-defined TLS server.">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/proxying-is-enough/">
+<link rel="canonical" href="https://blog.reclaimprotocol.org/posts/proxying-is-enough/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.b609c58d5c11bb90b1a54e04005d74ad1ddf22165eb79f5533967e57df9c3b50.css" integrity="sha256-tgnFjVwRu5CxpU4EAF10rR3fIhZet59VM5Z&#43;V9&#43;cO1A=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://blog.reclaimprotocol.org/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://blog.reclaimprotocol.org/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.reclaimprotocol.org/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://blog.reclaimprotocol.org/apple-touch-icon.png">
+<link rel="mask-icon" href="https://blog.reclaimprotocol.org/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/proxying-is-enough/">
+<link rel="alternate" hreflang="en" href="https://blog.reclaimprotocol.org/posts/proxying-is-enough/">
 <noscript>
     <style>
         #theme-toggle,
@@ -75,6 +75,75 @@ In other words, A TLS Oracle proves what data the user saw when they opened a we
 
 
 
+  
+
+<meta property="og:title" content="Proxying Is Enough" />
+<meta property="og:description" content="- Madhavan Malolan
+Special thanks to Kirill Kustenok and Zhongtang Luo for proof reading multiple versions of this draft.
+Recently Z. Luo et al released a paper titled &ldquo;Proxying is Enough: Security of Proxying in TLS Oracles and AEAD Context Unforgeability&rdquo; (Hash), where they discuss security of TLS Oracles.
+From the paper,&quot;TLS oracles allow a TLS client to offer selective data provenance to an external (oracle) node such that the oracle node is ensured that the data is indeed coming from a pre-defined TLS server." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.reclaimprotocol.org/posts/proxying-is-enough/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-05-29T15:40:12-04:00" />
+<meta property="article:modified_time" content="2024-05-29T15:40:12-04:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Proxying Is Enough"/>
+<meta name="twitter:description" content="- Madhavan Malolan
+Special thanks to Kirill Kustenok and Zhongtang Luo for proof reading multiple versions of this draft.
+Recently Z. Luo et al released a paper titled &ldquo;Proxying is Enough: Security of Proxying in TLS Oracles and AEAD Context Unforgeability&rdquo; (Hash), where they discuss security of TLS Oracles.
+From the paper,&quot;TLS oracles allow a TLS client to offer selective data provenance to an external (oracle) node such that the oracle node is ensured that the data is indeed coming from a pre-defined TLS server."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://blog.reclaimprotocol.org/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Proxying Is Enough",
+      "item": "https://blog.reclaimprotocol.org/posts/proxying-is-enough/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Proxying Is Enough",
+  "name": "Proxying Is Enough",
+  "description": "- Madhavan Malolan\nSpecial thanks to Kirill Kustenok and Zhongtang Luo for proof reading multiple versions of this draft.\nRecently Z. Luo et al released a paper titled \u0026ldquo;Proxying is Enough: Security of Proxying in TLS Oracles and AEAD Context Unforgeability\u0026rdquo; (Hash), where they discuss security of TLS Oracles.\nFrom the paper,\u0026quot;TLS oracles allow a TLS client to offer selective data provenance to an external (oracle) node such that the oracle node is ensured that the data is indeed coming from a pre-defined TLS server.",
+  "keywords": [
+    
+  ],
+  "articleBody": "- Madhavan Malolan\nSpecial thanks to Kirill Kustenok and Zhongtang Luo for proof reading multiple versions of this draft.\nRecently Z. Luo et al released a paper titled “Proxying is Enough: Security of Proxying in TLS Oracles and AEAD Context Unforgeability” (Hash), where they discuss security of TLS Oracles.\nFrom the paper,\"TLS oracles allow a TLS client to offer selective data provenance to an external (oracle) node such that the oracle node is ensured that the data is indeed coming from a pre-defined TLS server.\"\nIn other words, A TLS Oracle proves what data the user saw when they opened a website on their browser. Browsers use HTTPS to transfer data between your device and the webserver. TLS is the security protocol used by HTTPS.\nDeco formalized security of MPC based TLS Oracles The first construction for using https to generate zk proofs of what data was transferred between a user and a website was proposed by F. Zhang et al in their paper “DECO: Liberating Web Data Using Decentralized Oracles for TLS”.\nThe key contribution was that they showed how they could use MPC to introduce an additional stakeholder in the TLS handshake, which can then be used to zk-proofs of data that was sent by the website. Details of this are irrelevant for this post. All you need to know is Deco introduced an MPC based solution.\nAlong with this result, they also showed formally that this approach is secure.\nTLS Notary made practicality inroads Deco, the paper, was released in 2019. As of 2024, there isn’t an efficient implementation of the described protocol as is. However, TLS Notary, an open sourced project implemented a similar construct using Garbled Circuits.\nTLS Notary is a project that one can clone and run on a consumer laptop. However, as of this writing, the data that had to be sent to-and-fro to establish an MPC using Garbled circuit ran into hundreds of MBs – making it infeasible for mass adoption.\nBut TLS Notary showed that it is possible to implement a garbled circuit based mpc three party tls handshake.\nOptimizing TLS Notary There have been several attempts to optimize the TLS Notary approach to make it viable in the wild. Particularly on mobile devices with low compute, memory and network bandwidth. Opacity, ZKPass, Pado Labs are notable projects exploring this option.\nAn alternate model - Proxying TLS and thereby HTTPS are secured using symmetric keys. These keys don’t help us know who encrypted the data – the website or the user? Did the user send some data to themselves and are now claiming that this data came from the server? It’s impossible to verify. To make HTTPS data verifiable, one must introduce a third party at certain points in the HTTPS session lifecycle.\nMPC based approaches introduce a notary at the tls handshake stage of the lifecycle. An alternate model is a Proxying model where you introduce the witness at the data transfer stage. All that the proxy does is, it witnesses the encrypted data that was tranferred from the user to the website and back. Basically, the request and the response in encrypted form, and provides an attestation to the (encrypted-request, encrypted-response) tuple.\nThis attested tuple can be fed to a zk circuit to selectively reveal some data from the response. Thereby producing the same output as what a TLS Notary would. “The response R contains string S, and R was indeed received from website W in response to a user request Q”.\nThis proxy based approach is much more efficient because it needs no change on the client browser because, browsers are already capable of using proxies. Additionally, doesn’t need any heavy computation for establishing an MPC based TLS handshake.\nReclaim has been using the Proxy based approach, primarily because of feasibility of productizing.\nIs it secure? Deco provided a formal security analyisis of the MPC approach. Whereas, there weren’t any formal proofs for the security of the Proxy based model.\nThis led to a wide spread understanding that the MPC approach is more secure than the Proxy model.\nAt Reclaim, we knew that the Proxy model is secure – not using formal proofs, but through engineering observations. We also had internal and external security audits in place. But again, these are analysis from an engineering standpoint.\nZ Luo et al, for the first time presented a formal analysis of the security of the Proxy based approach and concluded that Proxying is secure enough.\nWhat does it mean to be secure? From Z Luo et al, theorem 6.1 the security is defined as the probability that someone tricked the protocol in generating a valid proof when it should have actually failed.\nThat is, if someone gives you a proof generated using Reclaim Protocol or any other proxying based TLS Oracle where the proxy is an honest operator - what is the probablity that the proof is a fraud?\nFrom the paper for ChaCha20 : Analysing the numbers on the paper The above formula is what is used to detemine what is the probability of being able to convince a person that certain data showed up on their browser, when it actually didn’t.\n$|S|$ is the number of allowed openings. In other words, the request and response contain some parts that can be revealed publicly. If all you make a set $S$ of all the possible values in the data that is revealed, gives you $|S|$ $\\lambda$ is the length of the string that can be revealed publicly without compromising privacy. Particularly, the set S of all possible values this string takes should be a finite set. $v$ is the IV size, which is a fixed constant for an encryption scheme Plugging in the values for AES,\n$|S| = 1 * 3600$ ; Reclaim Protocol accepts only 1 status code - 200 as a valid http status code, corresponding to “OK”. We reject all other response codes. E.g. if there’s a 404 status code, meaning the webpage doesn’t exist - there is no point creating a proof of data that exists on the error page. And we accept the response with a timestamp within the last 10 min, as suggested by the paper, as valid responses. $\\lambda = 56*8$ ; for 56 bytes of padding, 8bits each; the paper uses the first two lines of the https response which contains the http status code and timestamp. $v$ ; IV for ChaCha20 is 12 bytes (96 bits) That gives us the probaility of the proof having been fradulently created to be\n$10^{-70} = 0.0000000000000000000000000000000000000000000000000000000000000000000001\\%$\nThat is an extremely small probability, and secure enough to practically say that we can be certain that the proof generated is fully secure. To put it in perspective, this probability is so low that, if all the computers, including your mobile phone, were dedicated breaking the security of this protocol - it would take 1,000,000,000,000,000,000,000,000,000,000 (one million trillion trillion) times the age of the universe to actually break it!\nThe Real Numbers, in production Reclaim Protocol needs provenance of both the request and the response. The response calculation is pretty much the same as what is mentioned in the paper.\nPadding, $\\lambda$ In our implementation, we reveal the following in the request\nHTTP version Connection header URL (host + path) This is very specific to our implementation. On Reclaim Protocol, we have the users commit to the “provider” they are generating a proof for. So, they commit to the URL before executing the HTTPS Handshake. The protocol described in the paper is more generic. That is the user can prove something about any arbitrary HTTPS request they make from their browser, making the URL an unknown. If we get rid of that generalization, the known URL header can be used as padding.\nAnother small modification from the paper is that instead of revealing the first few characters as padding, we mix and match various parts of the headers to form a long enough invariant. We identify various parts of the headers that we know the values of before hand. This is possible because of the product/protocol specific assumptions made, which constrains the things a malicious user can modify in the headers.\nShortest method and version code : GET [...] http/1.1 ; 13 characters (we support only http/1.1) Connection header : connection: close ; 17 characters Shortest possible URL : Host: a.co and path / ; 11 characters For ChaCha20, So, we’re looking at a minimum of 41 characters being used as padding. $$\\lambda = 41 \\text{bytes} = 328 \\text{bits}$$\nNumber of valid openings, $|S|$ |S| represents size of the set of all the values that the padding can map to.\nHttp Status Code\nHTTP version : only accepted value is 1.1, which is the most supported version. Versions 2 and 3 are backward compatible with 1.1 Connection header\nEvery https connection is expected to have a connection close header. there are no variations for this header. So, there is exactly one valid opening for this header. URL\nThe url is known before hand, so there is exactly one valid opening for the URL So, total valid openings is exactly $1$. $$ |S| = 1 $$\nKey size Since we use chacha20, the IV is 12 bytes or 96 bits $$v = 96 $$\nPutting everything together Feeding the above values in the formula, we get probability of breaking the security of Reclaim Protocol as $$ 10^-{40} = 0.00000000000000000000000000000000000000001\\text{\\%}$$\nAgain, that means if all the computers on the planet including everything from your mobile phone to all the A100 gpus used for LLM training, you would need the age of the universe to break the security. A little less security than the response, but still very secure.\nNot bad. At all.\nConclusion The Proxying method used by Reclaim Protocol is secure for practical use, beyond any doubt – putting an end to the debate whether or not proxying is secure enough when compared to the MPC based approaches for zk-tls.\nThis is not to shit on the work being done by the teams on the MPC approach. That is valuable, and Reclaim Protocol continues to explore the frontiers of what is possible and what is more efficient - in close collaboration with teams working on alternate approaches. ZK is fast evolving. Staying on the bleeding edge is extremely critical.\nThat said, it turns out Proxying is enough to take the solution to market.\n",
+  "wordCount" : "1736",
+  "inLanguage": "en",
+  "datePublished": "2024-05-29T15:40:12-04:00",
+  "dateModified": "2024-05-29T15:40:12-04:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://blog.reclaimprotocol.org/posts/proxying-is-enough/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Reclaim Protocol Official Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://blog.reclaimprotocol.org/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -92,7 +161,7 @@ In other words, A TLS Oracle proves what data the user saw when they opened a we
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Reclaim Protocol Official Blog (Alt + H)">Reclaim Protocol Official Blog</a>
+            <a href="https://blog.reclaimprotocol.org/" accesskey="h" title="Reclaim Protocol Official Blog (Alt + H)">Reclaim Protocol Official Blog</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -129,25 +198,20 @@ In other words, A TLS Oracle proves what data the user saw when they opened a we
     
     <h1 class="post-title entry-hint-parent">
       Proxying Is Enough
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
     </h1>
     <div class="post-meta"><span title='2024-05-29 15:40:12 -0400 EDT'>May 29, 2024</span>
 
 </div>
   </header> 
   <div class="post-content"><p><em>- Madhavan Malolan</em></p>
+<p>Special thanks to Kirill Kustenok and Zhongtang Luo for proof reading multiple versions of this draft.</p>
 <p>Recently Z. Luo et al released a paper titled <a href="https://eprint.iacr.org/2024/733.pdf">&ldquo;Proxying is Enough: Security of Proxying in TLS Oracles and AEAD Context
 Unforgeability&rdquo;</a> <a href="https://etherscan.io/tx/0xa0c1f3d7a641a065688e148890a77f360b198e01e49aa28352e856682c4c12c9">(Hash)</a>, where they discuss security of TLS Oracles.</p>
 <p>From the paper,&quot;<em>TLS oracles allow a TLS client to offer selective data provenance to an external (oracle) node such that the oracle node is ensured that the data is indeed coming from a pre-defined TLS server.</em>&quot;</p>
 <p>In other words, A TLS Oracle proves what data the user saw when they opened a website on their browser. Browsers use HTTPS to transfer data between your device and the webserver. TLS is the security protocol used by HTTPS.</p>
 <h1 id="deco-formalized-security-of-mpc-based-tls-oracles">Deco formalized security of MPC based TLS Oracles<a hidden class="anchor" aria-hidden="true" href="#deco-formalized-security-of-mpc-based-tls-oracles">#</a></h1>
 <p>The first construction for using https to generate zk proofs of what data was transferred between a user and a website was proposed by F. Zhang et al in their paper <a href="https://arxiv.org/pdf/1909.00938">&ldquo;DECO: Liberating Web Data Using Decentralized Oracles for TLS&rdquo;</a>.</p>
-<p>The key contribution was that they showed how they could use <a href="https://en.wikipedia.org/wiki/Secure_multi-party_computation">MPC</a> to introduce an additional stakeholder in the <a href="https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/">TLS handshake</a>, which can then be used to zk-proofs of data that was sent by the website. Optionally using selective reveals. Details of this are irrelevant for this post. All you need to know is Deco introduced an MPC based solution.</p>
+<p>The key contribution was that they showed how they could use <a href="https://en.wikipedia.org/wiki/Secure_multi-party_computation">MPC</a> to introduce an additional stakeholder in the <a href="https://www.cloudflare.com/learning/ssl/what-happens-in-a-tls-handshake/">TLS handshake</a>, which can then be used to zk-proofs of data that was sent by the website. Details of this are irrelevant for this post. All you need to know is Deco introduced an MPC based solution.</p>
 <p>Along with this result, they also showed formally that this approach is secure.</p>
 <h1 id="tls-notary-made-practicality-inroads">TLS Notary made practicality inroads<a hidden class="anchor" aria-hidden="true" href="#tls-notary-made-practicality-inroads">#</a></h1>
 <p>Deco, the paper, was released in 2019. As of 2024, there isn&rsquo;t an efficient implementation of the described protocol as is. However, <a href="https://tlsnotary.org/">TLS Notary</a>, an open sourced project implemented a similar construct using <a href="https://en.wikipedia.org/wiki/Garbled_circuit">Garbled Circuits</a>.</p>
@@ -156,8 +220,8 @@ Unforgeability&rdquo;</a> <a href="https://etherscan.io/tx/0xa0c1f3d7a641a065688
 <h1 id="optimizing-tls-notary">Optimizing TLS Notary<a hidden class="anchor" aria-hidden="true" href="#optimizing-tls-notary">#</a></h1>
 <p>There have been several attempts to optimize the TLS Notary approach to make it viable in the wild. Particularly on mobile devices with low compute, memory and network bandwidth. Opacity, ZKPass, Pado Labs are notable projects exploring this option.</p>
 <h1 id="an-alternate-model---proxying">An alternate model - Proxying<a hidden class="anchor" aria-hidden="true" href="#an-alternate-model---proxying">#</a></h1>
-<p>TLS and thereby HTTPS are secured using symmetric keys. These keys don&rsquo;t help us know who encrypted the data &ndash; the website or the user? Did the user send some data to themselves and are now claiming that this data came from the server? It&rsquo;s impossible to verify. To make HTTPS data verifiable, one must introduce a third party to witness certain aspects of the HTTPS session lifecycle.</p>
-<p>MPC based approaches introduce a witness at the tls handshake stage of the lifecycle. An alternate model is a Proxying model where you introduce the witness at the data transfer stage. All that the proxy does is, it witnesses the encrypted data that was tranferred from the user to the website and back. Basically, the request and the response in encrypted form, and provides an attestation to the <code>(encrypted-request, encrypted-response)</code> tuple.</p>
+<p>TLS and thereby HTTPS are secured using symmetric keys. These keys don&rsquo;t help us know who encrypted the data &ndash; the website or the user? Did the user send some data to themselves and are now claiming that this data came from the server? It&rsquo;s impossible to verify. To make HTTPS data verifiable, one must introduce a third party at certain points in the HTTPS session lifecycle.</p>
+<p>MPC based approaches introduce a notary at the tls handshake stage of the lifecycle. An alternate model is a Proxying model where you introduce the witness at the data transfer stage. All that the proxy does is, it witnesses the encrypted data that was tranferred from the user to the website and back. Basically, the request and the response in encrypted form, and provides an attestation to the <code>(encrypted-request, encrypted-response)</code> tuple.</p>
 <p>This attested tuple can be fed to a zk circuit to selectively reveal some data from the response. Thereby producing the same output as what a TLS Notary would. <em>&ldquo;The response R contains string S, and R was indeed received from website W in response to a user request Q&rdquo;</em>.</p>
 <p>This proxy based approach is much more efficient because it needs no change on the client browser because, browsers are already capable of using proxies. Additionally, doesn&rsquo;t need any heavy computation for establishing an MPC based TLS handshake.</p>
 <p>Reclaim has been using the Proxy based approach, primarily because of feasibility of productizing.</p>
@@ -169,70 +233,51 @@ Unforgeability&rdquo;</a> <a href="https://etherscan.io/tx/0xa0c1f3d7a641a065688
 <h1 id="what-does-it-mean-to-be-secure">What does it mean to be secure?<a hidden class="anchor" aria-hidden="true" href="#what-does-it-mean-to-be-secure">#</a></h1>
 <p>From Z Luo et al, theorem 6.1 the security is defined as the probability that someone tricked the protocol in generating a valid proof when it should have actually failed.</p>
 <p>That is, if someone gives you a proof generated using Reclaim Protocol or any other proxying based TLS Oracle where the proxy is an honest operator - what is the probablity that the proof is a fraud?</p>
-<p>From the paper :
-<img loading="lazy" src="/images/zluo-6.1.png" alt="theorem 6.1"  />
+<p>From the paper for ChaCha20 :
+<img loading="lazy" src="/images/zluo-6.1_corrected.png" alt="ChaCha Formula"  />
 </p>
-<h2 id="using-aes-gcm-looks-very-secure">Using AES-GCM looks very secure<a hidden class="anchor" aria-hidden="true" href="#using-aes-gcm-looks-very-secure">#</a></h2>
-<p>AES GCM is the most popular cryptographic algorithm used in HTTPS.
-Plugging in the values for AES,</p>
+<h2 id="analysing-the-numbers-on-the-paper">Analysing the numbers on the paper<a hidden class="anchor" aria-hidden="true" href="#analysing-the-numbers-on-the-paper">#</a></h2>
+<p>The above formula is what is used to detemine what is the probability of being able to convince a person that certain data showed up on their browser, when it actually didn&rsquo;t.</p>
 <ul>
-<li>$|S| = 63 * 3600$ ; using the padding used in the paper. Note this not the actual padding used by Reclaim Protocol as we will soon see.</li>
-<li>$\lambda = 56*8$ ; for 56 bytes of padding, 8bits each</li>
-<li>$l=128$ ; block size for AESGCM is 128 bits</li>
+<li>$|S|$ is the number of allowed openings. In other words, the request and response contain some parts that can be revealed publicly. If all you make a set $S$ of all the possible values in the data that is revealed, gives you $|S|$</li>
+<li>$\lambda$ is the length of the string that can be revealed publicly without compromising privacy. Particularly, the set S of all possible values this string takes should be a finite set.</li>
+<li>$v$ is the IV size, which is a fixed constant for an encryption scheme</li>
 </ul>
-<p><a href="https://www.wolframalpha.com/input?i=log_10%28%2863*3600%29%5E2%2F%282%5E%288*56+-+2*128+%2B2%29%29%29">That gives us</a> the probaility of the proof having been fradulently created to be</p>
-<p>$0.0000000000000000000000000000000000000000000001\%$</p>
-<p>That is an extremely small probability, and secure enough to practically say that we can be certain that the proof generated is fully secure. To put it in perspective, this probability is so low that, if all the computers, including your mobile phone, in the world were dedicated breaking the security of this protocol - it would take <em>ten million times the age of the universe</em> to actually break it!</p>
-<h2 id="using-chacha20-looks-">Using ChaCha20 looks &hellip;<a hidden class="anchor" aria-hidden="true" href="#using-chacha20-looks-">#</a></h2>
-<p>AESGCM is the most popular, but it isn&rsquo;t zk friendly. Writing zk circuits for AESGCM can be very inefficient. So, Reclaim Protocol uses ChaCha20 instead. ChaCha20 is the second most popular cryptographic algorithm in HTTPS. <a href="https://www.f5.com/labs/articles/threat-intelligence/the-2021-tls-telemetry-report">99%</a> of all the websites support ChaCha20. It is a requirement for every website to support ChaCha20 in TLS1.3 onwards.</p>
-<p>Ok, so let&rsquo;s plug in those numbers</p>
+<p>Plugging in the values for AES,</p>
 <ul>
-<li>$|S| = 63 * 3600$ ; stays the same</li>
-<li>$\lambda = 56*8$ ; stays the same</li>
-<li>$l=512$ ; block size for ChaCha20 is 512 bits</li>
+<li>$|S| = 1 * 3600$ ; Reclaim Protocol accepts only 1 status code - 200 as a valid http status code, corresponding to &ldquo;OK&rdquo;. We reject all other response codes. E.g. if there&rsquo;s a 404 status code, meaning the webpage doesn&rsquo;t exist - there is no point creating a proof of data that exists on the error page. And we accept the response with a timestamp within the last 10 min, as suggested by the paper, as valid responses.</li>
+<li>$\lambda = 56*8$ ; for 56 bytes of padding, 8bits each; the paper uses the first two lines of the https response which contains the http status code and timestamp.</li>
+<li>$v$ ; IV for ChaCha20 is 12 bytes (96 bits)</li>
 </ul>
-<p><a href="https://www.wolframalpha.com/input?i=log_10%28%2863*3600%29%5E2%2F%282%5E%288*56+-+2*512+%2B2%29%29%29">That gives us</a> &hellip; something wrong.</p>
-<p>The formula tells us that the probability that the proof you are looking at is $10^{185}\%$ a fraud. That doesn&rsquo;t make sense.</p>
-<ol>
-<li>Probability can&rsquo;t be greater than 100%, leave alone 1 followed by 185 zeros percent.</li>
-<li>This means, if you use ChaCha20, you can be (beyond) certain that the user has cheated, even when we know that the user is honest. That doesn&rsquo;t feel natural, does it? Even if you know that you are not cheating, and execute the protocol &ndash; it is <em>certain</em> that the output will suggest that you are cheating.</li>
-</ol>
-<h2 id="we-reached-out-to-z-luo">We reached out to Z Luo<a hidden class="anchor" aria-hidden="true" href="#we-reached-out-to-z-luo">#</a></h2>
-<p>When running our numbers on our actual production parameters, we realized there seems to be an issue - as we saw above. We reached out to Z Luo, who was very receptive and offered to dive deeper.</p>
-<p><img loading="lazy" src="/images/zluo-discord.png" alt="zluo discord"  />
-</p>
-<h2 id="the-updated-formula">The updated formula<a hidden class="anchor" aria-hidden="true" href="#the-updated-formula">#</a></h2>
-<p>Very quickly, Z Luo identified and fixed the error. This was the <a href="https://zhtluo.com/paper/Proxying_is_Enough__Security_of_Proxying_in_TLS_Oracles_and_AEAD_Context_Unforgeability.pdf">updated paper</a> and its <a href="https://etherscan.io/tx/0x437fd4f34e41ddea9805b914166bf19aa75daa5066c4ec90528565718171bf52">hash</a></p>
-<p>We are extremely thankful to Z Luo for a quick turn around time on this. A sign of true master, when one is able to identify and fix issues almost on the fly!</p>
-<p>The updated formula is
-<img loading="lazy" src="/images/zluo-6.1_corrected.png" alt="zluo 6.1 updated"  />
-</p>
-<p><em>We feel confident this theorem is now accurate.</em></p>
+<p><a href="https://www.wolframalpha.com/input?i=log_10%28%28%281*3600%29%5E2%29%2F%282%5E%288*56+-+2*96+%2B2%29%29%29">That gives us</a> the probaility of the proof having been fradulently created to be</p>
+<p>$10^{-70} = 0.0000000000000000000000000000000000000000000000000000000000000000000001\%$</p>
+<p>That is an extremely small probability, and secure enough to practically say that we can be certain that the proof generated is fully secure. To put it in perspective, this probability is so low that, if all the computers, including your mobile phone, were dedicated breaking the security of this protocol - it would take <em>1,000,000,000,000,000,000,000,000,000,000 (one million trillion trillion) times the age of the universe</em> to actually break it!</p>
 <h2 id="the-real-numbers-in-production">The Real Numbers, in production<a hidden class="anchor" aria-hidden="true" href="#the-real-numbers-in-production">#</a></h2>
-<p>Ok, so that works for the values that have been used by the paper. Let&rsquo;s see what values apply for Reclaim in practice.</p>
+<p>Reclaim Protocol needs provenance of both the request and the response. The response calculation is pretty much the same as what is mentioned in the paper.</p>
 <h3 id="padding-lambda">Padding, $\lambda$<a hidden class="anchor" aria-hidden="true" href="#padding-lambda">#</a></h3>
-<p>The paper recommends revealing the first two lines of the header in the response - the http status code and date.
-In our implementation, we reveal the following</p>
+<p>In our implementation, we reveal the following in the request</p>
 <ol>
-<li>HTTP Status code</li>
+<li>HTTP version</li>
 <li>Connection header</li>
-<li>URL</li>
+<li>URL (host + path)</li>
 </ol>
 <p>This is very specific to our implementation. On Reclaim Protocol, we have the users commit to the &ldquo;provider&rdquo; they are generating a proof for. So, they commit to the URL before executing the HTTPS Handshake. The protocol described in the paper is more generic. That is the user can prove something about any arbitrary HTTPS request they make from their browser, making the URL an unknown. If we get rid of that generalization, the known URL header can be used as <em>padding</em>.</p>
 <p>Another small modification from the paper is that instead of revealing the first few characters as padding, we mix and match various parts of the headers to form a long enough invariant. We identify various parts of the headers that we know the values of before hand. This is possible because of the product/protocol specific assumptions made, which constrains the things a malicious user can modify in the headers.</p>
 <ul>
-<li>Shortest status code : <code>http/1.1 200 OK</code> ; 15 characters</li>
+<li>Shortest method and version code : <code>GET [...] http/1.1</code> ; 13 characters (we support only http/1.1)</li>
 <li>Connection header : <code>connection: close</code> ; 17 characters</li>
-<li>Shortest possible URL : <code>https://a.co</code> ; 12 characters</li>
+<li>Shortest possible URL : <code>Host: a.co</code> and path <code>/</code> ; 11 characters</li>
 </ul>
-<p>So, we&rsquo;re looking at a minimum of 44 characters being used as padding.
-$$\lambda = 44 \text{bytes} = 352 \text{bits}$$</p>
+<p>For ChaCha20,
+<img loading="lazy" src="/images/zluo-6.1_corrected.png" alt="ChaCha Formula"  />
+</p>
+<p>So, we&rsquo;re looking at a minimum of 41 characters being used as padding.
+$$\lambda = 41 \text{bytes} = 328 \text{bits}$$</p>
 <h3 id="number-of-valid-openings-s">Number of valid openings, $|S|$<a hidden class="anchor" aria-hidden="true" href="#number-of-valid-openings-s">#</a></h3>
 <p>|S| represents size of the set of all the values that the padding can map to.</p>
 <p><strong>Http Status Code</strong></p>
 <ul>
 <li>HTTP version : only accepted value is <code>1.1</code>, which is the most supported version. Versions <code>2</code> and <code>3</code> are backward compatible with <code>1.1</code></li>
-<li>Status code : only accepted value is <code>200</code>, which is the status code for everything is OK and response is contained in the body</li>
 </ul>
 <p><strong>Connection header</strong></p>
 <ul>
@@ -245,12 +290,12 @@ $$\lambda = 44 \text{bytes} = 352 \text{bits}$$</p>
 <p>So, total valid openings is exactly $1$.
 $$ |S| = 1 $$</p>
 <h3 id="key-size">Key size<a hidden class="anchor" aria-hidden="true" href="#key-size">#</a></h3>
-<p>Since we use chacha20, the keysize is 256 bits
-$$|k| = 256 $$</p>
+<p>Since we use chacha20, the IV is 12 bytes or 96 bits
+$$v = 96 $$</p>
 <h3 id="putting-everything-together">Putting everything together<a hidden class="anchor" aria-hidden="true" href="#putting-everything-together">#</a></h3>
-<p>Feeding the above values in the formula, <a href="https://wolframalpha.com/https://www.wolframalpha.com/input?i=log_10%281%2F2%5E%2860*8+-+2*96+%2B1%29%29">we get probability</a> of breaking the security of Reclaim Protocol as
-$$ 10^-85 \text{\%}$$</p>
-<p>Again, that means if all the computers on the planet including everything from your mobile phone to all the A100 gpus used for LLM training, you would need $10^45$ times the age of the universe to break the security.</p>
+<p>Feeding the above values in the formula, <a href="https://www.wolframalpha.com/input?i=log_10%282%2F2%5E%28%2814%2B17%2B5%29*8+-+2*96+%2B1%29%29">we get probability</a> of breaking the security of Reclaim Protocol as
+$$ 10^-{40} = 0.00000000000000000000000000000000000000001\text{\%}$$</p>
+<p>Again, that means if all the computers on the planet including everything from your mobile phone to all the A100 gpus used for LLM training, you would need the age of the universe to break the security. A little less security than the response, but still very secure.</p>
 <p>Not bad. At all.</p>
 <h1 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h1>
 <p>The Proxying method used by Reclaim Protocol is secure for practical use, beyond any doubt &ndash; putting an end to the debate whether or not proxying is secure enough when compared to the MPC based approaches for zk-tls.</p>
@@ -268,7 +313,7 @@ $$ 10^-85 \text{\%}$$</p>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="http://localhost:1313/">Reclaim Protocol Official Blog</a></span>
+    <span>&copy; 2024 <a href="https://blog.reclaimprotocol.org/">Reclaim Protocol Official Blog</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

@@ -6,8 +6,28 @@
     <description>Recent content in Posts on Reclaim Protocol Official Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 May 2024 15:40:12 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 17 Jun 2024 15:49:48 -0400</lastBuildDate>
     <atom:link href="https://blog.reclaimprotocol.org/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SORBS DAO</title>
+      <link>https://blog.reclaimprotocol.org/posts/sorbs-dao/</link>
+      <pubDate>Mon, 17 Jun 2024 15:49:48 -0400</pubDate>
+      <guid>https://blog.reclaimprotocol.org/posts/sorbs-dao/</guid>
+      <description>- Madhavan Malolan
+SORBS shutdown, the crypto community should pool to buy it and keep it going. Potentially, expand it to be AI-ready. Let me explain.
+Sharing Blocklists Blocklisting is a simple strategy for handling spam. If you know someone is spamming the system, rate limit them or block them completely.
+If you are DDoS&amp;rsquo;ing a server, your IP gets blocked. If you are spamming people&amp;rsquo;s inboxes, your domain gets blocked.</description>
+    </item>
+    <item>
+      <title>Proxying Is Enough</title>
+      <link>https://blog.reclaimprotocol.org/posts/proxying-is-enough/</link>
+      <pubDate>Wed, 29 May 2024 15:40:12 -0400</pubDate>
+      <guid>https://blog.reclaimprotocol.org/posts/proxying-is-enough/</guid>
+      <description>- Madhavan Malolan
+Special thanks to Kirill Kustenok and Zhongtang Luo for proof reading multiple versions of this draft.
+Recently Z. Luo et al released a paper titled &amp;ldquo;Proxying is Enough: Security of Proxying in TLS Oracles and AEAD Context Unforgeability&amp;rdquo; (Hash), where they discuss security of TLS Oracles.
+From the paper,&amp;quot;TLS oracles allow a TLS client to offer selective data provenance to an external (oracle) node such that the oracle node is ensured that the data is indeed coming from a pre-defined TLS server.</description>
+    </item>
     <item>
       <title>RFP - Investor&#39;s Assistant</title>
       <link>https://blog.reclaimprotocol.org/posts/rfp-investor-bot/</link>
