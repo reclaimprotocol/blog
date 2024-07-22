@@ -1,0 +1,37 @@
+---
+title: Reclaim Successfully Passed the ZK Circuit Security Audit
+description: We are thrilled to announce a significant milestone in our journey towards providing robust and secure ZK proofs! Reclaim by Questbook has successfully passed the ZK Circuit Security Audit by David Wong really claim to be.
+date: 2023-10-02
+tags: ["Code", "Not Code"]
+img: "/posts/30.jpg"
+author: Madhavan Malolan
+published: true
+---
+
+We are thrilled to announce a significant milestone in our journey towards providing robust and secure ZK proofs! Reclaim by Questbook has successfully passed the [ZK Circuit Security Audit](https://www.zksecurity.xyz/blog/posts/reclaim/) by David Wong, the author of [Real World Cryptography](https://www.amazon.com/Real-World-Cryptography-David-Wong/dp/1617296716). It is a crucial step in ensuring the reliability and safety of our cryptographic solutions, a foundational milestone. In this article, we’ll talk about the audit process, ChaCha20 algorithm, and why it’s gonna be vital for our users.
+
+# The ChaCha20 Advantage
+
+Zero Knowledge Proofs are a powerful cryptographic technique that enables clients to reveal specific parts of their encrypted TLS communication without compromising encryption keys. To implement this, we chose the ChaCha20 algorithm, a trusted standard in TLS 1.3, and implemented it in the Circom language. But why did we opt for ChaCha20 over AES?
+
+AES (Advanced Encryption Standard) is undoubtedly secure, but it comes with a significant drawback - it is larger and slower due to its complexity. In contrast, ChaCha20 offers a streamlined alternative, making it ideal for mobile platforms where efficiency and speed are paramount. By choosing ChaCha20, we prioritize performance without compromising on security.
+
+# Path to Secure ZK Circuit
+
+Creating secure ZK circuits is no small feat. These circuits must meticulously account for every bit of processed data and every operation performed to maintain security integrity. Our initial circuit worked with individual bits, but it wasn’t optimized and didn’t offer significant improvements over the existing AES implementation. This prompted us to take a different approach.
+
+We transitioned from individual bits to 32-bit words, a transformation that significantly reduced the size and improved the speed of our circuit. This pivotal change laid the foundation for the ZK Circuit security audit.
+
+# The Audit Process
+
+Ensuring the security of our optimized circuit was of prime importance. To achieve this, we sought the expertise of David Wong, Renowned cryptography professional and the author of the book “Real-World Cryptography.” Mr. Wong graciously agreed to review our circuit, which marked the beginning of a meticulous audit process.
+
+Through two audit iterations, it became evident that the word-based circuit approach still posed challenges, as several bit-level operations could not be efficiently constrained. This realization led us to revisit the initial individual-bits approach, optimize it, and undergo the audit for the third, final, time.
+
+# Success and Beyond
+
+The outcome of this comprehensive audit was a significant performance improvement. Our new circuit, validated as both secure and efficient, emerged as a 10% smaller and faster alternative to the word-based approach. This achievement not only enhances the performance of our cryptographic solutions but also underscores our commitment to providing the best security practices to our users.
+
+We extend our heartfelt gratitude to David Wong for his invaluable contributions to this audit, one of the key pillars of the future growth.
+
+In conclusion, the successful completion of the ZK Circuit Security Audit is a significant milestone for Reclaim, one that reaffirms our dedication to providing robust and efficient cryptographic solutions to the world of self-governed user data. Our choice of the ChaCha20 algorithm, along with our commitment to optimization and security, ensures that our users can trust Reclaim for their Zero Knowledge Proof needs. We look forward to continuing to deliver cutting-edge cryptographic innovations that empower our users while prioritizing their privacy and continue the never-ending work on security measures in the future.
