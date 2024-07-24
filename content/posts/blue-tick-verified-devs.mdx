@@ -1,0 +1,23 @@
+---
+title: "Casestudy: Blue tick for verified devs on Lens Protocol"
+description: On any social media it is hard to say whether the user is who they really claim to be.
+date: 2023-04-25
+tags: ["Code", "Not Code"]
+img: "/posts/03.jpg"
+author: Madhavan Malolan
+published: true
+---
+
+On any social media it is hard to say whether the user is who they really claim to be. For example, a developer may say that they are one of the core contributors to the Aave Github repository and run a scam on social media. One option is for the social media website to ask users to login using Github on their app, use Github API show a blue tick next to the user if they are a core contributor on the repository they claim to be of. This solution works in the traditional social media websites.
+
+But, this construct of verification fails in decentralized social media like Lens Protocol. That is because, Lens is a protocol and anyone can build a UI on top of it. That means, everyone who is building a client for Lens Protocol needs the user to login into Github on their app. If the user wants their blue tick on Lenstube, Lumiere and Pinsta - all video social media built on Lens - they will need to login into Github on each of these platforms even though they’re using the same undelying protocol. If the user signs in into Github on Lenstube, all Lenstube users will be able to see the blue tick. None of the users of Lumiere will be able to see the blue tick even though they’re using the same social graph.
+
+In technical terms, the blue tick is a UI representation of a centralized verification.
+
+The project _Github verified Lens_ breaks this constraint. Any user can generate a proof of being a core contributor to Github by logging into Github once and generating a zkproof of them being a core contributor. Once this proof is created, they can add this zkproof to the Lens Protocol. When the proof resides on the protocol itself, every client can read this shared data and show the blue tick without needing the user to login into Github via their app. The zkproof is self sufficient, in that reading the proof any client can deduce that this username has proven their access to a user on Github that has write access to the said repository.
+
+All these claims and proofs are generated using Reclaim Protocol. This project won the prize at the EthGlobal hackathon in Tokyo.
+
+- Here is the [demo](https://stream.mux.com/BpUwosni3jQC6ai8t3o3wj7CUlTbrwuuV2mH02gdhtNk/high.mp4)
+- Here is the [Github Repository](https://github.com/sriharshakaramchati/github-lens/)
+- You can follow the developer of this project [@richik_chanda](https://twitter.com/richik_chanda)

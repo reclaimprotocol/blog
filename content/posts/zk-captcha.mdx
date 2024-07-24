@@ -1,0 +1,37 @@
+---
+title: RFP - AI friendly ZK Captcha
+description: Which side is up? Captchas are getting so hard that only AIs will be able to solve it. The key premise of this post is that it is getting increasingly important for AI agents to be able to access web products on behalf of the user. Captchas are an antipattern.
+date: 2024-03-12
+tags: ["Code", "Not Code"]
+img: "/posts/27.jpg"
+author: Madhavan Malolan
+published: true
+---
+
+Which side is up? Captchas are getting so hard that only AIs will be able to solve it. The key premise of this post is that it is getting increasingly important for AI agents to be able to access web products on behalf of the user. Captchas are an antipattern. They are not any good at keeping AI bots out anyway, at the same time they’re detrimental to productivity. Companies like [Induced AI](https://www.induced.ai/) have been able to make life much easier by knocking off the easy mundane tasks for you.
+
+So, let’s get rid of captchas? I understand the reason of having a captcha. It makes a digital resource scarce - by requiring only a human to be able to use it. If the cost of using any digital resource or service becomes zero, it becomes way too cheap to screw with the service - think spam and abuse. There’s no disincentive to misbehave.
+
+One way to combat that is to attach a micropayment to every https request. It is a plausible solution and has been [around for a long while](https://wordpress.org/plugins/paid-membership/).
+
+Can we do better? I think so.
+
+Sign every HTTPS request. Ofcourse. Who hasn’t thought of that? Let’s assume every browser implements a i-dont-want-to-call-it-a-wallet. That is, there is a private key for every user on their browser. Now this private key adds a `header` to every https request it makes, with the signature of the request.
+
+That in itself doesn’t solve the problem. Someone can spin up millions of bots and create millions of private keys at no cost.
+
+But, every browser public key is associated with an identity. You can make your identity stronger by attaching your national id, employment status, purchase history etc. All the contents of the identity like the national id itself, purchase history etc aren’t public. But a commitment to them is. This can be achieved using Reclaim Protocol. These commitments can be stored on chain for later use.
+
+The key insight is, one proof can be added to exactly one identity. That is, your national id can be used exactly once. If it has been linked to a browser public key, it cannot be linked to another without invalidating the previous public key.
+
+The website that receives this https request will check the header and calculate the identity strength based on the quantity and quality of proofs linked with the public key. If the score is above a threshold, the user is allowed to access the full site. If not, they get access only to limited parts of the site - e.g. they can only read, not post.
+
+However, when the the user (human or bot) that is using the said browser key misbehaves on the website - the website can flag the user as abusive and publish a list. This list consists of the public keys of the abusive users and proof of their abusive behaviour using the redacted signed requests (using ZKPs) that was sent using this public key. Any other website can import this list from any other website. This happens all the time in IP Blocklisting. Cloudflare, Google etc share IP Blocklists.
+
+When a public key is reported as abusive by one website, all the websites that import that list can update their scoring of the user’s identity. They may do this by fetching all the proofs linked to the public key from the blockchain. They may mark all the linked proofs a abusive and re-calculate the score for the user.
+
+That way, if a user uses a public key with multiple proofs linked misbehaves on a website, they will incur losses to all their proofs and all the identity scores that will be calculated by other websites in future. So, even if they create a new browser and a new public key, the proofs they will be able to link are already tainted.
+
+This may seem like a recipe for censored on one platform, censored on all platforms kind of a situation. However, the implementation of the middleware on apache or nginx should be such that each website is able to determine its own logic for how to import lists from other websites. If someone is censored on twitter for a political opinion, twitter not only has to publish the public key but also the redacted https request itself. So, facebook that may be importing this blocklist from twitter may have its own logic to determine whether or not it wants to censor the said public key. But if twitter blocklists a user because of a ddos attempt, that is probably relevant information to facebook too.
+
+This is a public good that ought to be built. Someone is going to build it, for sure.
