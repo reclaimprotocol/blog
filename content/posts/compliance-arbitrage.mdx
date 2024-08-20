@@ -1,0 +1,77 @@
+---
+title: "Compliance Arbitrage"
+description: "Undercutting Centralized Service Providers by providing cheaper, decentralized services"
+date: 2024-08-20
+tags: ["Compliance", "Business"]
+img: ""/posts/07.jpg""
+author: Madhavan Malolan
+published: false
+---
+
+Too few applications have a good answer to "why decentralized?". I think I discovered, at least for myself, a new reason.
+
+# Some Good Reasons
+## Better SWIFT
+That's basically what Bitcoin and Stable Coins really are. Better [S.W.I.F.T](https://www.swift.com/). 
+
+I recently moved from India to USA. I think it's harder to understand what a better SWIFT means staying in the US alone. US has a currency that works, that's stable, and that's widely accepted. 
+
+You realize SWIFT is broken when you work with people around the world. If you want to work with a contractor across borders - how do you send them money? Every time you send money, despite doing all the legal documentation, you have to deal with the inefficiencies of the intermediate banks and their bureaucracies. And one would have to produce documentation to get that $100 payout. 
+
+For anyone who's had the above experience. and the experience of sending BTC or stablecoins - would know the orders of magnitude in difference.
+
+There are some people who do transactions in BTC to avoid taxes, but that's not whom I'm referring to here. Additionally, I think it's the worst idea to try to evade taxes with BTC, because everything is public. But that's for another day. What I am referring to here is the ease of sending money in full adherence to the law, full documentation, and full disclosures to needed authorities. And that, that is not as trivial as it sounds.
+
+## Better Stock Exchange
+The other good use of a blockchain and decentralization is its use as a stock exchange. That's what Ethereum and Uniswap (or Solana and Jupiter) are. A better stock exchange.
+
+Easier to list. Anyone can create tradable assets - be it companies or memecoins. It's easy to list.
+
+But more importantly, it is 24x7 and global by default. 
+
+Again, coming from India I had almost no means to buy stocks on NYSE. But I could always buy and trade tokens trivially.
+
+# Unclear
+## DAOs
+I think many DAOs are organizations just for regulation arbitrage. 
+There are many DAOs that seem to benefit from decentralization - MakerDAO comes to mind. But I am still divided and unsure if this is sustainable and a likely future where DAOs are widely proliferated. 
+
+It is unclear to me if a) they're legal, and b) they're effective. I'm open to learning more, but as of today it's unclear. To me.
+
+# New Learning
+## Compliance
+Storing and/or processing user data requires a compliance undertaking. Sources tell me Plaid spends $50M in compliance every year. 
+
+What compliance is entailed in dealing with user data is well documented by [this piece by Dan and Cooper](https://paragraph.xyz/@proofs-and-protocols/browser-extensions,-the-cfaa-and-user-control-5).
+
+Decentralization doesn't take away the burden of having to comply. 
+
+Decentralization has come to assume that the nodes are untrusted. This in turn means they cannot be trusted with users' private information.
+
+So to design a decentralized system, one assumes the nodes never see or process users' personal data - thus, many of the compliance requirements won't even apply. 
+
+For example, when working with a customer for a pilot for just 1000 users, the compliance bills for us to just get started would have been $400K. Because we never touched the PII and username and password of the user, the compliance requirements didn't apply to us. We estimate, by using privacy-preserving tech like zero-knowledge proofs and multiparty computations, the cost of compliance saved is between $0.1 to $10 per user. That turns out is higher than the cost incurred because of decentralization.
+
+That is a significant competitive advantage over a centralized version.
+
+Let's get more specific with the example of Reclaim Protocol.
+Quick recap - Reclaim Protocol lets users log in to any website and generate a verifiable credential of some data they see on their browser.
+### Centralized version
+If someone was to generate these credentials using a centralized server, they'd have to ask the user to share their username and password or their OAuth access token. 
+
+With this sensitive data shared, the centralized server must take measures to make sure the data never leaks. And do the compliance. And even then we have breach after breach after breach.
+
+### Client-side proving
+If the user is able to generate a cryptographic proof of what data they saw on the browser, without revealing the data to anyone but the verifier - there are no security threats and thereby no compliance needed as a service provider facilitating the creation and sharing of these credentials.
+
+This is the advantage Reclaim Protocol and similar products enjoy because of being able to undercut any centralized company's costs.
+
+A keen observer would notice the compliance overhead is now transferred to the verifier instead, because they have full access to the user. That's not acceptable either. In another post, we'll look at how we save the verifiers from compliance costs too using MPC techniques in partnership with [Holonym's Mishti Network](https://medium.com/holonym/announcing-mishti-network-9330d90e0ead). Stay tuned!
+
+# Conclusion
+As of where I stand today I see only three good reasons to be decentralized.
+1. International Programmable Payments - usually that uses Bitcoin or Stablecoins
+2. Better stock exchange - usually to issue tokens to users, and make those tokens tradable
+3. Compliance Arbitrage - usually to undercut centralized service provider's cost by not touching user data
+
+This is an evolving mental model, and would love to collaborate to refine this further. Hit me up on Telegram [@madhavanmalolan](https://t.me/madhavanmalolan) if you'd like to chat!
