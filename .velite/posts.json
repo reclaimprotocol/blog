@@ -81,7 +81,7 @@
     "img": "/posts/07.jpg",
     "description": "Undercutting Centralized Service Providers by providing cheaper, decentralized services",
     "date": "2024-08-20T00:00:00.000Z",
-    "published": false,
+    "published": true,
     "tags": [
       "Compliance",
       "Business"
