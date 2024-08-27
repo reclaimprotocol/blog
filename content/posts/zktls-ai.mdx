@@ -1,0 +1,89 @@
+---
+title: AI to scale zkTLS
+description: How Reclaim Protocol uses AI
+date: 2024-08-27
+tags: ["AI", "ZK"]
+img: "/posts/11.jpg"
+author: Madhavan Malolan
+published: true
+---
+
+_Special thanks to [Diwank Singh](https://x.com/diwanksingh) and [Ishita Jindal](https://x.com/IshitaJindal17) from [Julep AI](https://julep.ai) for helping with ideating, and implementing the AI stack._
+
+Too many buzzwords in that heading? We've been working on a solution that leverages both ZK and AI without force-fitting them, for several months. 
+
+# What is zkTLS?
+zkTLS enables a user to generate a cryptographic untamperable proof of data that is shown on their web browser. 
+So, you can login into your bank account and share a un-tamperable proof of your bank balance. You can login into your Amazon account, and share an un-tamperable proof of the fact that you've ordered a sneaker. 
+That's all you need to know for this post. If you want to know how this works, check out this [video by Maxwell](/posts/reclaim-explained).
+
+# What are these proofs?
+The proof is trying to say - "so and so information is present on the data sent by the website".
+To generate this proof, one needs to define a provider for each website. 
+The provider consists of two main properties - a URL and a JSON path or Xpath. 
+When the URL is opened, the JSON path or Xpath tells us where in the page the required information like "Bank Balance: \$12,345" is located.
+
+# What's the bottle neck?
+To add support for each website, we need to define a provider consisting of the URL where the information resides and what is the JSON path or Xpath of the same.
+Defining this is non-trivial. For a long time, on Reclaim Protocol, one would have to build support for each provider by writing website specific code. It was OK for a proof of concept - but doesn't scale. 
+That is when we show Reclaim Protocol to a developer, their imaginations run wild, use cases that we'd have never imagined. Having us build a new provider for each usecase quickly became a bottleneck.
+
+## Dev tool
+So, we invested into building a [dev tool](https://dev.reclaimprotocol.org) so that the developer can build their own provider without needing them to wait for us to add a new provider and put out a release. Thereby cutting the time to create a PoC by several weeks.
+![](/posts/zktls-ai/devtool.png)
+
+The community now has created over 200 providers for websites without our intervention.
+You can think of this similar to Chrome Dev Tools, but geared specifically for creating these providers.
+
+This has helped us scale fast by enabling devs to iterate quickly.
+
+# What does AI do?
+When using the dev tool, a developer is trying to determine what is the URL and the JSON Path or Xpath to set in the provider. 
+This is pretty easy.
+
+Infact so easy that an AI can do it!
+
+That's exactly what we did. Cutting down PoC'ing time even further!
+
+## What problem does that solve?
+### 1. Bringing time down for building a new provider
+When a developer is creating the provider, we are now able to give hints for them to make decisions quicker. That's an obvious benefit of this AI.
+### 2. Changing websites
+Sometimes, albeit very rarely, responses from websites change. This is particularly true when we are using a HTML response rather than a JSON API response. 
+We've seen JSON APIs stay pretty constant. But HTML websites often change. In situations we can't use a JSON API and a JSON Path, we're forced to use HTML and Xpath.
+When an Xpath changes, the provider breaks. Until the provider creator comes and fixes it. In some situations, the provider creator isn't responsive enough. And providers stay broken for hours and sometimes days.
+That's terrible for everyone. 
+Usually these Xpath changes are pretty small, and an AI can quickly determine what the fix is and automatically fix it.
+### 3. Creating providers without having access
+Another limitation of the dev tool is that when a developer is creating a provider, they need to login into the website for which they are creating a provider - and then use their own account as an example to create a provider.
+Sometimes, the developer doesn't have access to the website they want proofs from. For example, a developer wants to know you are an alumni of Stanford or UC Berkeley but has access to only the Stanford alumni portal. 
+How can they create a provider for UC Berkeley without having access?
+In such situations, the user can just define what information they want to extract - like the user's name and year of graduation. That constitutes an _incomplete provider_. 
+When the first user from UC Berkeley logs in, the AI automatically generates a provider in real time and uses that to generate the proof.
+
+# But how does it work?
+The AI uses Claude sonnet at the time of this writing. Almost all of the prompting suggested here are Diwank's brainchild. 
+## Figure out where the information might reside
+Many times, the information we seek may not be on the home page of a website. We need to navigate to a certain page.
+First, the client does a [vimium](https://vimium.github.io/) like markings on a webpage.
+![vimium](/posts/zktls-ai/vimium.png)
+We then ask the LLM where might be the user's information like "username" or "purchase history" present and where should we click to get to that page. 
+When the LLM responds, we simulate that click and navigate to the page where the information might reside.
+## Where the data comes from
+We again take a screenshot and send it to the LLM and ask if the required information is present on the screenshot.
+If not, we go back and repeat the above step.
+If the data is present, we ask the LLM to give us the value.
+Using this value, we search for the api request that was made from this page that contained the said value. 
+## Sanitization
+Finally, if there are multiple API responses where the information is present - we ask the LLM to pick the one that is most accurate. We also have other non-LLM heuristics to determine the API that's likely to be most stable, from our empirical evidences.
+
+# Human in the loop
+Though many of these features are working already, there is still work to be done to make the product stable, robust and most importantly privacy preserving. We cannot send screenshots of sensitive information back to an LLM.
+Until we figure out the details, we have a boring intermediate stage - where we will have a human in the loop before we send anything to the LLM. And while we are at it, also verify the correctness of the LLM response where feasible. 
+
+Many of these features will be available widely soon on the devtool. Having AI enabled on a provider is an opt-in, not an opt-out.
+For any questions and early access, please reach out to [Madhavan Malolan on telegram](https://t.me/madhavanmalolan).
+
+
+
+
