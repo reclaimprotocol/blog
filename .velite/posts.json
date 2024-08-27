@@ -1,20 +1,5 @@
 [
   {
-    "slug": "posts/ai-content-provenance",
-    "title": "AI Content Provenance",
-    "author": "Madhavan Malolan",
-    "img": "/posts/07.jpg",
-    "description": "Using blockchains to protect IP, in the AI world",
-    "date": "2024-08-22T00:00:00.000Z",
-    "published": false,
-    "tags": [
-      "Media",
-      "Blockchain"
-    ],
-    "body": "const{Fragment:e,jsx:t,jsxs:n}=arguments[0];function _createMdxContent(o){const a={a:\"a\",p:\"p\",...o.components};return n(e,{children:[n(a.p,{children:[\"How can you prove you've created some media? Simple - create the media, create a hash of it and store it on any blockchain. \",t(a.a,{href:\"https://emn178.github.io/online-tools/sha256_checksum.html\",children:\"Hashing is trivial\"}),\", you just upload a file and get a hash. Putting it on a blockchain is \",t(a.a,{href:\"https://etherscan.io/address/existanceproof.eth#writeContract\",children:\"not too hard either\"}),\".\"]}),\"\\n\",t(a.p,{children:\"Cool, we're done here - right? Wrong. Because AI.\"}),\"\\n\",t(a.p,{children:\"The problem is people are creating tons of music using AI. And using AI implicitly means you are using someone else's media - because the AI was likely trained on them.\\nIt is important not only claim the creation is yours, but also prove that it was created using one of the AI tools. So that, these AI tools can then attribute downstream.\"})]})}return{default:function(e={}){const{wrapper:n}=e.components||{};return n?t(n,{...e,children:t(_createMdxContent,{...e})}):_createMdxContent(e)}};",
-    "slugAsParams": "ai-content-provenance"
-  },
-  {
     "slug": "posts/appclip-and-instantapp",
     "title": "Appclip and Instantapp",
     "author": "Madhavan Malolan",
