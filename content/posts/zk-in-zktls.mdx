@@ -1,0 +1,74 @@
+---
+title: The zk in zkTLS
+description: It's probably not what you think
+date: 2024-08-30
+tags: ["zkTLS", "ZK"]
+img: "/posts/12.jpg"
+author: Madhavan Malolan
+published: true
+---
+
+[Dan](https://x.com/delitzer) recently wrote a [great piece about _Web Proofs_](https://www.nascent.xyz/idea/cryptos-airtag-moment) as a non-technical primer. Recommend! But, the name that caught on in social media is "zkTLS". [Smart](https://x.com/yush_g/status/1829303228745535968) [folks](https://x.com/nico_mnbl/status/1829484200694571101) are pissed because that name is not correct - and rightly so.
+
+> Web Proofs use TLS Notary and privacy-preserving ZKPs to demonstrate authenticity of data from any server.
+
+What does privacy preserving mean? What's ZK about it?
+Here are the easy answers 
+1. If you want to prove your bank balance, you can prove that it is greater than \$10,000 without needing to reveal the exact bank balance.
+2. zkTLS extracts data from web pages (or web APIs). That means, the page might have more information than you want to reveal. For example, your bank balance webpage might have more information like your full name, account number, physical address and so on. To protect privacy of the user, zkTLS products use zk proofs to extract only parts of the page aka selective reveal certain information.
+
+But in reality, these zk proofs are nice to haves. Not must haves. 
+
+The zk in zkTLS is not for privacy preservation, it is for user security and integrity. But to understand this, we need to understand the tech a little deeper. 
+
+# Technical Background
+When opening any website on your web browser, the browser performs what's called a [TLS Handshake](https://www.youtube.com/watch?v=86cQJ0MMses). A TLS Handshake is a ceremony that happens between your browser and the website you are trying to open to exchange what's called a shared key. For this Handshake, both the browser and the website must choose a secret key. If this secret key is known to a hacker, they can decrypt all see all the requests and responses. This secret key is destroyed immediately after the Handshake is complete. It's not used thereafter. It is the shared key that is used to encrypt and decrypt the requests your browser is making _and_ the response the website sends. Once the Handshake is complete, all the data between your browser and the website is secure. No hacker can read the data that's being exchanged. That's why you can be confident in putting in your credit card details on the internet.
+
+Unfortunately, for us in crypto, the TLS Handshake was designed to exchange a symmetric key. That means, you get security but no provability. That is, if there's a response that came from a website, you cannot prove it to a friend that this is indeed the response that came from the website. One way to prove to the friend that certain data came from the server is to say "hey look this is the encrypted that came from the server, and look i have the key to decrypt it". There is some merit to that statement. It is impossible (under certain constraints) to generate a new key to decrypt the data. So if you have _a key_ to decrypt the data, it is safe to say it was _the key_ that was derived from the TLS Handshake. But we still have one problem. The problem is that the key derived from the TLS Handshake is a symmetric key. Meaning, you (your browser) and the website use the same key for both encryption and decryption of the requests and responses. So, when you showed your friend that you have the key to decrypt an encrypted blob - it doesn't tell your friend anything at all. For all you know, you could have encrypted the blob yourself and just decrypting it in front of your friend. There is no guarantee that the blob that is being decrypted was sent by a website. All the decryption melodrama for nothing. 
+
+So, how can we actually prove to a friend about what data was received from the website?
+
+# Three types of zkTLS
+There are really three ways of doing zkTLS (at the cost of using a misnomer).
+## 1. TEE Based
+Trusted execution environments (TEE) can be used to make https requests. So you can get guarantees of the request that was made and the response that was received. All these guarantees are provided by the TEE. So, you basically give your encrypted user name and password to a service provider. The service provider cannot decrypt it. It can be decrypted _only_ by the service provider's TEE. The TEE would decrypt your username and password, login on your behalf and report the data that was seen on the response. I use username as an abstraction, but in practice (e.g. [Teleport](https://teleport.best)) we see Auth tokens being sent to the TEE instead of the username password. Auth tokens have the benefit that even if the TEE is compromised, the auth tokens can be deactivated. These are efficient implementations and add almost no computation or networking overhead, as long as you are willing to accept the [security risk associated with the TEE](https://x.com/PratyushRT/status/1828183761055330373) itself. The design of such a system was first published in a research paper called [Town Crier](https://eprint.iacr.org/2016/168.pdf) in 2016, and a notable team building using this primitive is [Clique](https://www.clique.social/).
+
+So, when proving to a friend that a certain response came from a website you can also provide the signature from the TEE that the correct TLS Handshake was conducted and the claimed requests and responses are indeed what was exchanged.
+
+## 2. MPC Based
+MPC stands for multi party computation. 
+The TLS Handshake is a way to generate a key between the website and the browser. At the end, both the browser and the website have the symmetric key. 
+The MPC Based zkTLS changes this dynamic. What if the browser never has the key? 
+During the TLS Handshake, the website does it's part of the ceremony without any changes. But on the browser's end, there's a modification. Instead of the browser responding to the ceremony immediately, it consults a network of nodes. This network of nodes participate in another ceremony (the MPC) to establish a shared secret key, instead of the browser picking it's own random secret key. This shared secret key then is used to do the TLS Handshake. So, when the shared key is created after the Handshake, no single node has the full shared key. In order to encrypt and decrypt requests and responses, all the nodes must cooperate. So, to encrypt a request, a browser would use it's part of the shared key to encrypt the data, send it to node 1. Node 1 would add it's encryption using it's part of the shared key and so on. When all the nodes have done their part, the request can be sent to the website. Upon receipt of the response, the browser can't decrypt it by itself either. So it must contact the nodes again for their services.
+
+So, now when proving to a friend that a certain response came from a website, you can also claim "Here is the response that came from the server, and here is an attestation from all my MPC nodes that we decrypted the data from the website together - and this is what the decryption is". Your friend will believe you if they believe that it's unlikely enough for you to have gone to each of the MPC node and bribed them.
+
+This was first published in a research paper called DECO in 2020. It was soon realized that MPC is very expensive to implement in practice. So it was replaced by a 2PC solution, involving the browser and _one_ node instead of multiple (using garbled circuits, a particular form of MPC). A notable implementation being [TLS Notary](https://github.com/tlsnotary/tlsn). This model has good security guarantees but lot of networking overhead to setup the MPC. 
+
+
+## 3. Proxy Model
+HTTPS proxies are commonplace on the internet. Their job is to forward https traffic, without being able to read what traffic they are forwarding. 
+The proxy model of zkTLS uses [this feature](https://support.mozilla.org/en-US/kb/connection-settings-firefox) of browsers. When opening a website, instead of sending the request directly to the website - it sends it to the website via the https proxy.
+By default, the website will also respond to the server _via_ this proxy. So the proxy is basically seeing all the encrypted requests and response that is being exchanged between the browser and the website. The proxy then provides an attestation to the said encrypted requests and responses along with the information of whether it was a request or a response. That is was this encrypted data sent by the browser or the website. This is efficient in both compute and networking as long as you are willing to accept the risk of a very hard to pull off technical attack which requires physical access to the proxy's machine. The browser then creates a zkproof of the decryption of the response. The zk proof is equivalent of saying "I know a shared key that decrypts this encrypted data and here is the decryption. But I will not tell you the shared key itself."
+
+So, when proving to a friend that a certain response came from a website you can say "Here's the encrypted data and here's a proof from the proxy that it was sent by the website (and i didn't encrypt it myself), and here's the zkproof that I have the shared key that decrypts it, and here is that decryption". Again, your friend will believe you if they believe it is unlikely for you to have bribed the proxy to incorrectly say that certain encrypted data came from a website, when it actually came from you.
+
+This model was published in a research paper called ["Proxying is Enough"](https://eprint.iacr.org/2024/733) in 2024. [Reclaim Protocol](https://reclaimprotocol.org) is an implementation of this model, however the implementation predates the paper itself.
+
+# OK - so what's zk about all this?
+In all of these examples, we don't really talk about privacy. We're more interested in integrity. Meaning if you are telling your friend that the response came from the website, how can they trust you? Hiding parts of the response for privacy reasons is the next step. But all is moot, if there is no integrity guarantee.
+
+In all of these models are different cryptographic primitives used. But all of them are used to protect the shared key without compromising the integrity of the claim.
+- In the TEE model, the decryption is done inside the TEE; the tls shared key is never leaves the TEE
+- In the MPC or 2PC model, the decryption is done by nodes/node and the browser in cooperation; neither the nodes nor the browser even have access to the tls shared key to be able to share it
+- In the Proxy model, a zk proof is run on the browser which can then be shown to a friend without having to show them the decryption key itself
+
+A zkproof may be augmented on top of all of these to hide parts of the page that you don't want to reveal to the friend. But as we saw, it's a nice to have, not a must have. The must have is the integrity. 
+And that is why there is debate about calling it zkTLS. 
+- TEE models don't use zk proofs, they use TEE guarantees
+- MPC/2PC models don't use zk proofs, they use MPC to do the Handshake
+- Proxying model does use zk proofs, but they use it _after_ the TLS Handshake is done
+
+_Proxying model is the only one that uses zk for integrity._
+But none of the models use zk at the TLS Handshake level to mandate the name zkTLS.
+
