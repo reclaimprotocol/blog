@@ -1,0 +1,134 @@
+---
+title: zkTLS RFPs
+description: What to build using zkTLS?
+date: 2024-09-10
+tags: ["zktls", "ideas"]
+img: "/posts/zktls-rfps.png"
+author: Madhavan Malolan
+published: true
+---
+
+A question I get again and again from devs is -- what can build using zkTLS?
+I dug out my telegram today to ennumerate some of these ideas, and added some I wish someone built. 
+
+It really feels like the early days of Ethereum, where the possibilities look endless!
+
+# Fun Ideas, Unlikely to make money :P
+## Karaoke Battle
+- Two people enter a battle
+- They both connect their spotify accounts - share songs they've heard and how often
+- Each is given a song from their respective listening history, such that the number of times they've heard the song is approximately the same
+- Use GPT to generate a score 
+- Disburse prize to the winner
+- Bonus : make it on chain!
+
+## Mario Kart, fueled by sweat
+- People connect their Strava accounts - how much they've run in that week
+- Use those "miles" to upgrade your car
+- Have a variety of tracks which require different car powers
+- Weekly competitions, bonus if on chain!
+_Good reward for a week of running, no?_
+
+## Duo Lingo Chat
+- People connect their Duo Lingo accounts - progress they've made
+- Connect people with similar progress for a video chat
+
+## Influencer Lounge
+- People connect their Youtube/Instagram/Tiktok accounts
+- Influencers with similar audience and following grouped into a chatroom
+_You get access only if you are an influencer; different groups for different levels_
+
+## Dev builder
+- People connect their github, stack overflow accounts
+- Get ingame currency for your contributions to open source; Need to figure out the formula though
+- Let people build on virtual land using this ingame currency, like [sandbox](https://sandbox.game)
+_maybe make money by putting ads in unclaimed land_
+
+# Ideas for Indie Hackers
+## Verified Resume
+- Let people connect sources like github, stackoverflow, university, current job, national ID
+- Auto construct a Resume using these datapoints
+- No room for adding any free text
+_Everything on this resume is Verified by default_
+
+## TrustBnB
+A tool for Airbnb hosts 
+- Guest connects their Airbnb, Booking.com, Couchsurfing reviews and bookings
+- Generate a trustable score on how trustworthy this guest is
+- Let host provide a discount for low risk guests
+
+## ScamCheck
+A tool to be used on discord when receiving a message from a new user
+- Let users connect a national id that has their name
+- When you are contacted by some stranger on the internet, you can send them a link to "scam check"
+- The counterparty can generate a proof of their national id to prove their actual name (or maybe just the first name?)
+
+## SkillSearch
+Same as the Verified Resume idea in the Fun section, but
+- give a way for recruiters to search
+- give a way for recruiters to contact the candidate
+- have a referral bonus agreement with recruiters
+_everything free for candidate, everything paid for recruiter_
+
+## CreditPlus
+A credit score that is multi dimensional
+- Allow users to connect Credit Scores, Sales on various platforms, Salary, Profession
+- Use these datapoints to come up with a more comprehensive credit score that can be used to underwrite lending
+_sell to lenders_
+
+## Strict Fitness Trainer
+- Let user connect Strava, Fitbit
+- Depending on their activity suggest workouts and meal plans
+- On weeks where goals are not hit, the meal plans and workout plans are paid
+
+## Reverse Questbook
+- Let users create their profile using various sources - like github, hackerrank, job history
+- Using the skill extracted from above, match skills with all the open grants on Questbook
+_[Contact Questbook for a revenue share!](https://t.me/madhavanmalolan)_
+
+## Taste Maker
+- Let people connect their Spotify account and share what they're listening to
+- Everyweek have a betting round on which songs will make it to the [top 100](https://www.billboard.com/charts/)
+- At the end of the week, distribute pool to people who bet weighted by how much they bet _and_ how many times they listened to the song last week
+_Ofcourse, take a cut_
+
+# Ideas for potential enterpreneurs
+If you're building any of these, we're happy to connect you with our partner incubators. [Contact me](https://t.me/madhavanmalolan).
+
+## DataDAO
+There is a rudimentary version of this [deployed here](https://datadaos.reclaimprotocol.org/). 
+The basic idea is there, but needs to be refined vertical by vertical and drive traction.
+- Customer says "I want so and so data, refreshed every day and I will pay $10"
+- Anyone can submit that data on chain, and claim the $10 that is automatically paid out by the smart contract
+- Useful for betting applications on chain
+- People can earn passive income by running data refresh scripts
+
+## Onchain Judiciary
+- Create a fine tuned model or RAG on Llama 3.1 using all the public legal cases
+- Two parties enter a legal battle with escrows
+- Each party provides a case and supporting evidences 
+- Each evidence is valid if and only if there's a proof of its correctness
+- Escrows are liquidated in the favour of the winning party, as determined by the LLM
+
+## Paid Inbox
+- Let people store all their credentials on a wallet-ish
+- They set a price to be contacted
+- An advertiser can choose to reach all people with a certain credential, with a budget
+- Distribute the message to people's inbox based on credentials and set price
+- In the absence of ads, let people participate in group chats
+
+## Decentralized Data collection
+- Let people store their profession and demographic information to earn money
+- Data collectors, e.g. surveyors, AI model builders, can request people to answer questions only if they have certain credentials
+  - A medical image classification can be done only by a professional doctor
+  - A survey can be filled only if you live in Paris
+  - and so on ...
+
+## TEE Ads 
+- Similar to above, but people can reveal their credentials to a TEE
+- An advertiser can run more complex ad targetting logic using the credentials available, including look-alikes
+_That way, people can be targetted only on datapoints they explicitly decide to reveal_
+
+
+... more coming soon.
+If you are building any of these, we likely already have the providers built. Do [hit us up](https://t.me/protocolreclaim/26) and we will be happy to help you build it! If you are raising capital for any of these or related ideas, [hit me up](https://t.me/madhavanmalolan) - I can connect you to funds and accelerators.
