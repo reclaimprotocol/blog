@@ -1,0 +1,157 @@
+---
+title: "Opensourcing Reclaim Protocol"
+date: 2024-09-16T20:00:00-00:00
+draft: false
+description: We built a stack to make HTTPS verifiable, and open sourced it.
+date: 2023-09-16
+tags: ["OSS", "Engineering"]
+img: "/posts/OSS.png"
+author: Madhavan Malolan
+published: true
+---
+
+## What are we solving?
+
+Imagine you've ordered Nike Sneakers online and need to prove it. You might show a screenshot of your order, which works in informal settings where trust exists. However, this method breaks down at scale. For instance, if a business offers discounts to customers who have purchased Nike Sneakers, they can't trust screenshots due to the potential for manipulation.
+
+Reclaim Protocol solves this by allowing users to generate cryptographic proofs of data exchanged over HTTPS connections, making the data on their screen verifiable and shareable.
+
+## Who has this problem?
+
+Real-world examples from customers:
+
+1. A credit card company in India verifying customer addresses.
+2. An SME lending company verifying merchant sales before approving loans.
+3. A food delivery company trying to poach customers from competitors by verifying their subscriptions.
+
+## Other solutions and their limitations
+
+1. **OCR**: Susceptible to fraudulent screenshots.
+2. **Storing username and password**: Creates a security risk.
+3. **The new Plaid**: Works for bank accounts but not for other information sources.
+4. **Physical Notary**: Limited by physical nature and reliance on human judgment.
+
+## Key Insights
+
+1. HTTPS is end-to-end encrypted using PKI, but uses symmetric keys.
+2. Symmetric keys provide security but not authenticity.
+3. By knowing the direction of data movement and correct decryption, we can get strong guarantees of information authenticity.
+
+## How It Works
+
+### Proxying
+
+All data is routed through an HTTPS Proxy, which records the direction of data transfer without reading the encrypted content.
+
+### Selective Disclosure
+
+Certain parts of the request and response that are publicly known are revealed:
+- For responses: HTTP response code and Date headers.
+- For requests: Domain, Path, and Connection headers.
+
+### Zero Knowledge Proofs
+
+ZK proofs are used to prove correct decryption without revealing the key or sensitive data.
+
+### Proving Information
+
+A regular expression is used as a public input to extract specific information from the decrypted data.
+
+## Attack Vectors and Mitigations
+
+### Fake Key Reveal
+
+Mitigated by revealing certain public headers, making it practically impossible to create a fake key that decrypts headers correctly.
+
+### Bribing
+
+Mitigated through decentralization:
+- Multiple Proxies are used.
+- A consensus is required for proof acceptance.
+- An appeal process allows for further verification.
+
+### DNS Poisoning
+
+While not directly mitigated, it's considered an economically infeasible attack due to the need for physical access to proxy servers.
+
+## Implementation
+
+The Reclaim Protocol stack is open-sourced under an AGPL License. Key components include:
+
+### 1. TLS Library
+
+A custom implementation of TLS in JavaScript.
+
+### 2. Attestor SDK (previously Witness SDK)
+
+Verifies the correctness of requests and responses.
+
+#### Request verification:
+
+```typescript
+const httpReqHeaderStr = [
+    reqLine,
+    `Host: ${getHostHeaderString(url)}`,
+    `Content-Length: ${contentLength}`,
+    'Connection: close',
+    // No compression
+    'Accept-Encoding: identity',
+    ...buildHeaders(pubHeaders),
+    ...secHeadersList,
+    '\r\n',
+].join('\r\n')
+```
+
+The headers such as `Content-Length`, `Connection`, `Accept-Encoding` are static values. So, later when decrypting the request the client must be able to decrypt the request such that these requests are decrypted as is. Additionally, the `Host` and `Path` are also revealed so that we can be sure where the request is to be sent. 
+Revealing the Host and Path makes it possible for us to verify that certain information came from amazon.com and not a-fake-amazon.com.
+
+#### Response verification:
+
+```typescript
+const OK_HTTP_HEADER = 'HTTP/1.1 200'
+const dateHeaderRegex = '[dD]ate: ((?:Mon|Tue|Wed|Thu|Fri|Sat|Sun), (?:[0-3][0-9]) (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (?:[0-9]{4}) (?:[01][0-9]|2[0-3])(?::[0-5][0-9]){2} GMT)'
+const dateDiff = 1000 * 60 * 5 // allow 5-min difference
+```
+
+### 3. ZK Circuit
+
+- Capable of decrypting AES-GCM and ChaCha20 ciphers (not AES-CBC).
+- 36K constraints when compiled.
+- Audited by ZKSecurity.
+- Uses Groth16 proof, which is small and can be verified on a blockchain.
+
+### 4. Proxy (aka Node/Attestor/Witness)
+
+- Forwards requests and responses.
+- Stores the direction of data movement.
+- Provides signatures for verification.
+
+### 5. SDKs
+
+#### Initiating Proofs
+
+1. **Inapp SDKs**: 
+   - Available for Flutter (React Native, Kotlin, and Swift in development).
+   - Includes a customized Webview.
+   - Requires licensing for closed-source software.
+
+2. **Helper SDKs**:
+   - JS-SDK for website integration.
+   - Uses Instant Apps (Android) or Appclips (iOS) for seamless experience.
+
+#### Verifying Proofs
+
+1. **Backend SDKs**:
+   - Node-SDK available.
+   - Go and Python support planned.
+
+2. **Blockchain Verification**:
+   - Available on major blockchains (Ethereum, EVM L2s, Solana, Cosmos, Polkadot).
+
+## Licensing
+
+- Most components are under AGPL license.
+- The in-app SDK requires a license for closed-source projects.
+- Closed-source projects need a license from the Foundation and a security audit.
+
+For integration in closed-source projects, reach out to the Reclaim Protocol Foundation for licensing and security audit requirements.
