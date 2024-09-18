@@ -1,0 +1,286 @@
+---
+title: Turbocharged Zero-Knowledge Proofs for Mobile
+description: Unlock the secrets behind our tech glow-up! We'll show you how we 
+  powered up mobile performance, squashed crashes, and made zero-knowledge proofs 
+  faster than ever. All the fun (and struggles) of leveling up our new Reclaim 
+  Verifier app are inside!
+date: 2024-09-18
+tags: ["engineering", "OSS","gnark", "mobile"]
+img: "/posts/gnark-migration/title.png"
+author: Abdul Rashid Reshamwala
+published: true
+---
+
+## Introduction
+
+**Reclaim Protocol** empowers users to securely own and share their online data 
+through zero-knowledge proofs generated entirely on the client side. This allows 
+users to prove aspects of their identity or reputation from any website without 
+revealing sensitive information. For example, a user can demonstrate they are a 
+5-star driver without disclosing their license plate number, or confirm excellent 
+credit without sharing bank account details.
+
+## The Role of Zero-Knowledge Proofs in Reclaim Protocol
+
+Zero-knowledge proofs are central to the Reclaim Protocol, enabling users to 
+securely prove claims about their identity or data without revealing any sensitive 
+information. By generating these proofs entirely on the client side, users maintain 
+complete control over what they share. We utilize techniques like TLS Request 
+Selective Reveal and TLS Response Selective Reveal to allow users to prove they 
+have accessed specific data on a website without exposing private details like 
+passwords or cookies. 
+
+An essential component in this process is the Witness, which helps verify the 
+integrity of the user's interactions without accessing plaintext data. For those 
+interested in the technical specifics of these cryptographic methods, please refer 
+to our <a href="https://www.reclaimprotocol.org/whitepaper" target="_blank" rel="noopener">whitepaper</a> for more detailed information.
+
+![Zero-Knowledge Proof Diagram](/posts/gnark-migration/attestor-flow.png)
+
+*Figure 1: Simplified diagram of proof generation in Reclaim Protocol*
+
+## Our Initial Setup with Circom and snarkjs
+
+When we first developed the Reclaim Protocol, we chose Circom and snarkjs for 
+generating zero-knowledge proofs because snarkjs was easy to integrate with our 
+TypeScript and JavaScript codebase.
+
+To run snarkjs on our mobile apps built with React Native and Flutter, we used 
+webviews to embed a web environment within our apps. We developed a custom RPC 
+mechanism to enable communication between the mobile app and the webview running 
+snarkjs, handling tasks like proof generation and communication with the witness.
+
+Despite setting up this infrastructure, we faced significant challenges:
+
+- **Memory Limitations**: On mobile devices, snarkjs would often crash due to 
+  memory limitations imposed by the operating system.
+- **Vendor-Specific Issues**: Devices from manufacturers like Vivo and Oppo had 
+  webview implementations that prevented proof generation from completing successfully.
+- **Limited Proof Complexity**: High memory consumption not only caused crashes but 
+  also limited how many blocks we could generate proofs for.
+
+We attempted to reduce memory usage by applying various WebAssembly (WASM) 
+optimization techniques. However, these optimizations weren't enough to overcome 
+the limitations. The memory issues became a critical bottleneck, affecting the 
+reliability, performance, and scalability of our mobile applications. It became 
+clear that to improve user experience and support more complex proofs, we needed 
+to find an alternative solution.
+
+<Image
+  src="/posts/gnark-migration/change.gif"
+  alt="change gif"
+  width={1920}
+  height={1080}
+  style={{ width: '100%', height: 'auto' }}
+/>
+
+## Exploring Alternatives: Why We Chose gnark
+
+Facing significant challenges with Circom and snarkjs—especially memory limitations 
+and performance issues on mobile devices—we began exploring alternative solutions 
+for zero-knowledge proof generation. Our goals were clear:
+
+- **Reduce Memory Consumption**: We needed a tool that could operate efficiently on 
+  mobile devices without crashing due to memory constraints.
+- **Improve Performance**: The solution had to handle generating multiple proofs 
+  without sacrificing on stability even on low end device
+- **Ensure Compatibility**: It should integrate smoothly with our existing technology 
+  stack and support mobile platforms.
+
+### Evaluating RapidSNARK
+
+One of the first alternatives we evaluated was <a href="https://github.com/iden3/rapidsnark" target="_blank" rel="noopener">**RapidSNARK**</a>. About six months ago, 
+we conducted initial tests to assess its performance and suitability for our needs. 
+Unfortunately, we didn't observe significant improvements over snarkjs at that time. 
+In fact, we encountered more crashes, which compounded our existing challenges rather 
+than alleviating them.
+
+However, we've heard that RapidSNARK has made substantial advancements in recent months. 
+The development team has reportedly addressed many of the issues we experienced, and 
+performance has improved considerably. We remain open to revisiting RapidSNARK in the 
+future to see if it can offer benefits that align with our requirements.
+
+![swipe](/posts/gnark-migration/swipe-left.gif)
+
+### Why We Chose gnark
+
+After evaluating various options, we ultimately chose <a href="https://github.com/Consensys/gnark" target="_blank" rel="noopener">**gnark**</a> for several compelling reasons:
+
+- **High Performance and Low Memory Usage**: gnark is designed for efficiency, 
+  consuming significantly less memory during proof generation compared to snarkjs. 
+  This makes it well-suited for resource-constrained environments like mobile devices.
+- **Go Language Advantages**: Written in Go, gnark benefits from Go's efficient 
+  memory management and performance. Go also provides excellent support for 
+  cross-compilation to mobile platforms, which was crucial for our needs.
+- **Better Scalability**: With gnark, we could generate proofs for larger and more 
+  complex circuits without running into the memory and performance issues we faced previously.
+- **Ease of Integration**: Despite being in a different programming language, 
+  integrating gnark into our ecosystem was straightforward. Go's interoperability 
+  facilitated this process.
+
+Switching to gnark addressed the critical bottlenecks we were experiencing, enabling 
+us to enhance the performance, reliability, and scalability of Reclaim Protocol. 
+gnark currently provides the optimal balance of efficiency and compatibility for our needs.
+
+Transitioning from snarkjs to gnark involved several steps, and gnark's efficiency 
+made the effort worthwhile.
+
+
+## Migrating Circuits
+
+Our first step in transitioning to gnark was rewriting the zero-knowledge circuits 
+that were initially built in Circom. This re-implementation in gnark's Go-based 
+framework allowed us to optimize for better performance and reduce memory consumption. 
+The **ChaCha20** circuits worked great right out of the box, providing a performance 
+boost. However, the **AES** circuits initially performed worse than in snarkjs.
+
+To address this, we optimized the AES implementation by utilizing gnark's built-in 
+lookup tables, which significantly improved both performance and memory efficiency. 
+This optimization allowed us to maintain the high performance we needed for AES encryption.
+
+We've already open-sourced these optimized circuits! 
+You can check them out and contribute at 
+<a href="https://github.com/reclaimprotocol/gnark-symmetric-crypto" target="_blank" rel="noopener">{"https://github.com/reclaimprotocol/gnark-symmetric-crypto"}</a>.
+
+![swipe](/posts/gnark-migration/gnark-oss.png)
+
+## Adjusting Mobile Architecture
+
+![gnarkprover_explaination](/posts/gnark-migration/gnarkprover_explaination.png)
+
+In this setup, proof generation has been moved from the webview to native libraries 
+for better performance and efficiency:
+
+The Reclaim In-App Webview handles user interactions and sends HTTP requests via 
+the Attestor SDK, which operates through a Headless Webview. When zero-knowledge 
+proof generation is required, the Reclaim app first checks if the gnarkprover Plugin 
+is available. If it's present, the app uses it to generate proofs natively. Otherwise, 
+it defaults to the webview for proof generation. By using the gnarkprover Plugin, 
+the Attestor SDK offloads proof generation to the gnark Prover FFI, which runs 
+natively on the device.
+
+The gnarkProver Flutter Plugin then communicates with the gnark Prover FFI (Foreign 
+Function Interface), which is a native library compiled from Go directly for each 
+mobile platform. This allows proof generation to happen natively on the device, 
+making it faster and more efficient. This approach is also very modular in nature 
+and can be easily extended to support other zero-knowledge proof systems in the future.
+
+By moving the heavy lifting of proof generation to the native gnark Prover, we reduce 
+the overhead of running it in the webview, improving performance and optimizing 
+resource usage.
+
+## Challenges and Solutions AKA The Hard Parts 😬
+
+![problems](/posts/gnark-migration/problems.webp)
+
+Throughout our transition to gnark, we encountered several significant technical 
+challenges. Here's a few of them:
+
+### 1. Native Library Size and App Clip Limitations
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src="/posts/gnark-migration/huge-o.gif" alt="size" />
+</div>
+
+In our initial implementation, we embedded the cryptographic circuits directly into 
+the native library. While this worked functionally, it caused the library size to 
+grow to around 100MB—well beyond the 50MB limit imposed by Apple's App Clip feature, 
+which we use for seamless integrations. This posed a significant challenge, as 
+maintaining App Clip compatibility was crucial for our integration strategy.
+
+**Solution**
+
+To solve this, we shifted from embedding the circuits within the native library to 
+downloading them dynamically from the frontend. We also pre-initialized the circuits 
+on the client side, allowing the proof generation process to begin as quickly as possible. 
+This approach reduced the native library size dramatically, bringing us well within 
+the App Clip size limits. All our assets are hosted on global CDNs for fast and 
+efficient delivery.
+
+### 2. Debug Build Freezing on iOS 🥶
+
+Another challenge arose during development on iOS. Whenever we attempted to call the 
+native Go library in a debug build, the app would freeze. This issue took considerable 
+time and effort to diagnose, as it wasn't immediately clear what was causing the freeze.
+
+<img 
+  src="/posts/gnark-migration/freeze.webp" 
+  alt="freeze" 
+  style={{ width: '100%', maxWidth: '100%', display: 'block' }}
+/>
+
+**Solution**
+
+After countless hours of debugging and researching, we traced the problem to the Go 
+runtime itself, specifically related to asynchronous preemption. The Go runtime sends 
+OS signals frequently to preempt long-running goroutines. However, iOS's debugger 
+struggled to handle these signals quickly enough, leading to severe slowdowns or 
+complete freezes. The issue was documented in 
+<a href="https://github.com/golang/go/issues/57651" target="_blank" rel="noopener">golang/go#57651</a>.
+
+To resolve this, we applied a simple fix: setting the runtime flag 
+`GODEBUG=asyncpreemptoff=1`. This disables asynchronous preemption in the Go runtime, 
+effectively preventing the flood of signals that caused the debugger to freeze. 
+After applying this fix, our iOS builds ran smoothly, with no further issues.
+
+##  Performance Testing 🧪
+
+Our tests revealed significant improvements in memory efficiency and proof generation 
+speed, particularly on mobile devices. We observed a dramatic reduction in average 
+proof generation time, cutting it down from 40 seconds with snarkjs to just 4-5 seconds 
+with gnark, making the process much faster and more efficient.
+
+You can see some of our benchmarks in the video below!
+
+<video
+  src="/posts/gnark-migration/comp-1.mp4"
+  controls
+  muted
+  loop
+  style={{ width: '100%', maxWidth: '600px', margin: '0 auto', display: 'block' }}
+>
+  Your browser does not support the video tag.
+</video>
+
+<figcaption style={{ textAlign: 'center', marginTop: '10px', fontStyle: 'italic' }}>
+  Comparison of proof generation speed: snarkjs vs gnark
+</figcaption>
+
+<video
+  src="/posts/gnark-migration/comp-2.mp4"
+  controls
+  muted
+  loop
+  style={{ width: '100%', maxWidth: '600px', height: '400px', margin: '0 auto', display: 'block' }}
+>
+  Your browser does not support the video tag.
+</video>
+
+<figcaption style={{ textAlign: 'center', marginTop: '10px', fontStyle: 'italic' }}>
+  Github username claim in less than 3 seconds
+</figcaption>
+
+We were also able to generate proof in a much stability. Earlier after genration of 
+20-30 proof the app would slow down or in worst case crash now we are able to 100 
+blocks without any severe performance degradation or increace in memory usage. This unlocks 
+a lot of usecases which were not possible given the constraints of our old setup.
+
+### Charts for Nerds
+
+![chart](/posts/gnark-migration/chart-1.png)
+![chart](/posts/gnark-migration/chart-2.png)
+
+## Looking Ahead
+
+We're excited about the future of zero-knowledge proofs on mobile devices and the 
+opportunities they present. As we continue to refine and enhance our implementation, 
+we're committed to pushing the boundaries of what's possible on mobile platforms.
+
+We plan to do more such deep dive into our stack. You can follow me 
+[@abdul_rashid_r](https://twitter.com/abdul_rashid_r) and 
+[@reclaimprotocol](https://twitter.com/reclaimprotocol) on twitter to get updates 
+on our latest work. We will be open-sourcing more of our tech in the near future 
+including our internal sdk and flutter gnark prover plugin so keep an eye out for that!
+
+Checkout our [Github Repos](https://github.com/reclaimprotocol/)
+
