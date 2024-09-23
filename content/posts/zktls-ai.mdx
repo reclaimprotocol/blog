@@ -15,7 +15,7 @@ Too many buzzwords in that heading? We've been working on a solution that levera
 # What is zkTLS?
 zkTLS enables a user to generate a cryptographic untamperable proof of data that is shown on their web browser. 
 So, you can login into your bank account and share a un-tamperable proof of your bank balance. You can login into your Amazon account, and share an un-tamperable proof of the fact that you've ordered a sneaker. 
-That's all you need to know for this post. If you want to know how this works, check out this [video by Maxwell](/posts/reclaim-explained).
+That's all you need to know for this post. If you want to know how this works, check out this [video by Maxwell](/blog/posts/reclaim-explained).
 
 # What are these proofs?
 The proof is trying to say - "so and so information is present on the data sent by the website".
@@ -30,7 +30,7 @@ That is when we show Reclaim Protocol to a developer, their imaginations run wil
 
 ## Dev tool
 So, we invested into building a [dev tool](https://dev.reclaimprotocol.org) so that the developer can build their own provider without needing them to wait for us to add a new provider and put out a release. Thereby cutting the time to create a PoC by several weeks.
-![](/posts/zktls-ai/devtool.png)
+![](/blog/posts/zktls-ai/devtool.png)
 
 The community now has created over 200 providers for websites without our intervention.
 You can think of this similar to Chrome Dev Tools, but geared specifically for creating these providers.
@@ -66,7 +66,7 @@ The AI uses Claude sonnet at the time of this writing. Almost all of the prompti
 ## Figure out where the information might reside
 Many times, the information we seek may not be on the home page of a website. We need to navigate to a certain page.
 First, the client does a [vimium](https://vimium.github.io/) like markings on a webpage.
-![vimium](/posts/zktls-ai/vimium.png)
+![vimium](/blog/posts/zktls-ai/vimium.png)
 We then ask the LLM where might be the user's information like "username" or "purchase history" present and where should we click to get to that page. 
 When the LLM responds, we simulate that click and navigate to the page where the information might reside.
 ## Where the data comes from

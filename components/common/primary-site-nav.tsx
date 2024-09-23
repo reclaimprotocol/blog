@@ -31,7 +31,7 @@ const PrimarySiteNav = () => {
           </a>
         </div>
         <div className="flex w-full items-center justify-between md:w-auto">
-          <Link href={"/"}>
+          <Link href={"https://reclaimprotocol.org"}>
             <Logo className="w-8 md:w-10" />
           </Link>
           <MobileNav />

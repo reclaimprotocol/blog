@@ -7,6 +7,7 @@ const nextConfig = {
     return config;
   },
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+  basePath: "/blog"
 };
 
 export default nextConfig;
