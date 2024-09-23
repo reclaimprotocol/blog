@@ -44,7 +44,7 @@ export function MainPostItem({
               color: "transparent",
             }}
             sizes="(max-width: 768px) 30vw, 33vw"
-            src={'/blog/' + img}
+            src={'/blog' + img}
           />
         </Link>
       </div>
@@ -107,7 +107,7 @@ export function PostItem({
               color: "transparent",
             }}
             sizes="(max-width: 768px) 30vw, 33vw"
-            src={'/blog/' + img}
+            src={'/blog' + img}
           />
         </Link>
       </div>

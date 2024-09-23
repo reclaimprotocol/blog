@@ -7,6 +7,7 @@ const nextConfig = {
     return config;
   },
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+  basePath: "/blog"
 };
 
 export default nextConfig;
@@ -25,6 +26,7 @@ class VeliteWebpackPlugin {
       const dev = compiler.options.mode === "development";
       this.options.watch = this.options.watch ?? dev;
       this.options.clean = this.options.clean ?? !dev;
+      this.options.outputPath = nextConfig.basePath + (this.options.outputPath || "");
       await build(this.options); // start velite
     });
   }
