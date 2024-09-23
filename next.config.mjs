@@ -7,7 +7,11 @@ const nextConfig = {
     return config;
   },
   pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
+  assetPrefix: '/blog',
 
+  publicRuntimeConfig: {
+    basePath: '/blog',
+  },
 };
 
 export default nextConfig;
