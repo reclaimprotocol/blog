@@ -5,13 +5,8 @@ export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   
   // redirect to new blog link
-  if (url.hostname === 'blog.reclaimprotocol.org') {
-    url.protocol = 'https';
-    url.port = '443';
-    url.host = 'reclaimprotocol.org';
-    url.hostname = 'reclaimprotocol.org';
-    url.pathname = `/blog${url.pathname}`;
-    return NextResponse.redirect(url);
+  if (url.host === 'blog.reclaimprotocol.org') {
+    return NextResponse.redirect(`https://reclaimprotocol.org/blog${url.pathname}`);
   }
   
   return NextResponse.next();
