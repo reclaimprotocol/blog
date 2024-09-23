@@ -44,7 +44,7 @@ export function MainPostItem({
               color: "transparent",
             }}
             sizes="(max-width: 768px) 30vw, 33vw"
-            src={img}
+            src={'/blog/' + img}
           />
         </Link>
       </div>
@@ -90,6 +90,7 @@ export function PostItem({
   tags,
 }: PostItemProps) {
   return (
+
     <div className="group cursor-pointer">
       <div className=" overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105dark:bg-gray-800">
         <Link className="relative block aspect-square" href={"/" + slug}>
@@ -106,7 +107,7 @@ export function PostItem({
               color: "transparent",
             }}
             sizes="(max-width: 768px) 30vw, 33vw"
-            src={img}
+            src={'/blog/' + img}
           />
         </Link>
       </div>
