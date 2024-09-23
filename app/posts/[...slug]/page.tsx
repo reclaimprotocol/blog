@@ -28,10 +28,8 @@ export async function generateMetadata({
   if (!post) {
     return {};
   }
-
   const ogSearchParams = new URLSearchParams();
   ogSearchParams.set("title", post.title);
-
   return {
     title: `${post.title} | ${siteConfig.name}`,
     description: post.description,
@@ -43,7 +41,7 @@ export async function generateMetadata({
       url: post.slug,
       images: [
         {
-          url: `/api/og?${ogSearchParams.toString()}`,
+          url: post.img ? siteConfig.url + post.img : "",
           width: 1200,
           height: 630,
           alt: post.title,
@@ -54,7 +52,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [`/api/og?${ogSearchParams.toString()}`],
+      images: [post.img ? siteConfig.url + post.img : ""],
     },
   };
 }

@@ -1,11 +1,11 @@
 export const siteConfig = {
   name: "Reclaim Protocol",
-  url: "https://example.com",
+  url: "https://blog.reclaimprotocol.org",
   description: "Blogs",
-  author: "hexclanlabs",
+  author: "Reclaim Protocol",
   links: {
-    github: "https://github.com/hexclanlabs",
-    site: "http://hexclanlabs.github.io/",
+    github: "https://github.com/reclaimprotocol",
+    site: "https://blog.reclaimprotocol.org"
   },
 };
 
