@@ -9,6 +9,7 @@ export function middleware(request: NextRequest) {
     url.protocol = 'https';
     url.port = '443';
     url.host = 'reclaimprotocol.org';
+    url.hostname = 'reclaimprotocol.org';
     url.pathname = `/blog${url.pathname}`;
     return NextResponse.redirect(url);
   }
