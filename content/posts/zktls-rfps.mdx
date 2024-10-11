@@ -54,6 +54,29 @@ _maybe make money by putting ads in unclaimed land_
 
 Providers you can use : `Github - contributions #91d9a218`, `Stackoverflow Reputation #9640cb3e`, `Codeforces Contributions #9ec0e38d`, `Leetcode Reputation #e9e195f9`
 
+## Bite sized prediction marketplace
+[h/t Kyle Samani](https://x.com/KyleSamani/status/1844772950773530938)
+
+Create pools for people to bet on, where they can choose only from two options. 
+Create pool
+- Create a provider on dev.reclaimprotocol.org with exactly one output variable for each pool
+- Add Question that will be shown to the user
+- Two acceptable values of above output variable
+- Timestamp at which the bet will be settled with a buffer of one hour
+
+Bet
+- Send money to a hot wallet
+- Bet on either option, by paying a price automatically from the hot wallet
+- Price of bet keeps increasing with each bet
+- At one time, you can place only one bet. To bet more money, tap "bet" more times, and pay the current price.
+- Let people see the details of the provider to build trust that the right data source is used for settling the bet.
+- All the money escrowed in a smart contract
+
+Settle
+- If current timestamp greater than pool's timestamp, generate a proof of response for the Reclaim provider using [zkFetch](https://docs.reclaimprotocol.org/zkfetch)
+- If value of the output variable is option 1, distribute (pool for option 1 + pool for option 2) evenly among all that bet option 1
+- Everything happens on a smart contract
+
 # Ideas for Indie Hackers
 ## Verified Resume
 - Let people connect sources like github, stackoverflow, university, current job, national ID
