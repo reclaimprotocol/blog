@@ -1,0 +1,74 @@
+---
+title: Enhancing Security by Moving an IV to a Public Input
+description: Discover how a small tweak significantly enhances 
+  the security and reliability of Reclaim Protocol, making it 
+  more resilient against tampering without impacting performance.
+date: 2024-10-10
+tags: ["ZKTLS", "ZK", "SECURITY"]
+img: "/posts/iv_to_public.png"
+author: Kirill Kutsenok
+published: false
+---
+
+We are excited to announce a significant security update to our protocol, 
+designed to improve the robustness of our Zero-Knowledge proof mechanism for TLS ciphertext. 
+This new improvement strengthens the way the claims are proven during each session 
+and effectively reduces the risk of tampering, all without impacting performance!
+
+## What is an IV?
+
+In cryptography, an Initialization Vector (IV) is a random (or pseudo-random) value 
+used to ensure that encrypting the same plaintext multiple times with the same key 
+produces different ciphertexts. It adds an extra layer of randomness, 
+preventing attackers from detecting patterns in the encrypted data. 
+IVs are especially important in block ciphers, where they help maintain 
+the uniqueness of encryption for each session or message. In the case of TLS, 
+IV consists of two parts : a part randomly generated in the beginning 
+and remaining constant across all IV values during encryption, and the counter part.
+
+## What is New?
+
+Previously, Reclaim Protocol generated independent proofs for each chunk of TLS ciphertext. 
+The initial ciphertext was divided into chunks (the size of the block in the block cipher), 
+and proofs for different chunks were created and verified independently. 
+While this method worked and did not raise any practical security concerns, it raised theoretical concerns 
+about the integrity of the connection between different chunks. 
+With our latest update, a verifier can be sure that different proofs are connected to each other, 
+and so this gap is now closed.
+
+The new update introduces circuits that require a 12-byte nonce as public input, 
+adding up to a **128-bit value** calculated on the attestor side. 
+This value is derived from a single source per session and acts as a bridge 
+between different chunks inside a single proof. Essentially, this nonce value is now a public input in the ZK circuits.
+
+## Why This Matters
+
+Previously, blocks within a TLS session lacked a formal connection beyond the ciphertext itself, 
+leaving a (theoretical) vulnerability for attackers to exploit by creating partial collisions. 
+This means that, theoretically, a malicious user could generate a different data chunk 
+whose ciphertext matched the one sent by the website. But now, with the addition 
+of verification of IV by the attestor, each plaintext (and hence, the proof) is inherently bound 
+to the session and can be seen as a whole.
+
+In simpler terms, an attacker would now need to brute-force an additional 128 bits 
+to break the connection between the blocks, and hence, forge a proof. 
+This added computational burden makes the protocol much more secure, 
+reducing the risk of tampering or manipulation during transmission.
+
+## Zero Performance Impact
+
+A major highlight of this update is that it significantly boosts security 
+**without adding any computational overhead**. The only change is that 
+the IV is now a public parameter in the ZK circuits, meaning you get enhanced security 
+**at no extra cost**. On the other hand, brute-forcing the additional 128 bits 
+requires exponentially more work, drastically increasing the difficulty for attackers 
+while leaving protocol performance intact.
+
+## Conclusion
+
+This update represents a significant leap in the security of our protocol. 
+By ensuring that each proof is linked to its session through the value of IV, 
+we’ve added an extra layer of protection that tightly binds all data chunks together. 
+This change will prevent attackers from finding collisions, 
+making the protocol much more resilient to manipulation. 
+[Check it out yourself!](https://github.com/reclaimprotocol)
