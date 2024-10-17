@@ -16,7 +16,7 @@ export default function Home() {
           </ul>
           <div className="flex justify-center">
             <Button variant="outline">
-              <Link href="/posts">View all posts</Link>
+              <Link href="./posts">View all posts</Link>
             </Button>
           </div>
         </main>

@@ -29,7 +29,7 @@ export function MainPostItem({
   return (
     <div className="group cursor-pointer">
       <div className=" overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105 dark:bg-gray-800">
-        <Link className="relative block aspect-video" href={"/" + slug}>
+        <Link className="relative block aspect-video" href={slug}>
           <img
             alt="Thumbnail"
             fetchPriority="high"
@@ -44,7 +44,7 @@ export function MainPostItem({
               color: "transparent",
             }}
             sizes="(max-width: 768px) 30vw, 33vw"
-            src={img}
+            src={'/blog' + img}
           />
         </Link>
       </div>
@@ -58,14 +58,14 @@ export function MainPostItem({
         </div>
         <div className={!tagCheck ? "mt-4" : ""}>
           <h2 className="text-lg font-semibold leading-snug tracking-tight mt-4 dark:text-white">
-            <Link href={"/" + slug}>
+            <Link href={slug}>
               <span className="bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900">
                 {title}
               </span>
             </Link>
           </h2>
           <div className="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400">
-            <Link href={"/" + slug}>
+            <Link href={slug}>
               <div className="flex items-center gap-3">
                 <span className="truncate text-sm">{author}</span>
               </div>
@@ -90,9 +90,10 @@ export function PostItem({
   tags,
 }: PostItemProps) {
   return (
+
     <div className="group cursor-pointer">
       <div className=" overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105dark:bg-gray-800">
-        <Link className="relative block aspect-square" href={"/" + slug}>
+        <Link className="relative block aspect-square" href={slug}>
           <img
             alt="Thumbnail"
             decoding="async"
@@ -106,7 +107,7 @@ export function PostItem({
               color: "transparent",
             }}
             sizes="(max-width: 768px) 30vw, 33vw"
-            src={img}
+            src={'/blog' + img}
           />
         </Link>
       </div>
@@ -120,14 +121,14 @@ export function PostItem({
         </div>
         <div className={!tagCheck ? "mt-4" : ""}>
           <h2 className="text-lg font-semibold leading-snug tracking-tight mt-2 dark:text-white line-clamp-1">
-            <Link href={"/" + slug}>
+            <Link href={slug}>
               <span className="bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900">
                 {title}
               </span>
             </Link>
           </h2>
           <div className="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400">
-            <Link href={"/" + slug}>
+            <Link href={slug}>
               <div className="flex items-center gap-3">
                 <span className="truncate text-sm">{author}</span>
               </div>

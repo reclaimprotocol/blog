@@ -5,8 +5,6 @@ import "./globals.css";
 import "katex/dist/katex.min.css";
 import { siteConfig } from "@/config/site";
 import { Providers } from "@/components/providers";
-import SiteNavigation from "@/components/common/site-nav";
-import SiteFooter from "@/components/common/site-footer";
 import PrimarySiteNav from "@/components/common/primary-site-nav";
 import PrimarySiteFooter from "@/components/common/primary-site-footer";
 
@@ -44,13 +42,19 @@ export default function RootLayout({
       className={cx(inter.variable, lora.variable)}
       suppressHydrationWarning
     >
+      {/* TODO: Remove this and setup proper redirects */}
+      <script dangerouslySetInnerHTML={{
+        __html: `
+        if (window.location.host === "blog.reclaimprotocol.org") {
+          window.location.href = 'https://reclaimprotocol.org/blog' + window.location.pathname
+        }
+        `
+      }} />
       <body className="antialiased text-gray-800 dark:bg-black dark:text-gray-400">
         <Providers>
-          {/* <SiteNavigation /> */}
           <PrimarySiteNav />
           <main>{children}</main>
           <PrimarySiteFooter />
-          {/* <SiteFooter /> */}
         </Providers>
       </body>
     </html>

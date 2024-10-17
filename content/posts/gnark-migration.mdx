@@ -35,7 +35,7 @@ integrity of the user's interactions without accessing plaintext data. For those
 interested in the technical specifics of these cryptographic methods, please refer 
 to our <a href="https://www.reclaimprotocol.org/whitepaper" target="_blank" rel="noopener">whitepaper</a> for more detailed information.
 
-![Zero-Knowledge Proof Diagram](/posts/gnark-migration/attestor-flow.png)
+![Zero-Knowledge Proof Diagram](/blog/posts/gnark-migration/attestor-flow.png)
 
 *Figure 1: Simplified diagram of proof generation in Reclaim Protocol*
 
@@ -66,8 +66,8 @@ reliability, performance, and scalability of our mobile applications. It became
 clear that to improve user experience and support more complex proofs, we needed 
 to find an alternative solution.
 
-<Image
-  src="/posts/gnark-migration/change.gif"
+<img
+  src="/blog/posts/gnark-migration/change.gif"
   alt="change gif"
   width={1920}
   height={1080}
@@ -100,7 +100,7 @@ The development team has reportedly addressed many of the issues we experienced,
 performance has improved considerably. We remain open to revisiting RapidSNARK in the 
 future to see if it can offer benefits that align with our requirements.
 
-![swipe](/posts/gnark-migration/swipe-left.gif)
+![swipe](/blog/posts/gnark-migration/swipe-left.gif)
 
 ### Why We Chose gnark
 
@@ -142,11 +142,11 @@ We've already open-sourced these optimized circuits!
 You can check them out and contribute at 
 <a href="https://github.com/reclaimprotocol/gnark-symmetric-crypto" target="_blank" rel="noopener">{"https://github.com/reclaimprotocol/gnark-symmetric-crypto"}</a>.
 
-![swipe](/posts/gnark-migration/gnark-oss.png)
+![swipe](/blog/posts/gnark-migration/gnark-oss.png)
 
 ## Adjusting Mobile Architecture
 
-![gnarkprover_explaination](/posts/gnark-migration/gnarkprover_explaination.png)
+![gnarkprover_explaination](/blog/posts/gnark-migration/gnarkprover_explaination.png)
 
 In this setup, proof generation has been moved from the webview to native libraries 
 for better performance and efficiency:
@@ -171,7 +171,7 @@ resource usage.
 
 ## Challenges and Solutions AKA The Hard Parts 😬
 
-![problems](/posts/gnark-migration/problems.webp)
+![problems](/blog/posts/gnark-migration/problems.webp)
 
 Throughout our transition to gnark, we encountered several significant technical 
 challenges. Here's a few of them:
@@ -179,7 +179,7 @@ challenges. Here's a few of them:
 ### 1. Native Library Size and App Clip Limitations
 
 <div style={{ display: 'flex', justifyContent: 'center' }}>
-  <img src="/posts/gnark-migration/huge-o.gif" alt="size" />
+  <img src="/blog/posts/gnark-migration/huge-o.gif" alt="size" />
 </div>
 
 In our initial implementation, we embedded the cryptographic circuits directly into 
@@ -204,7 +204,7 @@ native Go library in a debug build, the app would freeze. This issue took consid
 time and effort to diagnose, as it wasn't immediately clear what was causing the freeze.
 
 <img 
-  src="/posts/gnark-migration/freeze.webp" 
+  src="/blog/posts/gnark-migration/freeze.webp" 
   alt="freeze" 
   style={{ width: '100%', maxWidth: '100%', display: 'block' }}
 />
@@ -233,7 +233,7 @@ with gnark, making the process much faster and more efficient.
 You can see some of our benchmarks in the video below!
 
 <video
-  src="/posts/gnark-migration/comp-1.mp4"
+  src="/blog/posts/gnark-migration/comp-1.mp4"
   controls
   muted
   loop
@@ -247,7 +247,7 @@ You can see some of our benchmarks in the video below!
 </figcaption>
 
 <video
-  src="/posts/gnark-migration/comp-2.mp4"
+  src="/blog/posts/gnark-migration/comp-2.mp4"
   controls
   muted
   loop
@@ -267,8 +267,8 @@ Now, we can generate proofs for up to 100 blocks without significant performance
 
 ### Charts for Nerds
 
-![chart](/posts/gnark-migration/chart-1.png)
-![chart](/posts/gnark-migration/chart-2.png)
+![chart](/blog/posts/gnark-migration/chart-1.png)
+![chart](/blog/posts/gnark-migration/chart-2.png)
 
 ## Looking Ahead
 
