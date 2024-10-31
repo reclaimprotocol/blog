@@ -1,0 +1,39 @@
+---
+title: Deployed on Starkware
+description: Announcing general availability of verifying Reclaim ZKTLS on Starkware 
+date: 2024-01-22
+tags: ["Onchain", "Starkware"]
+author: Madhavan Malolan
+img: "/posts/20.jpg"
+published: true
+---
+
+Today we are proud to announce that we're live on Starkware.  Developers can [build exciting applications](https://reclaimprotocol.org/blog/posts/zktls-rfps) that connects web2 activity and web3 credentials, at [high throughput](https://x.com/Starknet/status/1851499376142926005).
+
+Integration steps and libraries can be found [here](https://github.com/reclaimprotocol/reclaim-starknet-sdk).
+
+This is especially emotional, because of the back story.
+
+# Identity for Pseudonyms
+In 2021, a lot of developers were (still are) applying web3 grants on [Questbook](https://questbook.app). Again and again, we heard developers saying we want to apply to these grants, but want to do so pseudonymously. But the grant managers were like "these developers are claiming they worked at Google, contributed to ethereum core repos, how do we know for sure?". 
+
+# Racial discrimination
+To receive a grant, the developers had to do KYC anyway. So they would get doxxed, and verification can happen at that stage. 
+But in a research that we did, the reasons for staying pseudonymous was surprisingly - racial discrimination. The devs claimed that they don't get a fair evaluation if their race is known to the evaluator. So they want to keep that hidden until the last moment. 
+
+# Custodians of credentials
+We started looking at [various solutions](https://mirror.xyz/madhavanmalolan.eth/274ZN3mmz6_TxHJJHMMhZ2ZRzSadhaFVTaNQjsG7oJk), later realizing its flaws. 
+In the end we decided to become custodians of the information ourselves. So the devs doxxed themselves to us, and then we would share verified information to the grant managers. 
+But very quickly we realized, it was too much friction to convince the developers that we won't be sharing the raw data with the grant managers. Many developers decided to use Gitcoin's quadratic funding, instead  of fighting what they saw as a losing battle. Putting up a grant proposal is non trivial work.
+
+# Eli saves the day
+I was discussing this problem with Eli at (i think) SBC. And he mentioned in 2022, to look at generating zkproofs of credentials using web2 credentials. Pointing at using HTTPS Certificates to create a proof - this is May 2022. The Deco paper existed well before this conversation, but was not on my radar at the time. I discovered Deco only after going down this rabbithole suggested by the Starkware folks. 
+
+![Eli's chat](/blog/posts/starkware-special/eli.png)
+![Ohad's chat](/blog/posts/starkware-special/ohad.png)
+
+
+# Deploying on Starkware
+Us deploying smart contracts to verify these proofs on chain so that dapps can actually use this - is us coming a full circle. 
+
+This post is a special thanks to Eli and Ohad from Starkware for seeding this idea.
