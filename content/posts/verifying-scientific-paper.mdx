@@ -1,0 +1,247 @@
+---
+title: "Verifying Scientific Paper Authorship with Zero Knowledge Proofs"
+description: "A deep dive into using Reclaim Protocol to cryptographically verify academic paper authorship across platforms like Arxiv and Science.org"
+date: 2024-12-12
+tags: ["Zero Knowledge Proofs", "Blockchain", "Academic Verification", "Cryptography"]
+img: ""
+author: Scott Brown
+published: false
+---
+
+# Verifying Scientific Paper Authorship with Zero Knowledge Proofs
+
+In the academic world, proving authorship of scientific papers traditionally relies on trust and institutional verification. But what if we could prove our scholarly contributions in a cryptographically secure way? This is where Zero Knowledge Proofs (ZKPs) come into play.
+
+## The Challenge of Academic Verification
+
+Arxiv, the renowned open-access repository, hosts millions of scholarly articles across mathematics, physics, computer science, and other scientific disciplines. While it's an invaluable resource for academic sharing, verifying authorship for specific use cases (like exclusive platforms or communities) has been challenging.
+
+> Traditional methods, such as screenshots of account pages or PDF downloads, are susceptible to manipulation and don't provide cryptographic certainty. This is where modern blockchain technology and zero-knowledge proofs offer an elegant solution.
+[https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F3ec06bed-0ba2-4686-8bbc-0e208f61caee_1915x906.png]
+
+## Enter Reclaim Protocol
+
+Reclaim Protocol provides a revolutionary approach to verify academic credentials without compromising privacy or security. Here's how it works:
+
+[https://drive.google.com/file/d/1KLC3GhbyOkz6iHlNb-iFwncrU1v4D6sT/view?usp=drive_link]
+
+### The Verification Process
+
+1. **Paper Submission**
+   - Users enter the URL of their published paper on our platform
+
+2. **QR Authentication**
+   - Using the Reclaim Verifier mobile app, users scan a generated QR code
+
+3. **Secure Login**
+   - The app guides users through logging into their Arxiv account securely
+
+4. **ZK Proof Generation**
+   - Once logged in, the Verifier app automatically:
+     - Captures the paper information from the account page
+     - Generates a zero-knowledge proof of the data
+     - Ensures privacy while maintaining verifiability
+
+5. **Verification**
+   - The platform verifies the proof and confirms the user's authorship claim
+
+### Implementation Across Platforms
+
+This verification system isn't limited to Arxiv. We've implemented similar functionality for:
+
+| Platform | Status | Features |
+|----------|---------|----------|
+| Arxiv | ✅ Live | Full paper verification |
+| Science.org | ✅ Live | Author verification |
+| Google Scholar | 🚧 Beta | Citation tracking |
+
+Each platform requires its specific provider ID and custom HTML parsing logic, but the core verification process remains consistent.
+### Technical Implementation
+
+The implementation leverages the Reclaim Protocol's JavaScript SDK, providing a seamless integration for web applications. The process involves:
+
+- Initializing the Reclaim client with platform-specific provider IDs
+- Generating QR codes for mobile verification
+- Processing and validating zero-knowledge proofs
+- Extracting and verifying paper information
+
+Here are some code snippets to help your understand the process:
+
+#### Arxiv Implementation
+
+```typescript
+const parseArxivHtml = (htmlString: string) => {
+  try {
+    // Parse the JSON string containing HTML content
+    const parsedData = JSON.parse(htmlString);
+    const allRowsHtml = parsedData.paramValues.allrows;
+
+    // Create DOM parser to process HTML
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(allRowsHtml, 'text/html');
+
+    // Extract papers array
+    const papers: ArxivPaper[] = [];
+    const cells = doc.querySelectorAll('a');
+
+    // Filter for valid arxiv paper links
+    const paperLinks = Array.from(cells).filter(link => {
+      return link.href.match(/https:\/\/arxiv\.org\/abs\/\d+\.\d+/) && 
+             !link.innerHTML.match(/[0-9]+\.[0-9]+/);
+    });
+
+    // Build papers array
+    paperLinks.forEach(link => {
+      papers.push({
+        title: link.innerText || '',
+        url: link.href
+      });
+    });
+
+    return papers;
+  } catch (error) {
+    console.error('Error parsing ArXiv HTML:', error);
+    return [];
+  }
+};
+
+const getVerificationReqForAxiv = async () => {
+    setStep("scan");
+    setPlatform("arxiv");
+    try {
+      // Initialize the Reclaim client for ArXiv
+      // To get the APP_ID and APP_SECRET, you need to create a new app in the Reclaim dashboard
+      // The Arxiv Provider Id is in the 'Explore Providers' section of the dashboard
+      const reclaimClient = await ReclaimProofRequest.init(
+        APP_ID,
+        APP_SECRET,
+        ARXIV_PROVIDER_ID,
+        { log: false, acceptAiProviders: true }
+      );
+
+      // The requestUrl is the URL that the user needs to visit(through the QR code) to start the verification process
+      const requestUrl = await reclaimClient.getRequestUrl();
+      console.log("requestUrl", requestUrl);
+      // The statusUrl is the URL that the user can visit to check the status of the verification process
+      const statusUrl = await reclaimClient.getStatusUrl();
+      console.log("statusUrl", statusUrl);
+      // Set the QR code URL to the requestUrl
+      setQrUrl(requestUrl);
+      // Start the verification process
+      await reclaimClient.startSession({
+        onSuccess: async (proof) => {
+          // The proof is the proof that the user has successfully generated in the Verifier app
+          const htmlContent = (proof as Proof).claimData.parameters;
+          // Parse the HTML content to get the papers
+          const extractedPapers = parseArxivHtml(htmlContent);
+          // Set the papers to the extracted papers
+          setPapers(extractedPapers);
+          
+          // Check if the user is the owner of the paper
+          const isPaperOwner = extractedPapers.some(paper => paper.url === url);
+          console.log(extractedPapers, isPaperOwner);
+          if (isPaperOwner) {
+            toast.success("You have successfully claimed that you're the owner of the paper.");
+          } else {
+            toast.error("You're not the owner of the paper.");
+          }
+        },
+        onError: (error) => {
+          toast.error("Verification failed");
+          console.log("error", error);
+        },
+      });
+    } catch (error) {
+      console.error("Error in getVerificationReqForAxiv", error);
+    }
+  };
+```
+
+Similar goes with the Science.org and Google Scholar Provider:
+
+```typescript
+const parseScienceHtml = (jsonString: string) => {
+  try {
+    const parsedData = JSON.parse(jsonString);
+    // Science.org returns a nested JSON structure
+    const articles = JSON.parse(parsedData.paramValues.allarticles);
+    return articles;
+  } catch (error) {
+    console.error('Error parsing Science HTML:', error);
+    return [];
+  }
+};
+const getVerificationReqForScience = async () => {
+    setStep("scan");
+    setPlatform("science");
+    try {
+      // Initialize the Reclaim client for Science
+      // The Science Provider Id is in the 'Explore Providers' section of the dashboard
+      const reclaimClient = await ReclaimProofRequest.init(
+        APP_ID,
+        APP_SECRET,
+        SCIENCE_PROVIDER_ID, // Notice the change in provider id.
+        { log: false, acceptAiProviders: true }
+      );
+      // The requestUrl is the URL that the user needs to visit(through the QR code) to start the verification process
+      const requestUrl = await reclaimClient.getRequestUrl();
+      // The statusUrl is the URL that the user can visit to check the status of the verification process
+      const statusUrl = await reclaimClient.getStatusUrl();
+      console.log("requestUrl", requestUrl);
+      console.log("statusUrl", statusUrl);
+      // Set the QR code URL to the requestUrl
+      setQrUrl(requestUrl);
+      // Start the verification process
+      await reclaimClient.startSession({
+        onSuccess: async (proof) => {
+          // The proof is the proof that the user has successfully generated in the Verifier app
+          const htmlContent = (proof as Proof).claimData.parameters;
+          // Parse the HTML content to get the papers
+          const extractedPapers = parseScienceHtml(htmlContent);
+          // Set the papers to the extracted papers
+          setPapers(extractedPapers);
+          
+          // Check if the user is the owner of the paper
+          const isPaperOwner = extractedPapers.some((paper: SciencePaper) => paper.articleUUID === url.split('/').pop());
+          console.log(extractedPapers, isPaperOwner);
+          if (isPaperOwner) {
+            toast.success("You have successfully claimed that you're the owner of the paper.");
+          } else {
+            toast.error("You're not the owner of the paper.");
+          }
+        },
+        onError: (error) => {
+          toast.error("Verification failed");
+          console.log("error", error);
+        },
+      });
+    } catch (error) {
+      console.error("Error in getVerificationReqForAxiv", error);
+    }
+  };
+```
+
+What's Captured in the Proof?
+
+When using the Reclaim Protocol, the proof captures an HTML snapshot of the user's account page. This includes:
+
+For parsing out only the tag with necessary information, we’re using regex.
+
+```typescript
+const paperLinks = Array.from(cells).filter(link => {
+        return link.href.match(/https:\/\/arxiv\.org\/abs\/\d+\.\d+/) && !link.innerHTML.match(/[0-9]+\.[0-9]+/);
+      });
+
+paperLinks.forEach(link => {
+   papers.push({
+      title: link.innerText || '',
+      url: link.href
+    });
+});
+```
+
+This piece of code will only filter out the highlighted elements in the following picture and transform them into a JSON array.
+
+That’s it.
+
+For developers interested in implementing this solution, you can find complete code examples and documentation in our GitHub repository.
