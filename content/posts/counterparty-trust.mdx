@@ -1,0 +1,37 @@
+title: AI Counterparty Trust
+description: Crypto gives super powers to AI
+date: 2024-11-26
+tags: ["Narrative", "Usecases]
+img: "/posts/03.jpg"
+author: Madhavan Malolan
+published: false
+---
+
+Crypto is often seen as a technology to keep AI in check. But verifiability, often times achieved by means of cryptography, gives AI super powers. 
+
+AI is already good at being a personal AI - as long as you are willing to accept the trust on OpenAI and Anthropic to be not running models specifically intending to harm you. Also, you must accept the loose privacy protection provided by the said model providers. For most practical usecases _today_, this is a reasonable trust assumption. 
+
+# Garbage in Garbage out
+Most of the usecases we see today are in the category of garbage-in-garbage-out usecases. For example, if you are using chatgpt to plan your trip -- and you give preferences that do not reflect your actual tastes, you get a plan that is not to your taste. There is no incentive for you to feed "garbage" input.
+
+# Counterparty Trust Systems
+If you can talk to an AI and prompt engineer it to take action in your favour, and at the loss of another user or organization, there is a strong incentive for you to try and cheat. These may be called Counterparty Trust Systems -- that is, systems that require counterparty trust. 
+
+We have seen experiments like [Freysa](https://freysa.ai) which have demonstrated that AI can be tricked into taking action via just prompts.
+
+## AI Courtroom
+For example, imagine an AI courtroom. Where both counterparties involved in a dispute share evidences with the judge. These evidences are opportunities for either parties to prompt engineer the AI judge to make a ruling in their favour. Obviously, that's bad. In such cases, you need verifiability. Verifiability may come from trusted api-endpoints or cryptographic proofs. Imagine evidences provided in court being not just screenshots, but screenshots along with a cryptographic zkTLS proof of authenticity integrity. Only if the evidences are authentic and not tampered with, will the AI judge even consider them. Thereby, both the parties can trust that they aren't being prompt engineered to a loss.
+
+## More examples
+Other examples include an AI hiring manager [screening candidates](https://bluecheq.io), or an AI [grant manager](https://questbook.app), an AI city/national administrator, an AI bank underwriting loans.
+
+# Open ended verifiability
+AI is powerful because you can talk to it in various ways, unlike a rule based chatbot. The power is in the open endedness. If we want to preserve the openendedness of AI in Counterparty Trust Systems, we need to have an openended verifiability framework.
+
+Signatures with published public keys are one example. Anyone can publish information, and the source is known. This information can then be used by the AI that can then use this information, given that it trusts the source signer. 
+
+Until there is more signed data in the world, the next best technology we have today is [zkTLS](https://telah.vc/zktls). With zkTLS you can convert every website into an authentic source and ensure tamper resistance cryptographically. 
+
+# Bullish
+I'm incredibly bullish on AI Counterparty Trust Systems launching in 2025 and improving the efficiency of the world we live in -- cutting out the inefficient/greedy/malicious middlemen.
+
