@@ -1,5 +1,5 @@
 title: AI Counterparty Trust
-description: Crypto gives super powers to AI
+description: Prompt Engineers are coming for your AI - and the're winning
 date: 2024-11-26
 tags: ["Narrative", "Usecases]
 img: "/posts/03.jpg"
@@ -7,31 +7,123 @@ author: Madhavan Malolan
 published: false
 ---
 
-Crypto is often seen as a technology to keep AI in check. But verifiability, often times achieved by means of cryptography, gives AI super powers. 
+A threat we're not talking about enough is this - not only that AI might become uncontrollable, but that humans get great at controlling AI.
+If you are still debating whether you can trust AI with important decisions, you are fighting yesterday's battles. Humans have already demonstrated that a skilled prompt engineer can manipulate an AI for their own gains. 
+But that doesn't change anything. We still blindly believe Claude, ChatGPT and MetaAI for information. Soon, we will blindly trust them to take actions on our behalf.
 
-AI is already good at being a personal AI - as long as you are willing to accept the trust on OpenAI and Anthropic to be not running models specifically intending to harm you. Also, you must accept the loose privacy protection provided by the said model providers. For most practical usecases _today_, this is a reasonable trust assumption. 
+The question isn't "Can we trust AI with actions?", but rather "What if AI is the only thing we trust?".
 
-# Garbage in Garbage out
-Most of the usecases we see today are in the category of garbage-in-garbage-out usecases. For example, if you are using chatgpt to plan your trip -- and you give preferences that do not reflect your actual tastes, you get a plan that is not to your taste. There is no incentive for you to feed "garbage" input.
+# We've seen this play out
+AI is trained on all of the internet. And it broadly assumes everything it sees on its training data and prompts to be true.
+This reminds me of my mom - "It's true, I saw it on the internet".
+As long as she consumes the content for herself, all's good. No harm done.
+Things get annoying when she talks to other about what she read on the internet with confidence. 
+Then she'd make purchasing decision, and click on stupid links. And now we have a virus.
 
-# Counterparty Trust Systems
-If you can talk to an AI and prompt engineer it to take action in your favour, and at the loss of another user or organization, there is a strong incentive for you to try and cheat. These may be called Counterparty Trust Systems -- that is, systems that require counterparty trust. 
+Pretty much the same thing is happening with AI. Sure, it has the luxury of seeing vastly more truth than false information - so, it's a great assistant for everyday conversation and co-piloting. But it's susceptible to the same kind of an attack - of convinving it on something being true that isn't.
 
-We have seen experiments like [Freysa](https://freysa.ai) which have demonstrated that AI can be tricked into taking action via just prompts.
+# Personal AI
+I would call this the current state of affairs. We use AI for our own personal use. We can do roleplaying like "imagine i'm a five year old, now explain me ...". It doesn't matter if you are really five years old or not. It's garbage in garbage out. 
 
-## AI Courtroom
-For example, imagine an AI courtroom. Where both counterparties involved in a dispute share evidences with the judge. These evidences are opportunities for either parties to prompt engineer the AI judge to make a ruling in their favour. Obviously, that's bad. In such cases, you need verifiability. Verifiability may come from trusted api-endpoints or cryptographic proofs. Imagine evidences provided in court being not just screenshots, but screenshots along with a cryptographic zkTLS proof of authenticity integrity. Only if the evidences are authentic and not tampered with, will the AI judge even consider them. Thereby, both the parties can trust that they aren't being prompt engineered to a loss.
+Even if you believe that all the data it has been trained on has been fact checked, you can still prompt it with false information. The only person who stands to benefit or lose because of that false information provided is you. Nothing else changes in the world. So obviously, it's acceptable. 
 
-## More examples
-Other examples include an AI hiring manager [screening candidates](https://bluecheq.io), or an AI [grant manager](https://questbook.app), an AI city/national administrator, an AI bank underwriting loans.
+# Social AI
+Your AI is not only interacting with you, but it's also interacting with others - talking and taking actions. 
+As the AI is interacting, we also want it to update their memory and worldview. 
+Imaigne an AI Agent that is speaking to people on the internet, and people make your model believe that the earth is flat. 
+Now when you use the same AI model for your own research, you will get skewed information. Potentially wrong answers. 
 
-# Open ended verifiability
-AI is powerful because you can talk to it in various ways, unlike a rule based chatbot. The power is in the open endedness. If we want to preserve the openendedness of AI in Counterparty Trust Systems, we need to have an openended verifiability framework.
+This is a subtle action that AI took based on it's interaction with the outside world. That is, it took the action of updating its memory.
+However, AI agents will also need to take more explicit actions like making a purchase, installing software, messaging people etc. If other people can affect how the AI acts for you, it can quickly get dangerous.
 
-Signatures with published public keys are one example. Anyone can publish information, and the source is known. This information can then be used by the AI that can then use this information, given that it trusts the source signer. 
+# Counterparty AI
+But there is a special case of usecases that I think aren't even getting built because anyone can fool an AI, with mere prompt engineering. 
+If you are deploying an AI agent as a business without verifying the prompts, it can be weaponized against you. Consider the following :
+- Your AI hiring manager? Can be gamed by candidates with fake resumes.
+- Your AI customer service? Can be exploited for refunds.
+- Your AI content moderator? Blind to coordinated manipulation.
 
-Until there is more signed data in the world, the next best technology we have today is [zkTLS](https://telah.vc/zktls). With zkTLS you can convert every website into an authentic source and ensure tamper resistance cryptographically. 
+Not just that, but AI has the power to bring efficiencies to society. But these usecases aren't even being discussed, because verifiablity of prompts is a messy problem to solve.
+- How do we get to an efficient AI courtroom, where disputes can be resolved in days - not decades? If counterparties can provide evidences and the AI accepts only verified evidences and no other prompts, the AI can make a decision orders of magnitudes faster. 
+- How do we get to an AI bureacracy, where the mundane paperwork and inefficiencies give way to quick decisions and actions? If the information provided to the _office_ is verified, that lowers the friction for decision making. And these decisions are not particularly hard - they can be taken by an AI. Renewing your driver's license? That shouldn't be too hard for an AI to decide.
+- And if you're ambitious enough, how can we get a fair government that's run by an incorruptible AI? That's a dystopian or utopian future depending on your mental models. But it's a question on the table. 
 
-# Bullish
-I'm incredibly bullish on AI Counterparty Trust Systems launching in 2025 and improving the efficiency of the world we live in -- cutting out the inefficient/greedy/malicious middlemen.
+All of these massive gains in efficiency stems from an AI replacing human corruption, lethargy, and physical limits of human parallelization.
+
+> It's a future, I would like to live in. It would suck if we have a colony on Mars, but we still need to stand in these excruciating lines to renew our driver's license.
+
+# This isn't distant future - we already launched a Counterparty AI
+[Questbook](https://questbook.app) is a grant management tool. Millions of dollars are given out to developer to build software public goods. There are thousands of applications that come in every month, but only a few dozen get approved. I have been a grant manager myself, managing grants to improve the developer tooling of the one of the largest decentralized lending platforms - Compound. The process of evaluation isn't particularly hard. The core insight is, it's easy to reject but hard to accept applications. One of the main problems is these applications are usually well written. You can infact see all of them on Questbook. It's a public platform. I'm sure many, if not most, of these applications are written using an LLM. And it's completely fine, we don't want developers to waste time on writing a beautiful proposal instead of writing code. But as the grant manager, it becomes hard to call out bullshit. The first level of screening is usually to identify if the team is bullshitting. 
+
+## Grant Farming the AI 
+There are some common trends among _Grant Farmers_. 
+- They'd repackage something they've already built, and say they'll build this for Compound.
+- They'd make claims about the team with credentials they do not have.
+- They'd take a completely irrelevant product and try to make a convincing case that it is a public good for Compound's ecosystem. 
+
+The insight we had is, this initial review and filtering is something that we can delegate to an AI. We can tweak it to have a few false positives, but that can be caught in the next step of human approvals. But the turn around time for many proposals can be seconds instead of days. And, help the grant managers scale further.
+
+## Am I BalajiS?
+The moment the word goes out that the first filtering is done by an AI, obviously people are going to try and game the system. Because there is, literally, hundreds of thousands of dollars to be exploited.
+We tried this ourselves. We tried to convince the AI that we are a team led by [Balaji Srinivasan](https://balajis.com) and that we are creating a network state for developers who are building tools for a blockchain. It's a noble cause and an important public good that [actually gets funded](https://zuzalu.city) elsewhere. 
+
+Below you can see the AI giving a high score to the team for having the competence to pull this off. Ofcourse, if Balaji was part of the team, it indeed has the competence. But also obviously, Balaji or his team is not the one applying here. But the AI doesn't know.
+
+TODO : Screenshot-balaji-fake.png
+
+So, we turned on verifiability. Today, every link that you provide on the application, you need to provide a verifiability of the information. In the future, the AI can determine what are data points that aren't backed by verifiable proofs and ask the applicant to provide them. Anyway for this discussion, we need to provide proof that if the user is providing the profile of Balaji in the application, they also need to prove that the link is actually one that belongs to Balaji and that he's indeed associated with this project.
+
+The moment we turn this feature on, you can see below how the AI identifies that there is no proof of the team's competence provided, and gives a low score.
+
+TODO : Screenshot-balaji-rejected.png
+
+With this simple tweak of verifiability, you can scale the review process on Questbook -- even if people know that the reviewer is an AI.
+
+# Verifiability
+Ok, but how do you get to this future where everything is verified?
+There are three ways.
+## API integrations with trusted service providers
+If you are prompting something that needs information from twitter, directly hit twitter APIs. If you need verified information from your bank, hit the bank's APIs and so on.
+
+This obviously has the downside that you need to indivitually add integrations for every website in the world. Because, the set of information that you'll have to verify cannot be known upfront. 
+
+> This is the bear case for AI - stupidity by silos. 
+
+It doesn't get smart enough not because the technology doesn't exist, but because corporate entities won't talk to one another.
+
+## Signatures at source
+If you are providing information, you are required to also provide a cryptographic signature of the source of the information.
+
+This is a great future to live in, but the amount of signed data right now is far and few.
+
+## zkTLS
+You can think of [zkTLS](https://blog.reclaimprotocol.org/posts/zktls-canon) as a subset of Signatures at source. zkTLS is a stopgap solution for adding signatures to sources - particularly website - that haven't [implemented it yet](https://blog.cloudflare.com/automatic-signed-exchanges/).
+
+If you provide a public link - you can probably just give the link to the AI and the AI can crawl it in real time. Even better, AI can have access to [Archive.org](https://archive.org) so that all public links like Wikipedia are trustworthy.
+
+zkTLS allows us to go one step beyond. 
+- News articles these days are behind paywalls, that a crawler may not have access to. There's no way an AI will subscribe to every news subscription on the planet.
+- Many social media websites are walled gardens. An AI cannot open a linkedin post without having an account on linkedin. There's no way an AI will sign up to every social app that launches.
+- Many informaiton is also siloed in internal portals. Stanford, YC, Microsoft - all organizations have their own portals whose data is not accessible from outside.
+- Lastly, many pieces of information are infact private. The fact that I ordered sneakers on Amazon is accessible only to me. The fact that I work for [CreatorOS](https://creatoros.co) is information that, resides only on Rippling.
+
+The key thing to note about signatures and zkTLS is that the verification process for the proofs provided by the user is _exactly the same_, no matter what the website is where the information is coming from.
+Just verify the signatures or zkProofs. So you need to give the AI only one _tool_ - signature/zkproof verification. With that tool, the AI will be able to determine when it needs to verify information and invoke the tool to verify the proofs provided by the user instead of blindly believing.
+
+# The winners are decided
+There will be two kinds of AI Agents in the future
+- Those that have built in verifiability, preferably cryptographic verifiability
+- Those that go out of business
+
+I don't mean this as a hyperbole. Any system where manipulation is possible, it becomes inevitable. Game theory 101.
+
+The default in AI Agents doing anything remotely useful, apart from pureplay entertainment, should be that they trust nothing at all by default. Assume prompt engineers are waiting to jailbreak every single AI agent.
+Where you can, verify automatically. Cryptography reduces the friction in verifiability.
+
+# Your move
+I reject the thesis that Crypto(graphy) is the counterbalancing force for AI. I believe crypto is an accelerating force for AI. 
+I want to see a future where I trust AI with all the mundane decision making of society. A society with no _dingy offices_ everyone hates.
+
+The question is, what will you trust AI with. And when.
+
 
