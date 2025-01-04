@@ -1,0 +1,65 @@
+---
+title: Addressing Fake Website Attacks
+description: SOME DESC
+date: 2025-01-04
+tags: ["SECURITY"]
+img: "/posts/fake-website-attack.png" 
+author: Kirill Kutsenok
+published: true
+---
+
+One of the most common questions to Reclaim recently is,
+"How do you ensure that the connection is established with a real website?" 
+Indeed, if a malicious User somehow proves a claim using a connection to a fake website 
+(e.g., the one they created), the credibility of such proof is zero. 
+In this blog, we evaluate the security of the Reclaim Protocol against this type of attack.
+
+One can consider 2 cases for the attack described above:
+
+1. The Adversary poisons the DNS of the Website before the connection is established 
+between the Attestor and the Website. In this case, the Website's certificate verification 
+must be carried out by the Attestor. Suppose the Website is not the entity 
+the Attestor expects to see. In that case, this mechanism will prevent this attack 
+since the Adversary cannot sign anything under the honest Website's secret key (tied to the certificate).
+
+2. The Adversary skips the TLS Handshake between the Attestor and the honest Website 
+and intercepts the connection after it (to send data not presented on the honest Website). 
+Let us evaluate how this attack can be carried out and whether it is easy.
+
+First, let us consider the case where the Adversary is the User. This case is the most intuitively relevant since it is in the User's interests to feed some false data to the Attestor, which leads to a false claim being accepted. This means that for now, we can forget about encryption: the User knows the key, so they can encrypt all the messages and decrypt everything they want, pretending these are real messages from the Website. So, the only question is, how can an adversary physically intercept and alter the messages?
+
+Here, an adversary can choose between two approaches: rerouting traffic so that the Attestor (and anyone else) does not notice any changes, attacking one of the transmitting points (e.g., router, switch, gateway, etc.), and sending responses to the Attestor on behalf of the Website from this point. Let us consider each of them further.
+
+## MITM on the Network Path
+
+This approach is more of an "old-school" one: the Adversary compromises specific network devices, such as routers, switches, or gateways, to intercept traffic between the User and the Website. Unlike malicious rerouting of traffic, which operates on a global scale, MITM attacks focus on a particular segment of the network. Since the Adversary (aka malicious User) knows TLS keys, they can now easily see all the traffic and even (potentially) correctly encrypt and send their own packages. However, we can emphasize several difficulties that the Adversary will encounter while trying to execute this attack:
+
+1. Obviously, the first problem is to gain unauthorized access to a router, switch, gateway, or other infrastructure device on the legitimate network path between the Attestor and the Website. These devices are typically secured and often managed by large Internet Service Providers (ISPs), data centres, or enterprise networks with strong security measures. Those measures include but are not limited to authentication (e.g., using hardware tokens), access controls, logging, security monitoring, firewalls, etc. Security operations centres (SOCs) aggregate and analyze logs from routers, firewalls, and switches in real time to detect unusual access patterns or anomalies that would mean a compromised entity.
+
+2. Another issue is that even if the attacker knows TLS keys, maintaining synchronization between the Attestor and the Website is non-trivial. First, the attacker must ensure that their responses reach the Attestor in the expected time frame, mimicking the actual Website's response times. Second, the attacker must accurately track and use package sequence numbers to prevent the session from invalidating. Finally, any discrepancies, such as missing packets, corrupted responses, or timing delays right away cause an alert to the Attestor that something is wrong, breaking the session or at least triggering a security warning. Besides, traffic monitoring tools (like those mentioned above) can also trigger noticing unusual behavior in the network, such as sudden changes in network performance. A simple example of how network delay can appear in this case is the following: the Adversary wants to decrypt the Website's response, change there some data, and encrypt it again. This approach creates a delay that immediately triggers either the Attestor's side or network monitoring tools.
+
+Due to extreme requirements towards an Adversary that carries out this attack, we do not try to address it at the moment and consider it highly unlikely to appear. However, Reclaim Protocol strives to address all possible (even theoretical) attacks, so we leave the security mechanism preventing MITM on the network path as a future research direction.
+
+## Malicious Rerouting of Traffic
+
+First, let us figure out how data is transmitted on the Internet. Namely, how do routers know where to send data to make it reach the target IP? This issue is solved by the Border Gateway Protocol (BGP). It is the routing protocol used to exchange routing information between autonomous systems (AS), which are large networks or groups of networks typically managed by a single organization. Its primary purpose is to determine the best paths for data to travel across the complex, interconnected networks that make up the Internet. BGP works by routers exchanging and updating route information (IP prefixes) with their peers, advertising the networks they can reach and the paths available. This enables robust and scalable internet connectivity by dynamically adapting to changes in the network topology. Special BGP announcements are used to update these routes dynamically. One can send such an announcement stating that all the data that is supposed to be transferred to a specific IP prefix range must be sent to a particular physical router or AS.
+
+An attack that allows an adversary to reroute traffic is widely known as Border Gateway Protocol (BGP) Hijacking. Basically, it works pretty straightforward: a malicious entity sends a dishonest BGP announcement, and all the ASes that receive it must send their traffic that belongs to a specific set of IPs to the freshly advertised route. In other words, if an Attestor is communicating with a real Website with a particular IP address, an adversary can announce that from now on, the traffic intended to reach this IP address must go to a different physical server (thus gaining control of the communication).
+
+BGP hijacking is feasible since the BGP protocol's primary purpose is data transportation. So, there are no mandatory security measures to prevent malicious advertisements in the specification of the BGP protocol. Moreover, this attack has been executed several times, even recently. One of the most recent large attacks was carried out [in 2018 by Russian hackers](https://www.bleepingcomputer.com/news/security/hacker-hijacks-dns-server-of-myetherwallet-to-steal-160-000/#:~:text=Some%20of%20the%20hijacked%20traffic,website%20that%20logged%20private%20keys). They managed to reroute traffic from a real crypto wallet to their fake Website and stole 160k USD.
+
+Now, why Reclaim does not consider this attack as a security threat?
+
+On the one hand, BGP was developed a long time ago, and its primary goal is to provide low latency and higher data transmission speed. So, the security of the network is not BGP's goal. On the other hand, more and more security measures have been implemented to prevent or detect BGP hijacking. The most common among them are:
+
+1. Route Validation with Resource Public Key Infrastructure (RPKI): RPKI helps to protect against BGP hijacking by validating BGP route announcements. When RPKI is enabled, only authorized ASes can advertise routes for specific IP address blocks. This security measure prevents attackers from falsely announcing routes to mislead global Internet routing tables.
+
+2. Traffic Monitoring tools (e.g., [BGPMon](https://www.bgpmon.net/) or [ThousandEyes](https://www.thousandeyes.com/)): advanced traffic monitoring tools can detect abnormal routing patterns or traffic flows, especially in the case of BGP hijacking. They collect and analyze BGP announcements from a global network and BGP route changes in real time. If a route changes unexpectedly or a new AS announces ownership of an IP block, it will be flagged as an anomaly.
+
+## Additional Protection Mechanism
+
+In order to minimize the feasibility of the latter approach, Reclaim decided to implement an additional protection mechanism that will specifically prevent BGP Hijacking attempts that can affect Reclaim. Namely, during the proof creation process, we constantly monitor all the BGP announcements on the Internet and identify those changing the traffic path between the Attestor and the Website, whose certificate was verified during the TLS Handshake. If such a potentially malicious BGP announcement is noticed, the connection is dropped, and the User is asked to create the proof again from the beginning.
+
+To be more precise, we exploit the [RIPE RIS](https://www.ripe.net/analyse/internet-measurements/routing-information-service-ris/) (Routing Information Service) tool that gathers information from several ASes spread worldwide. Each of them shares all the BGP announcements they receive, and thus, we can notice announcements from anywhere in the world that can affect traffic journeys at any step. Based on the [recent analysis](https://labs.ripe.net/author/thomas-holterbach/the-next-generation-of-bgp-data-collection-platforms/) of the RIPE Labs, their tool allows the identification of 75% of BGP Hijacking attempts in the median case. Combining this level of coverage with all the arguments above and the difficulty of this attack in the case of Reclaim, we believe that BGP Hijacking is an infeasible attack against the Reclaim Protocol.
+
+In conclusion, this means that none of the approaches are currently feasible for a malicious User to send data on behalf of the Website to the Attestor. In order to even try to execute them, one needs to attack systems with highly sophisticated protection mechanisms or bribe their employers. Even success in this step does not guarantee a successful attack. That is why Reclaim Protocol does not consider this as a practical attack.
