@@ -69,10 +69,10 @@ This model was published in a research paper called ["Proxying is Enough"](https
 # OK - so what's zk about all this?
 In all of these examples, we don't really talk about privacy. We're more interested in integrity of the proof. Meaning if you are telling your friend that the response came from the website, how can they trust you? Hiding parts of the response for privacy reasons is only the next step. But all is moot, if there is no integrity guarantee.
 
-In all of these models, different cryptographic primitives used. But all of them are used to protect the shared key without compromising the integrity of the claim about the information.
+In all of these models, different cryptographic primitives are used. But all of them are used to protect the shared key without compromising the integrity of the claim about the information.
 - In the TEE model, the decryption is done inside the TEE; the tls shared key is generated inside the TEE and never accessible to anyone.
 - In the MPC or 2PC model, the decryption is done by nodes/node and the browser in cooperation; neither the nodes nor the browser even have access to the tls shared key to be able to share it in the first place
-- In the Proxy model, a zk proof is run on the browser which can then be shown to a friend without having to show them the decryption key itself, yet proving correct decryption & integrity.
+- In the Proxy model, you have access to the decryption key; but you needn't disclose the key, at the same time you cannot lie about it
 
 A zkproof may be augmented on top of all of these to hide parts of the page that you don't want to reveal to the friend. But as we saw, it's a nice to have, not a must have. The must have is the integrity. 
 And that is why there is debate about calling it zkTLS. 
