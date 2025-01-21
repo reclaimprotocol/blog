@@ -4,7 +4,7 @@ date: 2024-11-26
 tags: ["Narrative", "Usecases]
 img: "/posts/03.jpg"
 author: Madhavan Malolan
-published: false
+published: true
 ---
 
 A threat we're not talking about enough is this - not only that AI might become uncontrollable, but that humans get great at controlling AI.
@@ -17,39 +17,30 @@ But that doesn't change anything. We still blindly believe Claude, ChatGPT and M
 The question isn't "Can we trust AI with actions?", but rather "What if AI is the only thing we trust?".
 
 # We've seen this play out
-AI is trained on all of the internet. And it broadly assumes everything it sees on its training data and prompts to be true.
-This reminds me of my mom - "It's true, I saw it on the internet".
 
-TODO : meme-internet.jpg
+AI models, like humans, can be too trusting of what they read during training. This reminds me of how some people, like my aunt, believe everything they see online.
+While it's one thing for someone to privately believe misinformation, it becomes problematic when they:
+1. Spread that misinformation to others
+2. Make poor decisions based on false information (like falling for scams)
 
-As long as she consumes the content for herself, all's good. No harm done.
-Things get annoying when she talks to other about what she read on the internet with confidence. 
-Then she'd make purchasing decision, and click on stupid links. And now we have a virus.
+AI faces a similar challenge. Even though AI models are trained on massive datasets that contain more accurate than false information - making them useful for everyday tasks - they can still be misled into believing and stating things that aren't true. This vulnerability is similar to how humans can be deceived by false information online.
 
-Pretty much the same thing is happening with AI. Sure, it has the luxury of seeing vastly more truth than false information - so, it's a great assistant for everyday conversation and co-piloting. But it's susceptible to the same kind of an attack - of convinving it on something being true that isn't.
 
 # Personal AI
 I would call this the current state of affairs. We use AI for our own personal use. We can do roleplaying like "imagine i'm a five year old, now explain me ...". It doesn't matter if you are really five years old or not. It's garbage in garbage out. 
 
 Even if you believe that all the data it has been trained on has been fact checked, you can still prompt it with false information. The only person who stands to benefit or lose because of that false information provided is you. Nothing else changes in the world. So obviously, it's acceptable. 
 
-# Social AI
-Imagine, your AI is not only interacting with you, but it's also interacting with others - talking and taking actions. 
-As the AI is interacting, we also want it to update their memory and worldview. 
-Imaigne an AI Agent that is speaking to people on the internet, and people make your agent believe that the earth is flat. 
-Now when you use the same AI agent for your own research, you will get skewed information. Potentially wrong answers. 
-
-This is a subtle action that AI took based on it's interaction with the outside world. That is, it took the action of updating its memory.
-However, AI agents will also need to take more explicit actions like making a purchase, installing software, messaging people etc. If other people can affect how the AI acts for you, it can quickly get dangerous.
 
 # Counterparty AI
-But there is a special case of usecases that I think aren't even getting built because anyone can fool an AI, with mere prompt engineering. 
+But there is a special set of usecases that I think aren't even getting built because anyone can fool an AI, with mere prompt engineering. 
 If you are deploying an AI agent as a business without verifying the prompts, it can be weaponized against you. Consider the following :
 - Your AI hiring manager? Can be gamed by candidates with fake resumes.
 - Your AI customer service? Can be exploited for refunds.
 - Your AI content moderator? Blind to coordinated manipulation.
 
-Not just that, AI has the power to bring efficiencies to society. But these usecases aren't even being discussed, because verifiablity of prompts is a messy problem to solve.
+AI has the power to bring efficiencies to society. But these usecases aren't even being discussed, because verifiablity of prompts is a messy problem to solve.
+
 - How do we get to an efficient AI courtroom, where disputes can be resolved in days - not decades? If counterparties can provide evidences and the AI accepts only verified evidences and no other prompts, the AI can make a decision orders of magnitudes faster. 
 - How do we get to an AI bureacracy, where the mundane paperwork and inefficiencies give way to quick decisions and actions? If the information provided to the _office_ is verified, that lowers the friction for decision making. And these decisions are not particularly hard - they can be taken by an AI. Renewing your driver's license? That shouldn't be too hard for an AI to decide.
 - And if you're ambitious enough, how can we get a fair government that's run by an incorruptible AI? That's a dystopian or utopian future depending on your mental models. But it's a question on the table. 
@@ -75,15 +66,11 @@ The initial review and filtering is something that we can delegate to an AI. We 
 The moment the word goes out that the first filtering is done by an AI, obviously people are going to try and game the system. Because there is, literally, hundreds of thousands of dollars to be exploited.
 We tried this ourselves. We tried to convince the AI that we are a team led by [Balaji Srinivasan](https://balajis.com) and that we are creating a network state for developers who are building tools for a blockchain. It's a noble cause and an important public good that [actually gets funded](https://zuzalu.city) elsewhere. 
 
-Below you can see the AI giving a high score to the team for having the competence to pull this off. Ofcourse, if Balaji was part of the team, it indeed has the competence. But also obviously, Balaji or his team is not the one applying here. But the AI doesn't know.
-
-TODO : Screenshot-balaji-fake.png
+The AI gave a high score to the team for having the competence. Ofcourse, if Balaji was part of the team, it indeed has the competence. But also obviously, Balaji or his team is not the one applying here. But the AI doesn't know.
 
 So, we turned on verifiability. The AI can determine what are data points that aren't backed by verifiable proofs and ask the applicant to provide them. For this discussion, we needed to provide proof that the user is providing the real profile of Balaji in the application, they also need to prove that the link is actually one that belongs to Balaji and that he's indeed associated with this project.
 
 The moment we turn this feature on, you can see below how the AI identifies that there is no proof of the team's competence provided, and gives a low score.
-
-TODO : Screenshot-balaji-rejected.png
 
 With this simple tweak of verifiability, you can scale the review process on Questbook -- even if people know that the reviewer is an AI.
 
@@ -95,12 +82,10 @@ If you are prompting something that needs information from twitter, directly hit
 
 This obviously has the downside that you need to indivitually add integrations for every website in the world. Because, the set of information that you'll have to verify cannot be known upfront. 
 
-> This is the bear case for AI - stupidity by silos. 
-
-It doesn't get smart enough not because the technology doesn't exist, but because corporate entities won't talk to one another.
+> This is actually the bear case for AI - stupidity by silos. It doesn't get smart enough not because the technology doesn't exist, but because corporate entities won't talk to one another.
 
 ## Signatures at source
-If you are providing information, you are required to also provide a cryptographic signature of the source of the information.
+If you are providing information, you are required to also provide a cryptographic [signature of the source](https://developers.cloudflare.com/speed/optimization/other/signed-exchanges/) of the information.
 
 This is a great future to live in, but the amount of signed data right now is far and few.
 
@@ -135,5 +120,8 @@ I reject the thesis that Crypto(graphy) is the counterbalancing force for AI. I 
 I want to see a future where I trust AI with all the mundane decision making of society. A society with no _dingy offices_ everyone hates.
 
 The question is, what will you trust AI with. And when.
+
+
+_Huge thanks to [Benji]() and [Cryptpal]() for their help with this post._
 
 
