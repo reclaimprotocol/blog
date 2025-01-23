@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const NEW_ORIGIN = 'https://blog.reclaimprotocol.org';
+const NEW_ORIGIN = 'https://reclaimprotocol.org/blog';
 
 export function middleware(request: NextRequest) {
   const url = request.nextUrl;
