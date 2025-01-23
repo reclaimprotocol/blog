@@ -1,15 +1,15 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
- 
+import { NextRequest, NextResponse } from 'next/server';
+
+const NEW_ORIGIN = 'https://blog.reclaimprotocol.org';
+
 export function middleware(request: NextRequest) {
-  // Check if the host is the old blog domain
-  if (request.headers.get('host') === 'blog.reclaimprotocol.org') {
-    // Create the new URL with the blog prefix
-    const newUrl = new URL('/blog' + request.nextUrl.pathname, 'https://reclaimprotocol.org')
-    return NextResponse.redirect(newUrl)
-  }
+  const url = request.nextUrl;
+
+  const newUrl = `${NEW_ORIGIN}${url.pathname}${url.search}`;
+
+  return NextResponse.redirect(newUrl, 308);
 }
- 
+
 export const config = {
   matcher: '/:path*',
-}
+};
