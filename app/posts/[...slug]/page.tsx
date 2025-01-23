@@ -6,7 +6,7 @@ import "@/styles/mdx.css";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { Tag } from "@/components/tag";
-import Image from "next/image";
+
 interface PostPageProps {
   params: {
     slug: string[];
