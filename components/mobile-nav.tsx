@@ -34,7 +34,7 @@ export function MobileNav() {
           <MobileLink onOpenChange={setOpen} href="/">
             Home
           </MobileLink>
-          <MobileLink onOpenChange={setOpen} href="/blog">
+          <MobileLink onOpenChange={setOpen} href="/">
             Blogs
           </MobileLink>
           <ExtMobileLink
