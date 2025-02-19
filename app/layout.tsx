@@ -43,14 +43,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* TODO: Remove this and setup proper redirects */}
-        <script dangerouslySetInnerHTML={{
-          __html: `
-          if (window.location.host === "blog.reclaimprotocol.org") {
-            window.location.href = 'https://reclaimprotocol.org/blog' + window.location.pathname
-          }
-          `
-        }} />
       </head>
       <body className="antialiased text-gray-800 dark:bg-black dark:text-gray-400">
         <Providers>
