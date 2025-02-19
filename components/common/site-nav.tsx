@@ -18,7 +18,7 @@ const SiteNavigation = () => {
               Home
             </Link>
             <Link
-              href={"/blog"}
+              href={"/"}
               className="text-2xl border-b border-black dark:border-white cursor-pointer mt-1"
             >
               Blogs

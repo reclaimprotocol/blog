@@ -38,7 +38,7 @@ const PrimarySiteNav = () => {
         </div>
         <div className="order-2 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row">
           <Link
-            href={"/blog"}
+            href={"/"}
             className="px-5 py-2 text-base font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
           >
             Blogs
