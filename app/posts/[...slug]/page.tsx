@@ -89,7 +89,7 @@ export default async function PostPage({ params }: PostPageProps) {
         <div>{formatDate(post.date)}</div>
       </div>
       <img
-        src={'/blog' + img}
+        src={img}
         alt={post.title}
         className="rounded"
         width={1920}
