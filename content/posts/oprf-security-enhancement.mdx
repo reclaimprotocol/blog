@@ -1,0 +1,91 @@
+---
+title: OPRF Security Enhancements
+description: "In this blog, we introduce key enhancements to Reclaim Protocol’s T-OPRF implementation that eliminate single-party knowledge of secret values. By leveraging Distributed Key Generation (DKG) and efficient curve point computation, we enhance security, prevent coercion risks, and optimize cryptographic efficiency"
+date: 2025-03-10
+tags: ["SECURITY", "CRYPTOGRAPHY"]
+img: "/blog/posts/oprf_security_enhancement.png"
+author: Kirill Kutsenok
+published: true
+---
+
+Special thanks to Aleksei Ermishkin for implementation and for valuable comments on this post.
+
+One of the key takeaways from our previous discussion on using T-OPRF for generating unique, per-user identifiers was the balance between privacy and verifiability. By leveraging a T-OPRF, we ensured that users could derive deterministic yet unlinkable IDs from their real-world identifiers, preventing impersonation and fraudulent reuse. However, in that approach, a single entity still had knowledge of critical secret values, introducing potential risks. Namely, Reclaim Protocol, as a dealer in T-OPRF, had a full knowledge of some secret values, further shared between T-OPRF servers. What if we could eliminate the need for any single party to hold a full secret, making the system inherently more resilient? In this post, we introduce key enhancements that achieve exactly that — ensuring that no one, including us, possesses complete knowledge of any secret key or value, fundamentally redefining the security and trust assumptions of the protocol.
+
+# First Enhancement: Distributed Key Generation
+
+Distributed Key Generation (DKG) is a cryptographic protocol used to generate a shared key among multiple participants in a distributed system. Unlike traditional key generation, where a single party generates and holds the private key (which can be further divided into shares for each of the parties), DKG ensures that no single entity has full control over the private key. Instead, the key is distributed among multiple parties who collaborate to generate it securely. Since there is no single entity in the world that knows the full key, this approach prevents any single party (or dealer) from being coerced by an adversary seeking to obtain the private key.
+
+In the case of Reclaim Protocol, previously, we acted as a dealer: generated a key and distributed it between T-OPRF servers. This mean that if an extremely powerful adversary wanted to learn the key, they could make us (e.g. legally) give it to them. However, by switching to the DKG mechanism that happens among T-OPRF servers, we annihilate this vulnerability.
+
+## **How Distributed Key Generation Works**
+
+### Step 1: Participant Initialization
+
+Each party in the system agrees to participate in the DKG protocol. There are $n$ participants, and a threshold value $t$ is set, meaning that at least $t$ parties must collaborate to reconstruct the key.
+
+### Step 2: Secret Sharing
+
+Each participant generates a secret $s_i$ and uses **Shamir’s Secret Sharing**, to distribute shares of their secret among all other participants. Now, the key $s$ that the whole system will use (and that is unknown to any single party) is the sum of each of the participants’ secrets: $s = s_1 + \dots + s_n$.
+
+### Shamir's Secret Sharing (Brief Overview)
+
+Shamir's scheme allows a secret to be split into $n$ shares such that at least $t$ shares are required to reconstruct it. This is done using polynomial interpolation:
+
+- The secret $s$ is encoded as the constant term in a polynomial $f(x)$ of degree $t-1$;
+- Each participant $i$ receives a share $f(i)$.
+- Any $t$ participants can use **Lagrange interpolation** to reconstruct $s$, while fewer than $t$ shares reveal no information about $s$.
+
+Each participant now holds a share of every other participant’s secret.
+
+### Step 3: Usage of shares
+
+If a subset of at least $t$ participants use each of the shares they received from other parties for T-OPRF, the combination of $t$ output values (using Lagrange interpolation) will result into the output of OPRF using the secret $s$. 
+
+# Second Enhancement: Secure Computation of the OPRF Client Input
+
+When a client needs to compute their OPRF input we resort to hashing to a curve algorithm. So, in our case (and in general while working with elliptic curves in zero-knowledge proofs), efficiently representing curve points inside circuits is crucial. The BN254 twisted Edwards curve (Baby Jubjub) is commonly used in zk-SNARK applications due to its efficiency in circuits. Initially, we relied on scalar multiplication to generate points on the curve inside the circuit. However, later we found a more efficient approach: precomputing valid $(X, Y)$ coordinates off-chain and passing a minimal counter value to reconstruct the point inside the circuit. Inthis section we explain why direct computation of X and Y is superior to scalar multiplication inside a circuit.
+
+## Background: Curve Representation and Point Mapping
+
+### Twisted Edwards Form:
+
+The Baby Jubjub curve is defined by the equation:
+
+$$ax^2 + y^2 = 1 + dx^2y^2,$$
+
+where $(a, d)$ are curve parameters.
+
+Given a random scalar $s$, there are two main ways to map it to a valid curve point:
+
+1. **Scalar Multiplication:** Compute $P = sG$ where $G$ is a generator point.
+2. **Direct Computation:** Derive $Y$ from $ID$ and solve for $X$ using the curve equation.
+
+## Why Scalar Multiplication is Inefficient Inside a Circuit
+
+Scalar multiplication $sG$ involves performing multiple elliptic curve additions and doublings. Inside a zk-SNARK circuit, this is expensive due to:
+
+- **Constraint Cost:** Multiplications and additions in elliptic curve arithmetic introduce numerous constraints in zk-SNARK circuits.
+- **Bit Decomposition:** The scalar $s$ must be decomposed into bits, leading to additional constraints.
+- **Variable-Time Computation:** Different scalars lead to different computation paths, increasing proof generation complexity.
+
+## Security Concerns with Scalar Multiplication for Hashing to a Curve
+
+Aside from inefficiency, scalar multiplication also poses security concerns when used for hashing to a curve point. The primary issues include:
+
+- **Non-Uniform Distribution:** Scalar multiplication does not produce a uniform distribution of points on the curve, which is a requirement for secure cryptographic hashing;
+- **Knowledge of the scalar:** The client that makes these computations knows the scalar value, thus endangering its security in the case of being corrupted (or armtwisted in the real world).
+
+## A More Efficient and Secure Approach: Precomputing X and Y
+
+Instead of computing $sG$ inside the circuit, we explored precomputing valid curve coordinates offline. The process involves:
+
+1. Hashed ID is used as a $Y$ coordinate (after a small number of iterations until the hash hits a possible value of $Y$)
+2. Computing $X$ using the curve equation.
+3. Passing only the counter value into the circuit, allowing the circuit to reconstruct the valid point deterministically.
+
+This approach significantly reduces the in-circuit cost because ther is no scalar multiplication required anymore and the circuit only checks if $(X, Y)$ satisfies the curve equation, thus reducing proof generation time. Moreover, now the client only knows some value of $Y$ such that $(X,Y)$ is a valid point which, if gets corrupted, discloses no information, unlike the previously used value of the scalar $s$.
+
+# Conclusion
+
+By decentralizing secret management and eliminating any single party’s full knowledge of critical values, we take a significant step toward enhancing both security and trust in the protocol. This approach ensures that even Reclaim Protocol, or any other entity involved, cannot unilaterally reconstruct secret values, reducing the risk of compromise or coercion. By leveraging cryptographic techniques that distribute trust while preserving privacy and verifiability, we move closer to a system where users can generate deterministic yet unlinkable identifiers with stronger security guarantees. This shift fundamentally redefines the trust model, making the protocol not just more resilient but also more efficient.
