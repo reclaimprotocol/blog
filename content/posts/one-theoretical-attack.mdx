@@ -1,0 +1,40 @@
+---
+title: "Unpacking a Theoretical Attack on Reclaim Protocol (And Why It Doesn’t Stand a Chance)"
+description: "A recently proposed attack on Reclaim Protocol suggests a potential vulnerability in its AES-encrypted proofs, raising concerns about key consistency. However, this post breaks down why the attack is purely theoretical—showing how cryptographic guarantees and practical constraints render it infeasible, requiring more computational power than the lifespan of the universe to succeed."
+date: 2025-03-13
+tags: ["SECURITY", "CRYPTOGRAPHY"]
+img: "/blog/posts/one_theoretical_attack.png"
+author: Kirill Kutsenok
+published: true
+---
+
+Cryptographic protocols often live in a constant battle between attackers and defenders, where new attack vectors are proposed, analyzed, and mitigated. One such discussion recently emerged around Reclaim Protocol. The proposed attack targets the protocol’s handling of AES-encrypted blocks, suggesting a potential vulnerability. In this post, we’ll dissect this attack, explain why Reclaim Protocol remains resilient, and estimate the computational resources required to execute it successfully with non-negligible probability.
+
+### The Attack: Exploiting Key Consistency in AES Proofs
+
+Reclaim Protocol processes data in AES-encrypted blocks, typically using AES-GCM, and proves the content of each block independently via a ZK-SNARK circuit. The setup phase for Groth16 is circuit-dependent, but rather than generating a new trusted setup for every data size, Reclaim reuses a single AES circuit. This efficiency raises a question: how does the protocol ensure the same key is used across all blocks, especially when proofs are computed separately?
+
+The attack posits a “soundness-style” issue. In AES-GCM, a ciphertext $c$ for a block of message message $m$ is computed as $c=AES(K,nonce) \oplus m$ , where $K$ is the secret key, and the $nonce$ incorporates an initialization vector (IV). A malicious prover could select an arbitrary key $K’ \neq K$ and construct a proof for a manipulated message $m’$. For instance, they might compute $AES(K’,nonce) \oplus AES(K’,nonce) \oplus AES(K,nonce) \oplus m$ which is equal to $c$ due to the properties of the XOR function. This allows them to claim the ciphertext decrypts to a different message, $m′= AES(K’,nonce) \oplus AES(K,nonce) \neq m$, which can be potentially a carefully crafted message that dependis on the adversary’s intent.
+
+At first glance, this seems to undermine the protocol’s integrity, as the ZKP could verify successfully for a false statement. However, the attack’s practical impact hinges on what the prover can achieve with this manipulation.
+
+### Why Reclaim Protocol Remains Secure
+
+Reclaim’s resilience stems from two key factors: 
+
+1. The pseudorandomness of AES and its plaintext verification mechanism. AES is a block cipher whose output, under a different key, is indistinguishable from a random string unless the correct key is known. If a prover uses $K’ \neq K$ to decrypt the same cyphertext, the decrypted plaintext becomes a pseudorandom string. Which means that with a very high probability (which we will discuss later) this plaintext bears any meaningful data, and hence the adversary cannot possibly prove any intended claim (but rather an appearance of a random string at the website).
+2. Reclaim Protocol doesn’t merely verify the ZKP; it also checks that the plaintext contains the claimed data (e.g., an almost specific substring). Namely, we require each provider to be set up the way that the user discloses **at least 16 bytes** of the plaintext around the target data. This target substring is known in advance to an attestor, and hence, the user’s data either satisfies it, or the claim proof will not be approved by the attestor. Since the output of the manipulated decryption is gibberish, it cannot satisfy this semantic check.
+
+Thus, while the attack allows a technically valid proof in isolation, it fails to produce a usable outcome. The cryptographic assumptions underpinning AES ensure that false proofs lack practical utility.
+
+### Computational Resources Required for Success
+
+Could an adversary overcome this defense through brute force, finding a $K’$ that yields a meaningful plaintext with non-negligible probability? Let’s quantify this. AES-256 uses a 256-bit key, offering $2^{256}$ possible keys (approximately $10^{77}$). To succeed, an attacker must find a $K’$ such that $AES(K’,nonce) \oplus c$ matches a target plaintext in at least 16 bytes.
+
+Current estimation of the **global computational capacity** is at roughly $10^{21}$ operations per second, combining all supercomputers and high-performance systems. So even assuming a single AES-256 decryption taking 1 operation (which is significantly less than in reality), testing all keys requires $10^77$ operations. At $10^{21}$ operations per second, this equates to $10^{56}$ seconds, or approximately $3 \times 10^{48}$ years. For context, the universe’s age is $1.38 \times 10^{10}$ years—meaning this effort would take about $10^{38}$ times the universe’s lifespan.
+
+Even optimizing with birthday paradox techniques (e.g., targeting a collision in a smaller plaintext space) barely dents this figure. In short, all the world’s supercomputers, operating in unison, would need to run for trillions of times the universe’s age to achieve a non-negligible success probability.
+
+### Conclusion
+
+The proposed attack on Reclaim Protocol highlights an intriguing theoretical vulnerability: a malicious prover can craft a valid ZKP for a false statement by substituting keys. However, the protocol’s reliance on AES’s cryptographic strength renders this exploit impotent. The resulting plaintext from a fake key is random noise, failing to meet the system’s semantic requirements. With computational demands exceeding $0^{48}$ years using global resources, this attack remains a cryptographic curiosity rather than a practical threat. Reclaim Protocol stands firm, its security anchored in well-established primitives and thoughtful design.
