@@ -1,0 +1,195 @@
+---
+title: Zero Knowledge Proofs for the Uninitiated
+description: A new way of verifying data, that is privacy preserving
+date: 2025-06-03
+tags: ["Educational", "Cryptography", "101"]
+img: "/blog/posts/zk-for-the-uninitiated.png"
+author: Madhavan Malolan
+published: true
+---
+
+Zero Knowledge Proofs (ZKP) is a new technology that has largely gone un-noticed, because AI captured everyone's mindshare. In a parallel universe, where ChatGPT happened five years later - we would all be talking about zero knowledge proofs today. Last several months, I have been explaining ZKPs to CTOs on whiteboards. I'll try to condense what I have been repeating again and again, here.
+
+The key insight behind Zero Knowledge Proofs is that you can prove to someone that you conducted some computation on some data correctly. You can do so without revealing the data itself. This is particularly useful when the data you are computing upon, is actually private and you don't want to share it. Note, I deliberately am inaccurate in some of the framing in the cause of simplicity.
+
+# Setting up the problem
+## Let's take a standard example
+Let's say your date of birth is the private information. You don't want to share your date of birth with a bartender. But you still need to prove that you are over 18.
+Here, the data is your date of birth. The computation to be conducted is calculating the age.
+
+How can you do this? Let's build up to it.
+
+Maybe there's an app with the bartender. 
+The bartender asks you to scan you driver's license using this app, while he looks away. 
+Then the app, reads your driver's license using OCR and shows on the screen "Above 18" or "Below 18" on the screen.
+You then show that screen to bartender - and the bartender learns nothing but "are you above 18?".
+
+Works, right?
+Except - you have no idea that the app the bartender gave you - has doesn't also secretly store the photo of the license. Maybe the bartender has a backdoor on the app?
+
+Ok, so maybe you build your own app that does this, which is super easy now with Lovable. So you know for sure that the bartender doesn't have the image of the license. 
+But now the bartender has a problem. What if you had put in a backdoor on the app to always say "Above 18"?
+
+What about open source?
+There are two problems. The first is, in most cases - even if you do open source your code on Github - there is no way to say that that's the same code you used in your app that you ran.
+But even if somehow you guaranteed that it's the same code you are using, the bartender needs to have the expertise to look into the code and make a judgement. Even if the bartender is a pro-coder, it's incredibly hard to find backdoors especially when the computation gets more and more complex.
+
+## Making it a tiny bit more formal 
+<small>Feel free to jump over this section if you're not technical.</small>
+
+You have a function `f` that takes an input parameter `p` and outputs a boolean
+```
+f(p) :
+  dob = extract_dob(p)
+  years = dob.year - today.year
+  if years >= 18 :
+    return True
+  return False
+```
+
+So, you and the bartender can have the shared understanding that this is indeed the computation that runs by looking at the source code.
+But in order for the bartender to verify that the output is True when you send it your drivers license - they need to have your drivers license. 
+Only then they can take this function and make sure it returns True when you provide your license. 
+
+But ... you don't want to give them your license, remember? That's what the zero-knowledge in zero knowledge proofs stands for. You want the counterparty to learn zero knowledge about your data.
+
+## Summing up the problem
+In order to make sure that computation has been correctly executed, both parties need to have shared knowledge of the computation's code as well as the input data. That is, both parties need to know `f` and `p`. 
+
+## One more try
+What if there's a mediator?
+Maybe this mediator agrees to run the computation correctly, but not store the drivers license anywhere. 
+Maybe both you and the bartender agree that this mediator is fair and honest.
+
+But, the problem occurs when you go to the next bar - and that bartender has a different mediator they trust. But, do you trust this new mediator? Maybe you do. But what about the 100th mediator?
+You can't find an honest mediator for every bar.
+
+Is there someone we _all_ trust?
+Maybe the Government? But do people in a different country trust that Government? More pronounced in online services where people may be interacting from different parts of the world. That is given they even trust their own Government to start with!
+
+So, maybe not. Maybe there is no mediator in the world that we all can agree to trust.
+
+... except ...
+
+Math. I think most of us trust math. If you trust math, can we have math fill in for the mediator? Turns out, yes you can!
+That is what zero knowledge proofs are based on. Zero knowledge proofs is that math.
+
+# How does it work?
+You have probably already used zero knowledge proofs unknowingly. 
+If you've ever sent an email, you've used zeroknowledge proofs in some form.
+
+## Digital Signatures are a form of ZKPs
+On email clients, you have a private key and a public key, called a key pair. If you use a service like Gmail, Gmail has these keys on your behalf. 
+When you send an email, you digitally sign the email's contents saying "this is the content I actually typed, and this is my signature for it".
+This signature also contains the public key's information. You can publish your public key on your website. Or, in case of Gmail - Gmail would publish the public keys.
+So when the receiver gets your email with the signature, they can verify that this exact content has been signed by someone who has the private key associate with the public key in the signature. And, they can also verify that this is the same public key that you published on your website. That way they are sure that it is you and you alone who could have signed this email. If this doesn't match, most email clients automatically move that email to spam.
+
+Here the function `f` is the signing function. And parameters `p` is `(content, private-key)`.
+```
+  f(p) :
+    return sign(p.content, p.private-key)
+```
+But, to verify there is a different function `v` that takes a different set of parameters `w` consisting of `(content, signature, public-key)`
+```
+  v(w):
+    return recover_public_key(w.content, w.signature) == w.public-key
+```
+
+So here, we were able to say "I know the private key using which I computed the signature for this content", without revealing the private key itself. This statement can be verified by seeing that the public-key in the signature is the same as the public key released by the person on their website. 
+
+There's another way to come to the same conclusion. You who published the public key on their website, owns also a private key which they didn't publish. But the email receiver can verify that the signature on this content was created by someone who also owned the private key that corresponds to the published public key. As long as they are willing to trust that your website has not been hacked - and you indeed published your own public key on your website - they can believe that you were the one who sent the email. And not push that email to junk.
+
+# So why now?
+Signatures may qualify as zero knowledge proofs from a technical point of view. But that's not what ZKPs usually refer to. 
+Digital Signatures are a very specific computation. But if you want to verify arbitrary computations - like the one you might typically write on python - you need something more general purpose. 
+ZKPs are a way to generalize what happens in a signature, to python code. 
+
+For an arbitrary function `f` using private information `p`, which outputs `w` that has no reference to `p`. When this `w` is passed to a verification function `v`, it gives you a guarantee that `f` was executed as agree upon using some value `p` that you needn't know about.
+
+ZKPs were invented in the 1980s. So, technically you could run generate proofs and verify them for arbitrary computations since 1980s. 
+It's only been in the last 2 years has the engineering caught up to make it both usable and performant enough for practical use. 
+This technology is has been used in blockchains to send money to each other privately - for only the last few years. Famously in projects like ZCash and Tornado Cash. Where the computation is roughly - "Does the user have the funds they are sending?" without revealing the user or their current balance.
+
+# Can you tell me how it works?
+Many people have tried and failed to appeal to intuition on how ZKPs work. I will try too, again being technically incorrect but broadly in the technically correct direction.
+
+## Toy problem
+Imagine we know how to calculate remainder in a division (called modulus, represented with the sign `%`), but don't know to do division. Stupid assumption, but bear with me.
+I am going to tell you that I know a number `x` that when divided by 7 yeilds a remainder of 2.
+
+But you also know, whatever the number is - when multiplied by 4 will yeild a remainder of 1.
+Further, you know that when multiplied by 6, will yeild a remainder of 5.
+And you have a bunch of such challenges.
+
+Again, assuming that we don't know division - you can say "Ok, tell me what is x times 4 modulus 7?" if I say "1", you might be worried it was a fluke. Then you'd say "Ok, now tell me what is x times 6 modulus 7?", I would say "5". So maybe it less likely a fluke, but you're not sure. You could do these challenges many many times - until you feel, "Huh, it's incredibly unlikely that this person got so many flukes right" and you would stop and say "Ok, i believe you know a certain x"
+
+But they don't know the value of x. 
+x could be 9, 16, 23, ... 
+```
+9 % 7 = 2
+(9*4) % 7 = 1
+(9*6) % 7 = 5
+...
+
+also,
+
+16 % 7 = 2
+(16 * 4) % 7 = 1
+(16 * 6) % 7 = 5
+...
+```
+
+So, I have convinced you I know _some_ number x. But you don't know which was the exact number I picked!
+
+## Very funny, make it helpful
+Ok, I haven't told you how this works on arbitrary computations. But it's the similar concept. Again, bear with me for the technical incorrectness, I am only trying to appeal to intuition.
+
+For the function `f` with parameter `p` that outputs `w`, you can think of `w` being a number that has the same properties of `p`, but cannot compute `p` from `w`.
+But when you pass `w` through the verification process, `v`, it would evaluate exactly the same way as if the actual number `p` would have evaluated.
+
+In the above example, say the number I had selected was 9 - I will give you the number 16.
+```
+f(p)
+  return p + 7
+```
+
+```
+w = f(9)
+```
+
+```
+v(w):
+  return ( (w) % 7 == 2 ) AND ( (w * 4) % 7 == 1) AND ( (w * 6 ) % 7 == 1 ...)
+```
+
+That's now nearing how much I can explain without using jargons. 
+
+# What should I ask ChatGPT next?
+## R1CS
+I promised we can write any python like code and have the properties we want - of being able to verify the correct computation was used, and that the input data is kept private.
+For that to be possible, python like code needs to be compiled into math that satisfies the modulo like operations we saw above. This compiled code is called R1CS. And instead of modulo, which is stupidly easy to break - all that you need to know is division - we use eliptic curves.
+
+## Witness
+The above function `f` returns an intermediate value `w`. This `w` stands for witness. This witness can then be used to verify the correctness , `v`, of computation on private data `p`.
+Creating a witness is actually very computationally expensive. When people say generating a ZKP, they're usually referring to generating a witness.
+
+## SNARK
+In the toy example, we had a small game going on. You would give me a number to multiply my private number `x`, I would tell you what the remainder is. And we would do that multiple times. Both you and I need to have an open line of conversation for the back and forth for me to be able to convince you.
+
+But in reality, you don't want to be engaging with every person in a game like this. You want to create a proof and just be able to share it with anyone. And for that, there's a clever technique called Fiat Shamir Transformation that allows the convincing to be non-interactive. That is you could generate this proof sitting at home, and produce the proof to every bartender to verify without playing a game. These non-interactive proofs are called SNARKS.
+
+## More!
+I don't know what's a resource that's a good next step. You have either this stupidly simple and inaccurate description of what ZKPs are. Or you will have to deeply technical. For the technical folks a great resource is [zk-learning](https://zk-learning.org/)
+
+# What's Reclaim Protocol?
+Reclaim Protocol is, well a protocol, that allows you to prove that you successfully signed in into a website and saw some information - without revealing your username and password. Such that, the verifier can be sure that you indeed logged in into the correct website that you had agreed upon, and that website sent you so and so information back on your user profile page. For example, you logged into your bank account and chase.com said you have $10,000 in your bank account. Or you logged in into your tax portal, and IRS.gov said that you were employed at Microsoft in the last financial year. All of this without needing to give your username and password to anybody, including Reclaim Protocol itself. All of this without needing a mediator like in the bartender example.
+
+You can learn more about how ZKPs are used in Reclaim Protocol [here](https://blog.reclaimprotocol.org/posts/zk-in-zktls).
+
+# Feedback please?
+I am pretty sure I did a shitty job here. This is the explanation I often give to the smartest folks I talk to, and all I get back is a blank stare. I would [love to hear from you](mailto:madhavan@reclaimprotocol.org) on where I lost you!
+
+
+
+
+
