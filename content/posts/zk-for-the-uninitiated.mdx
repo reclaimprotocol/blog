@@ -119,7 +119,7 @@ I am going to tell you that I know a number `x` that when divided by 7 yeilds a 
 
 But you also know, whatever the number is - when multiplied by 4 will yeild a remainder of 1.
 Further, you know that when multiplied by 6, will yeild a remainder of 5.
-And you have a bunch of such challenges.
+And you have a bunch of such challenges. Say, you have this from an Oracle.
 
 Again, assuming that we don't know division - you can say "Ok, tell me what is x times 4 modulus 7?" if I say "1", you might be worried it was a fluke. Then you'd say "Ok, now tell me what is x times 6 modulus 7?", I would say "5". So maybe it less likely a fluke, but you're not sure. You could do these challenges many many times - until you feel, "Huh, it's incredibly unlikely that this person got so many flukes right" and you would stop and say "Ok, i believe you know a certain x"
 
@@ -161,6 +161,10 @@ w = f(9)
 v(w):
   return ( (w) % 7 == 2 ) AND ( (w * 4) % 7 == 1) AND ( (w * 6 ) % 7 == 1 ...)
 ```
+
+In the bartender's example, you use a proving app that you trust that computes `w = f(p)`, where `p` is your license and `f` is the age calculating function. You give the `w` to the bartender. The bartender uses another verifier app that compute `v(w)` to verify that you are indeed over 18. So you are both using apps you respectively trust and able to agree on the age, without sharing the private data. 
+
+For every computation `f`, there is a corresponding verifier function `v`. These two are tightly coupled, but can be implemented independent of one another.
 
 That's now nearing how much I can explain without using jargons. 
 
