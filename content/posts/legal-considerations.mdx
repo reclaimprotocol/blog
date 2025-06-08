@@ -1,0 +1,156 @@
+---
+title: Legal Considerations, and how Reclaim Protocol is safe to use
+description: GDPR, CCPA and many regulations around the world mandate websites to allow users to port their data
+date: 2025-06-06
+tags: ["Legal", "Educational"]
+img: "/blog/posts/legal-considerations.png"
+author: Madhavan Malolan
+published: true
+---
+
+Relevant documents about the architecture and security of the system can be found here : 
+
+- [Reclaim Whitepaper](https://link.reclaimprotocol.org/whitepaper-draft)
+- [Cornell Research](https://eprint.iacr.org/2024/733.pdf)
+
+# Key architectural points
+
+- **Client-side, zero-knowledge proofs**
+All cryptographic work including TLS capture, selective redaction, and ZK-proof generation happens entirely on the user’s device inside a web-view or mobile runtime.
+- **No third-party data visibility.**
+Reclaim’s attestor sees only encrypted packets and the final proof; it never learns credentials, session cookies, or plaintext content.
+- **Portable, verifiable claims.**
+The output is a signed proof (e.g., “active payroll at Company X”) that any relying party can verify without phoning home to the source site.
+
+<aside>
+✨ Additionally, Reclaim is in the process of getting Soc2 Type 2 and GDPR compliance audits completed by Q3’2025
+
+</aside>
+
+# Why Reclaim Is Compliant
+
+## GDPR (EU)
+
+<aside>
+✒️ “*The data subject shall have the **right to obtain** … the personal data concerning him or her… and **transmit** those data to another controller.*” – Art 20(1) (Portability)
+
+</aside>
+
+Data-minimisation, purpose limitation, encryption-in-transit, and “privacy by design” are native to the protocol; lawful basis = **user consent**.
+
+If a verifier stores the proof, they become a controller/processor and must meet their own GDPR duties (retention limits, SAR responses).
+
+## CCPA (California, US)
+
+<aside>
+✒️ businesses must follow **“purpose limitation and data minimization rules.”**
+
+</aside>
+
+User retains control; no “sale” of personal data; proofs hold only the minimum information needed. Verifier must honor deletion/opt-out if the proof still contains personal information.
+
+## PIPEDA (Canada)
+
+<aside>
+✒️ “*The collection of personal information shall be **limited to that which is necessary**…*” – Schedule 1, Principle 4.4
+
+</aside>
+
+Explicit, informed user action plus minimal collection satisfy the “knowledge & consent” and “limiting collection” principles.
+
+## DPDP (India)
+
+<aside>
+✒️ “A Data Fiduciary shall protect personal data… by taking reasonable security safeguards to prevent personal data breach.” – § 8(5) 
+
+</aside>
+
+End-to-end encryption and selective disclosure meet upcoming data-minimisation and security duties.
+
+## GBLA (US)
+
+<aside>
+✒️ Financial institutions must protect data “to insure the security and confidentiality of customer records…” – 15 USC § 6801(b)(1)
+
+</aside>
+
+Credentials stay private; proofs expose no non-public personal info beyond the declared fact, reducing GLBA-safeguards scope.
+
+Banks may still mandate “screen-scraping-free” clauses in their contracts (see next section).
+
+## HIPAA (US)
+
+<aside>
+✒️ “*The **minimum necessary** standard…*” – 45 CFR 164.502(b)
+
+</aside>
+
+If PHI is never transmitted, Reclaim can help limit “minimum necessary” disclosure; verifier sees only what the patient approves.
+
+Covered entities must treat the proof itself as PHI if it reveals a condition; standard HIPAA security rule still applies.
+
+# Terms of use Guidance
+
+Though Reclaim Protocol is compliant with National regulations, a nuanced approach should be taken for respecting terms of use.
+
+## Why Reclaim Protocol is generally safe
+
+Reclaim keeps credentials local and issues one-time proofs on a per-user request, which fits within the “personal, non-commercial use” language found on most:
+
+- **E-commerce & subscription sites** that already expose PDFs/CSVs (e.g., Amazon order history, Stripe dashboards).
+    
+    <aside>
+    ✒️ *“you may have the right to request access to, correct, amend, delete, [or] port to another service provider” - [Shopify](https://www.shopify.com/legal/privacy#:~:text=We%20believe%20you%20should%20be,may%20be%20limited%20by%20law)*
+    
+    </aside>
+    
+- **Government portals** that emphasize user self-service (e.g., Social-Security, many tax agencies).
+    
+    <aside>
+    ✒️ *“You have the right to request a copy of the personal information we hold about you, this is known as a subject access request (SAR).” - [gov.uk](https://www.gov.uk/guidance/hmrc-subject-access-request#:~:text=You%20have%20the%20right%20to,SAR)*
+    
+    </aside>
+    
+- **Universities** that give students downloadable transcripts or API tokens.
+    
+    <aside>
+    ✒️ *“Stanford grants you a personal, non-exclusive, non-transferable license to access and use the Site and the Material. Registered users may download Material from the Site only for such user's own personal, non-commercial use.” - [Stanford](https://codeinplace.stanford.edu/terms-of-service#:~:text=personal%2C%20non,Site%20is%20provided%20by%20third)*
+    
+    </aside>
+    
+- **Fintech/open-banking APIs** in jurisdictions where PSD2-style rules apply (UK, EU, Australia).
+    
+    <aside>
+    ✒️ *“the right to request that we export the Personal Data we hold about you to another company, provided it’s technically feasible” - [Stripe](https://stripe.com/in/privacy#:~:text=,based%20on%20your%20previous%20consent)*
+    
+    </aside>
+    
+- **Payroll / HR systems** that allow users to use third party user agents as long as the user themselves are using the system and not a bot.
+    
+    <aside>
+    ✒️ *“Right to Access: Data subjects can request access to their personal data and obtain a copy of it.” - [Gusto](https://gusto.com/resources/hiring/templates/data-protection-policy)*
+    
+    </aside>
+    
+
+These sites either (a) expressly permit personal exports, or (b) rely on statutory “data-portability” mandates that trump restrictive boiler-plate.
+
+## Scenarios That May Trigger Terms of Use Violations
+
+Some large financial platforms use blanket clauses against **any unapproved automated extraction or “disaggregation”**, even when initiated by the customer:
+
+- Major US banks (e.g., Bank of America, Chase) : “You agree not to scrape or disaggregate data by manual or automated means for commercial, marketing, or compiling purposes.”
+
+# Reclaim Protocol is not Web Scraping
+
+**Legal Distinction:** Unlike traditional web-scraping services—which store user credentials, run headless bots that continuously harvest full pages, and therefore violate most banks’ and payroll vendors’ “no scraping / no third-party access” clauses—Reclaim operates only when an individual explicitly initiates a single proof, keeps all credentials and raw data confined to that user’s browser or mobile device, and discloses nothing beyond the user-selected fact in zero-knowledge form. Because the session is user-driven, transient, and privacy-minimised, it aligns with data-portability rights (GDPR Art 20, PSD2 Art 67, forthcoming CFPB §1033) and avoids the large-scale, automated extraction behaviour that triggers contractual cease-and-desist actions against aggregators.
+
+# Key takeaways
+
+- **Privacy & security first:** Reclaim’s ZK architecture keeps credentials private and data minimized, aligning with global privacy laws.
+- **Most consumer-facing portals are fine**, especially where the site already offers downloadable statements or APIs.
+- **Watch for restrictive ToS** at large US banks —bulk or commercial-scale proofs may violate “no scraping / no aggregation” clauses.
+
+<aside>
+🔍 We recommend reviewing the terms of use for the respective websites before using a provider on Reclaim Protocol, or contact [Subhash Karri, Co-founder Reclaim Protocol](mailto:subhash@reclaimprotocol.org)
+</aside>
