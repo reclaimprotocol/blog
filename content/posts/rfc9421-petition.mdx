@@ -1,0 +1,73 @@
+---
+title: Petition - Data portability means nothing without provability
+description: Merging two threads on Data Portability and RFC 9421 to make it portable
+date: 2025-06-09
+tags: ["Regulation", "Educational"]
+img: "/blog/posts/rfc9421-petition.jpg"
+author: Madhavan Malolan
+published: true
+---
+
+Many regulation including GDPR, CCPA, EU Data act call for data to be portable, to protect users from getting locked in into services. Even if there is a way to export data, it isn't valuable, unless it is proven that the data has not been tampered with. Other services cannot use this data in any meaningful way, if it's not provably authentic data. This post will help you understand what regulation says, and how we already have a solution - we just need these independent tracks to converge. We need you to put pressure on companies to make our data truly portable.
+
+Regulators worldwide already guarantee your users the right to take their data elsewhere—but they also hint that the transfer must be trustworthy.
+
+<aside>
+_“The data subject shall have the right to receive… personal data… in a structured, commonly-used and machine-readable format and… transmit those data to another controller without hindrance.” — GDPR Art 20 (1)_
+</aside>
+
+<aside>
+_Businesses must deliver data “in a readily usable format that allows the consumer to transmit this information to another entity without hindrance.” — California Civil Code §1798.100 (CPRA/CCPA)_
+</aside>
+
+<aside>
+_Providers “shall export all… data in a structured, commonly used and machine-readable format.” — EU Data Act, Art 31(5)_
+</aside>
+
+# What is RFC9421
+The new IETF standard lets any server add:
+
+- `Signature-Input`: what was signed, what data has been exported or shown to the user
+- `Signature`: the cryptographic proof, that this data was indeed sent by the said source
+
+“The `Signature-Input` field… contains the metadata for one or more message signatures generated from components within the HTTP message.” 
+
+## RFC 9421 in One Minute
+
+| Today’s Pain Point | RFC 9421 Fix |
+|--------------------|--------------|
+| Audit teams ask for evidence the export is unaltered | A hash-anchored signature proves byte-level integrity |
+| Controller-to-controller transfers rely on blind trust | A signed response travels with a verifiable chain of custody |
+| “Readily usable” formats ignore MITM risk | A header-only change gives cryptographic assurance, no new APIs needed |
+
+## Why Hasn’t RFC 9421 Gone Mainstream Yet?
+
+Despite becoming an **IETF Internet Standard in 2023**, HTTP Message Signatures remain “**recommended, but not yet widely adopted**” even in security-savvy communities.  Below are the main head-winds and why they come down to **misaligned incentives** rather than technical show-stoppers.
+- Data-holder economics reward lock-in. Unsigned exports create uncertainty for the receiving service: “Did this file really come from the source? Was it altered?” That ambiguity nudges users to stay where their data already lives. A standards-based signature removes that stickiness; it lowers the cost of switching or multi-homing. From the platform’s perspective, that looks like churn. Only an external mandate can turn what now feels like a threat to retention into a non-negotiable compliance line item.
+
+- Legal departments optimise for minimal exposure. A detached signature is a cryptographic attestation that the payload is complete and correct. If a future audit uncovers omissions, the signature becomes evidence. Without regulatory language that frames signing as the safe-harbour method, counsel will keep recommending the lower-liability path: send the CSV, but don’t stamp it.
+
+- Security budgets focus on the attacker you know. Teams already spend on TLS termination, DDoS mitigation, and SOC2 certification because customers or auditors demand it. Message-level signing has no such external push, so it sits below the funding threshold even though it actually hardens supply-chain integrity. Regulation is what moves it into the must-fund column.
+
+- Network effects need a tipping point. One big platform adding RFC 9421 signatures is not enough; partners still have to build verification logic, and most won’t bother for a single integration. A regulatory deadline, or a wave of companies forced by public pressure, creates simultaneous adoption, making the ecosystem benefits immediate and obvious.
+
+- Public trust is the ultimate enforcement mechanism. Even strong statutes lose force if users don’t know or care. High-profile campaigns - think “https by default” or “end-to-end encryption”, shift consumer expectations and give regulators political cover to tighten rules. When headlines start reading “Company X refuses to cryptographically vouch for the data it hands you,” laggards will move faster than any compliance timetable alone could compel.
+
+# Some early signs
+- [SXG](https://developers.cloudflare.com/speed/optimization/other/signed-exchanges/) is gaining traction faster, driven by tangible SEO/performance wins and one-click enablement via Cloudflare. SXG is in spirit similar to RFC 9421.
+  - Primarily websites like Narcity, Paper Magazine, MTL Blog use SXG to improve SEO results on SXG rendered indexible content. 
+- EBay Rest APIs are [already using RFC 9421](https://developer.ebay.com/develop/guides/digital-signatures-for-apis)
+- OpenAI Operator is [using RFC9421](https://blog.cloudflare.com/fr-fr/web-bot-auth/) for websites to know that this is a request that is coming from Operator. Though this is not strictly useful for data portability, it's a step that could lead us there.
+
+
+# Pushing for better
+I personally don't think this is something that companies will magically adopt. I futher think, free markets don't incentivize companies to make this switch either. This pressure to make our data, truly ours - needs to come from either regulators and/or public pressure. 
+
+[Reclaim protocol](https://reclaimprotocol.org) is a step in that direction. Even though companies might not have an incentive to implement RFC 9421 themselves, one could use Reclaim Protocol to have similar guarantees on the authenticity and tamper-resistance. However, it would be way better if RFC 9421 could be enforced so that you need Reclaim Protocol only to generate zk-proofs of what data you want to reveal to a certain third party, without revealing the whole data. For example, a bank implementing RFC9421 would sign the entire CSV of the bank statement. However, you would want to only reveal the opening and closing balances to a third party. It would be unreasonable to expect banks to sign exactly what data you want to reveal. So, we could use zk-proofs for partial disclosing of data, but use the signature on the entire response at source.
+
+We would love to see a world where websites sign the entire APIs that deal with user data. Specifically, adding an RFC 9421 middleware for `/users/*` endpoints.
+
+I started a [Change.org Petition here](https://chng.it/HVkXZGJCPD). Please go on and provide your signature, and we hope to take it up with regulators once we have enough signatures!
+<a href="https://chng.it/HVkXZGJCPD" target="_blank">
+![Change.org Petition](/blog/posts/rfc9421-petition-changeorg.jpg)
+</a>
