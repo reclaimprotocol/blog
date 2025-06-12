@@ -1,0 +1,73 @@
+---
+title: Concerning Web Scraping Practices in India
+description: Deconstructing web scrapers in India and data protection regulation violations
+date: 2025-06-12
+tags: ["Compliance", "Business", "Educational"]
+img: "/blog/posts/concerning-scrapers.png"
+author: Madhavan Malolan
+published: true
+---
+
+India has a new Data Protection regulation, similar to GDPR - called [DPDP](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf) that has been in effect since 2023. The goal of the regulation is, like that of GDPR, is to keep user's data protected - and curtail impacts from data breaches. 
+
+While studying competition for Reclaim Protocol, we were intrigued by a class of companies in India that offered solutions similar to that of Reclaim Protocol - but were seemingly faster. This made us suspicious that the data is being processed on backend servers, not on client side - which we were able to confirm with trivial Wiresharking. We know from experience that processing this data on a backend server has multiple drawbacks - need for strong security infrastructure, need for continuous compliance checks & security audits. But, the price point offered by these companies suggests - either their unit economics don't work today given the volumes we know, or they are cutting corners on security costs. Compliance costs are usually amortized across volumes, so maybe the economics _do work_ if the numbers we have are outdated. But the suspicion made us dig deeper - and what we found suggests the latter.
+
+The legal way to verify information about a user in India is one of the following
+1. Using Account Aggregation provided by NPCI - used by companies like Perfios+Karza, Authbridge
+2. Using Official bank's endpoints - used by Signzy and IDFy
+3. Using [privacy preserving tech](https://blog.reclaimprotocol.org/posts/legal-considerations) - used by Reclaim Protocol 
+
+# Credential Storing
+The companies that we are referring to use webscraping by storing the users' username and password - and then logging in on their behalf.
+There are a few companies that seem to be storing user credentials. The ones we looked most deeply at are Perfios, Digitap and Finbox, for whom we had a few suspicious indicators.
+
+Perfios's Terms of use says "act on my behalf … by using my login ID, cust ID, password credentials and internet-banking credentials" - which indicates they may be storing user credentials. We give benefit of doubt to Perfios, because they acquired Karza which is known to be registered as an Account Aggregator with RBI.
+
+Both [Digitap](https://www.digitap.ai/bank-statement-analyzer-api.html) and [Finbox (BankConnect)](https://docs.finbox.in/bank-connect/ios.html#build-bank-connect) - clearly mention they do ask the user to provide username and password to their bank accounts. So, we need to dive deeper for these products.
+
+So, if you are using these services in your production - we must warn you that you might be taking on legal, financial and reputational risk. And that you migrate to solutions that use authorized Account Aggregator services, services using banks' official APIs or services using privacy preserving technology like [zeroknowledge proofs](https://blog.reclaimprotocol.org/posts/zk-for-the-uninitiated).
+
+# Risks you undertake when using Credential Storing services
+## Regulatory Liability Concentration
+Your company remains 100% liable for DPDP compliance failures, even when using third-party processors like Digitap or Finbox.
+
+Digitap's terms claim "Limited rights include but are not limited to copying, storing, extracting data, verifying, sharing Content for purposes of research and development, gain or otherwise" - this directly violates DPDP Section 5(b) requiring data be processed "only for the purpose for which it is collected".
+
+There by, the terms on Digitap's terms of use indicate violation of DPDP exposing your to the legal risks.
+
+## Catastrophic Breach Liability
+Digitap & Finbox's credential storage model means a single security incident could expose your entire customer database, leaving you liable for the breach. Even if the breach occured on the service provider's end.
+
+Digitap's terms state "Digitap will not be liable for any loss or damage to any user or any third party" but DPDP Section 8(7) mandates "The Data Processor shall notify any personal data breach to the Data Fiduciary without undue delay". RBI can fine upto Rs 500 crore for Data Breaches. Digitap's terms of use try to transfer all the liability to you - the customer of Digitap. We do note that this is in direct conflict with the mandatory DPDP oblications, however the whole of the fine or part of it might be transferred to you.
+
+## Misuse of credentials
+DPDP requires data collection minimization. That is, only as much data that is strictly required for the intended purpose should be collected. Storing the username and password and collecting information for the "purposes of research and development" imply that the credentials are stored and can be used without user's consent. Strictly speaking, this violates data minimization. Storing username and password itself is more data than needed for processing a session - not to mention all the data that can be collected asynchronously without user's consent.
+
+Again a violation, that your company can be held liable for - even when the misuse was conducted by your service provider.
+
+## RBI Guideline violations
+RBI's Guidelines on Managing Risks and Code of Conduct require comprehensive vendor risk management.
+
+Digitap's terms state "You assume all risk of errors and/or omissions in the Platform... You assume full responsibility for implementing sufficient procedures" - this may not satisfy DPDP Section 8(3) requiring processors to "implement appropriate technical and organisational measures to ensure appropriate security of personal data"
+
+## DPDP Deletion violation
+Digitap terms state data "will be stored in back-up copies for reasonable amount of time before it is permanently purged" but DPDP Section 8(8) requires deletion
+"after the end of the processing" - "reasonable time" is undefined and may violate deletion requirements. Penalty exposure up to ₹500 crore for non-compliance may be incurred. 
+
+# Alternative considerations
+Use AA if your business requires only financial data that is already made available on AA or Banks' official APIs.
+
+Or, use modern privacy-preserving verification technologies like zero-knowledge proof systems, used by [Reclaim Protocol](https://reclaimprotocol.org), can eliminate these concentration risks entirely by:
+1. Processing verification client-side with no centralized data storage
+2. Maintaining cryptographic proof of authenticity without exposing underlying documents
+3. Providing native compliance with Indian data protection regulations
+4. Eliminating single points of failure in your verification infrastructure
+5. Meeting upcoming data localization requirements through distributed architecture
+
+# Disclaimer
+These are holes that we've identified based on research on publicly available documents on each of the companies' websites. Should the ground reality be different from what's represented on the public documents - we would like to correct our stance. Please email me at madhavan@reclaimprotocol.org.
+
+This is not a dig at a particular company, but more educational in nature - to alert companies of data protection regulation that is now in place in India, and how it may impact you. We understand the DPDP Act is very new and service providers are only still adapting to it, so pardon us if this critique came in too early.
+
+
+
