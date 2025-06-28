@@ -1,0 +1,76 @@
+---
+title: Three things I would build using Reclaim Protocol
+description: If I were not building Reclaim Protocol, I'd probably be building these
+date: 2025-06-28
+tags: ["Ideas"]
+author: Madhavan Malolan
+img: "/blog/posts/three-ideas.png"
+published: true
+---
+
+Over the last year or so, I have been talking to people about step-function change applications that can be built because of [Reclaim Protocol](https://reclaimprotocol.org). A new primitive exists, it implies new kind of problems can get solved. 
+
+The question I have been asking myself and people around me, way smarter than myself is - what are applications that become possible when user credentials become verifiable at scale, for cheap?
+
+Here are some of my top contenders as of Q2 2025.
+
+# Decentralized ScaleAI
+ScaleAI does a bunch of things. But the one that I am referring to is their [RLHF product](https://scale.com/generative-ai-data-engine). Scale AI typically employs thousands of PhD students around the world and has them annotate data that can be used for Supervised Fine Tuning (SFT). These students, though are PhDs, are typically asked to do general tasks. These tasks represent average intelligence of the species. 
+
+Further more, [this paper](https://arxiv.org/abs/2506.19733) shows that LLMs are great at solving problems that are similar or adjacent to the fields they have been trained on. The most trainable data is Math and Programming, since these are deterministic in nature. So, naturally they are great at Math, Programming and logical problem solving. However, there are particularly underperformant in important usecases like Medicine, Healthcare and Legal problem solving, as the paper notes. 
+
+One challenge is - it's hard to get really good quality data for these usecases. Particularly, data from experts in the field. Think a doctor or lawyer who has been practicing for a few decades. Hiring PhD students for creating this training data doesn't cut it - because that implies, there is no on-ground intelligence is being baked into the LLM. 
+
+There is a fundamental reason for this. ScaleAI, or anyone for that matter, will not be able to hire a 20 year experienced doctor to sit in a dingy office and create training data for eight hours a day. 
+
+The option that remains is to crowd source this task - like [MTurk](https://www.mturk.com/) or ScaleAI's own new product called [Outlier](https://outlier.ai/). The key problem here is, how do we know the user creating the training data is actually qualified to do so? Outlier uses an exam to qualify a user. This is slightly better than hosting the doctors in an office, but an experienced doctor taking an exam to contribute to an AI doesn't sound like something that will attract the best doctors. 
+
+That is the problem Reclaim Protocol can be used to solve. One can create campaigns for doctors with an experience of a decade or more, and just ask the doctor to verify their certification or their tenure at a hospital or clinic. As simple as a login to verify that the doctor has the required credentials. No need for exams or hiring them in person. 
+
+This is uniquely possible because of the existence of Reclaim Protocol where we can help verify the user's profession and experience that can then be used to assign tasks to them. 
+This is a way to scale ScaleAI to expert's data. 
+
+At the time of this writing, ScaleAI has been acquired by Meta - leading labs are [discontinuing their contracts](https://www.bloomberg.com/news/articles/2025-06-18/openai-is-phasing-out-its-work-with-scale-ai-after-meta-deal) with ScaleAI. There's a window of opportunity to tap into those clients. 
+
+## Stake holders in the LLM
+Though not a must have, I would really like to see experts being rewarded for their contributions to the expertise of the LLM. A naive way is to pay them for the time they spend on creating the data. But that's too little. I believe there should be a way where the experts who are contributing to the LLM's expertise have a way to earn from the fees collected from the LLM's usage. That would further drive incentives of the doctors and lawyers to contribute to making the LLM better, and at the same time benefit (and not lose out to the LLM) from the improvements made.
+
+## Stablecoins
+Payments can now be made globally, cheaply. Even if a doctor contributes half an hour of their time, we can send them a small compensation anywhere in the world. These technologies intersecting makes this a unique product to build today. The key insight is that for many services, it might be better to have dropoffs at check because of identity checks than have chargebacks. So much so that many services use a full KYC or ID verification using services like Jumio or Onfido causing significant user friction to combat chargeback risk.
+
+# Stripe Identity Wrapper
+The biggest risk for online services providing high value goods and services is that of chargebacks. Not only are chargebacks expensive, but are detrimental to their reputation on services like Stripe. Verifying certain information about the user at the time of checkout can significantly reduce chargeback claims. 
+
+Here are some examples of usecases where chargebacks are common _and_ expensive
+1. Dating services : after months of using the service, a user might claim a chargeback when they encounter a catfishing on the application. Leading them to initiate a chargeback "service didn't deliver promised results". Verifying the users identity at the time of sign up or subscription to a premium account can significantly reduce chargebacks.
+2. Online Gambling : Most frequent chargeback on gambling sites "child used creditcard without permission". At the checkout page, verifying the user's identity can help make sure that the user paying is the same as the identity provided. Under the assumption that the Identity websites like SSN, Aadhaar etc. are not frequently shared with children, this could reduce chargebacks significantly.
+3. High value professional training courses : Many chargebacks arise from buyer's remorse. That is, after making a purchase the buyer decides that they've spent way more than they can afford. Chargebacks in this category usually are of the type "cannot afford service". Verifying the user's employment and income can combat this category of chargebacks.
+4. Luxury subscriptions and services : In this category, chargebacks that are common is that of "loss of job, cannot afford any more". It would be beneficial to have proof of stable income in order to even sign up for these subscriptions. 
+5. There are many more such, where a simple user credential check can significantly avoid chargebacks!
+
+There are ofcourse even more services where identity checks are important for signing up for services. But that's a different category. Being able to solve the specific problem of chargebacks yeilds a product opportunity on top of Stripe. The good thing is, one needn't build the entire stack of payments that's already solved for by Stripe. Stripe does provide some fraud prevention mechanisms inherently, however letting the customers decide what identity to check to prevent chargebacks for their particular usecase.
+
+The product should be just a simple page - consistent with Stripe checkout page - just before redirecting to the Stripe checkout page itself!
+All of these light weight verifications can be done using Reclaim Protocol.
+
+# Micro prediction markets
+Polymarket and Kalshi have already demonstrated there is an appetite for prediction markets. More interesting is the fact that prediction markets have become a [source of news](https://vitalik.eth.limo/general/2021/02/18/election.html) in the face of growing misinformation on social media platforms.
+
+```
+Prediction Markets : Mainstream Media :: Micro Markets : Social Media
+```
+
+Prediction markets have a well curated set of markets. These fill the gap of international/national mainstream media - that is, fighting misinformation on publications and television. 
+
+However, most people's source of news is social media and/or small Whatsapp groups. 
+Polymarket and Kalshi are long running prediction markets, and a little too serious. There is an opportunity to build a _not-so-serious_ competitor to Polymarket. Something that has smaller durations, in the order of days or hours. A simple enough interface to quickly spin up a market and quickly share on a Whatsapp group. It should feel fun, not serious. 
+
+There are multiple startups working on this, but I have not yet seen one that feels fun and simple enough to use in a family or friends Whatsapp group.
+That could beat the fake news running around in private groups. 
+
+# Are you building these?
+If you are building any of these, I would personally like to help hit the market quickly. 
+Reach out to me on [email](mailto:madhavan@reclaimprotocol.org) on [telegram](https://t.me/madhavanmalolan). If you want to brainstorm - you can also jam on the [Reclaim Protocol group](https://t.me/protocolreclaim)
+
+
+
