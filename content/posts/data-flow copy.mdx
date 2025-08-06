@@ -1,0 +1,74 @@
+---
+title: We are thinking about Proof of Personhood wrong
+description: Why proof of personhood does not mean what you think
+date: 2025-08-06
+tags: ["Educational", "Narrative"]
+img: "/blog/posts/05.jpg"
+author: Madhavan Malolan
+published: true
+---
+_Thanks to DCBuilder for inspiring this articulation._
+
+Proving that you are a human is harder than you think. In this blog I talk about what is possible and what is not possible using Proof of Personhood, and how it's likely to shape the future.
+
+# How can you prove you are a human?
+There have been multiple approaches to proving you are a human. Notably, [WorldID](https://world.org/world-id). To use WorldID as a proof of personhood, you get your iris scanned using an Orb and that's a strong proof that you are a human. If you have an iris, it's [safe to assume](https://vitalik.eth.limo/general/2023/07/24/biometric.html) as of today that you are a human. 
+
+There are other apporaches too - that [uses your palm](https://www.humanity.org/), or your [meat space activity using Reclaim Protocol](https://link.reclaimprotocol.org/pop).
+
+It is important to note that there have been other attempts in the past, that I think have already become irrelevant. You could prove you are a human by hopping on to a [video call with a set of verifiers on BrightID](https://brightid.gitbook.io/brightid/verifications) where they ask you to do simple tasks. It's trivial to see that this can now be [convincingly faked using AI tools](https://www.forbes.com/sites/paultassi/2025/07/31/the-uks-internet-age-verification-is-being-bypassed-by-death-stranding-2-garrys-mod/). Another project was [Idena where you are asked to solve captchas](https://idena.network/) and simple puzzles to prove you are human. And it is obvious that an LLM can trivially solve most puzzles and [captchas](https://huggingface.co/keras-io/ocr-for-captcha).
+
+So, the point I am really trying to drive is Intelligence is a poor filter of humanness in the modern age. So, we really need to rely on something bots don't have (today) - that is, flesh and meat-space activity like eating food, taking a cab etc. 
+
+# Why do we need proof of personhood
+The strongest case for the need of proof of personhood that I have seen is in competitive e-sports. People play e-sports from homes or non-proctored locations. So it is really hard to say if a human is playing or it's a bot. There is some beauty and appeal to seeing humans compete - even if they are worse players than a bot. It's not about who is the best player - but who is the best _human_ player that e-sports or sports in general is what this form of entertainment appeals to. WorldID recently partnered with gaming companies to help prove that the person who registered to play is indeed a human, because they had their iris scanned.
+
+The other narrative that's ongoing since the proliferation of AI is - "Was this content created by a human?". There is some merit to it - again, from the point of view of art. One appreciates a hand made artifact more than a machine made artifact inspite of the little imperfections that seep in from human error. So, knowing that some content was created by a human has an appeal. On social media, this presents itself as was this Tweet written by a human? Was this joke written by a human? Was this reel created by a human?
+
+<callout>
+I think we all love entertainment of the form where humans are pushing the boundaries of what's possible - things we relate to as "My species is doing this amazing thing". Be it sport, music, art, journalism - all have varying degrees of that sentiment. 
+</callout>
+
+# We should embrace an impossibility
+The purpose of this blog is to challenge the sentiment of proof of personhood on digital services of user generated activity. 
+I feel it is an impossible to verify if an activity is done by a human on any app. You could have a social media that requires you to prove you are a human when you are signing up, but it is impossible to tell if the activity performed is being done by a human on the other side of the screen. 
+
+Particularly because of the rise of numerous [Open](https://openai.com/index/introducing-gpt-oss/) [Source](https://huggingface.co/deepseek-ai) [Models](https://huggingface.co/Qwen), it is clear it is going to be hard to tell what activity was created by a human, and what was created by a local AI agent. People are already using these models to [use the browser for them](https://github.com/aaronjmars/opendia).
+
+What that means is, even if the user has registered by proving they are a human, the activity - like tweeting, creating videos etc might actually be an AI agent using your computer or mobile device to do the activity on your behalf. 
+
+<callout>
+That begs the question, what does proof of personhood even solve, if it can't prove that some content or activity on an app was created by a human?
+</callout>
+
+# Proof of personhood is an anchor of scarcity
+We should embrace the fact that a proof of personhood of an account doesn't imply the activity performed by that account is also performed by an AI. We should design systems with this assumption.
+
+What proof of personhood does give us is a form of scarcity. Scarcity is necessary for reputation systems. The user must have something to lose if they misbehave or violate agreements. If one does violate agreements, there must be a way to punish them. The problem that proof of personhood should be used to attack is the punishment on violation of agreements.
+
+Repeat violators should be blocked from services. Furthermore, they should not be able to spin up a new account (easily) and continue to violate agreements. 
+
+# How does scarcity help
+This concept is not new. Firewalls like Cloudflare have been doing this for decades. The scarce resource for webcrawling-bots is their IP address. If Cloudflare sees that a bot is not respecting the [Terms of Service of webcrawling](https://en.wikipedia.org/wiki/Robots.txt) - they [get banned](https://developers.cloudflare.com/security-center/blocked-content/). A hacker would then need to spin up a new server farm in some other physical location to bypass this ban. It's not impossible, but sufficiently hard to discourage malicious webcrawlers and DDoS bots to a [fair extent](https://community.cloudflare.com/t/cloudflare-blocking-access-from-my-aws-public-ip/495834). Is there an analogy for this for humans? Not yet.
+
+The other approach is to [add some money to the account](https://help.x.com/en/managing-your-account/about-x-verified-accounts) - so that there is a concrete monetary loss if your account gets blocked. This does stop hackers who try to spin up millions of bots on social media and spam the shit out of the platform, but it doesn't deter people spreading fake news - if banned, for $10 one could spin up a new account and continue till they get banned again. 
+
+Both of these approaches rely on scarcity - finite number of IP addresses available to a user and finite amount of money they're willing to burn.
+
+# Proof of personhood as an anchor of Scarcity
+I think proof of personhood provides another anchor of Scarcity. Previously, we treated a sign of intelligence as proof of a human, and thereby as a scarce resource. This manifested in the form of captchas on digital platforms. But that assumption is no longer true. So you need [meat-space links](https://link.reclaimprotocol.org/pop) to prove you are a human now.
+
+However, those checks are not enough anymore. You may sign up for an account by proving you are a human - but everything that you do on the account after sign up may be performed by a bot.
+
+# Signed Requests, Shared Blocklists
+I think it is incredibly important that we assume that all the activity coming from an account is generated by an AI agent. But all of that should be linked to a meatspace identity. So, if you violate terms of service of the app, you get blocked. The next time you sign up with a new account, you wouldn't have access, ideally, to another meat-space identity. 
+
+Think passports. If you have violated some security contracts with a country, you can be identified by your passport number at the immigration and sent back. It is incredibly hard for most people to get a new passport and be able to travel under a new identity bypassing the previous violations.
+
+We need something like that. If you have been spamming Twitter, and you get blocked - your meat-space identity is blocked. If you sign up with another username, you will still need to link it to a meat-space identity. Hopefully, you don't have access to other people's iris, palms, national IDs etc. for you to be able to easily create a new identity on the platform.
+
+That reputation linked to a scarce resource is what deters malicious actors on our digital products. That is what will keep the internet sane. We are going to have billions, if not trillions, of agents creating bot-activity on the internet. Each human will be spinning up thousands of agents to do work for them on their behalf - by letting agents use their computers on their behalf. In that world, we need to kick out all the bots that are spun up by the same scarce resource - a person.
+
+Furthermore, I think the internet will be a better place when products share their blocklists. If an identity is misbehaving on one platform, the other platforms should probably [place that account on a watchlist](https://blog.reclaimprotocol.org/posts/sorbs-dao) - if not outright block them too. Cloudflare, Google etc already do this. They share DDoS blocklists - so if you get banned on Cloudflare, you'd probably get blocked on Google Cloud too. If a user is banned on Twitter for spreading false news, they should probably get banned on Instagram too if they're doing the same there.
+
+Having a scarce identity, and harsh blocks across the internet for violating terms of use of platforms will deter agents using humans' computers to behave themselves.

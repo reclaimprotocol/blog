@@ -2,6 +2,24 @@
 
 Follow these steps to contribute a new blog post to our website. We appreciate your contribution and look forward to featuring your insights on [blog.reclaimprotocol.org](https://blog.reclaimprotocol.org)!
 
+A non-technical contributor's guide to pushing blogs :
+# Step 0 : Setup
+## Clone this repo locally (first time only)
+```
+$ git@github.com:reclaimprotocol/blog.git
+$ cd blog
+$ npm install
+```
+## Pull latest
+```
+$ git checkout main
+$ git pull
+```
+## Create a branch
+```
+$ git checkout -b name_of_your_branch
+```
+
 ## Step 1: Create the File
 
 1. Navigate to the `./content/posts/` directory in the project repository.
@@ -52,6 +70,10 @@ When you're satisfied with your post:
 1. If `published` is set to `true` in the front matter, your post will go live after the next build.
 2. Commit your new `.mdx` file to the repository.
 3. Push your changes to the main branch or create a pull request, depending on your project's workflow.
+```
+$ git push origin name_of_your_branch
+```
+4. Hit up the dev team to merge this branch into the main branch to publish it
 
 Happy blogging! Your contributions help grow and enrich our community.
 
