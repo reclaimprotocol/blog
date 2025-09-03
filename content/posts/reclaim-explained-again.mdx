@@ -1,0 +1,50 @@
+---
+title: Reclaim Protocol Explained, for a potential customer
+description: Condensed articulation of Reclaim Protocol after having talked to many customers
+date: 2025-09-03
+tags: ["Explanation"]
+author: Madhavan Malolan
+img: "/blog/posts/reclaim-explained-again/banner.png"
+published: true
+---
+
+Reclaim Protocol is a novel technology that uses Cryptography to verify a user's credentials. The user logs in into their user profile on a certain website, and Reclaim Protocol makes the data on that screen verifiable and tamper resistant. You can decide which website you want the user to login into, and what data you want to be shared without tampering. [Reclaim Protocol](https://www.linkedin.com/company/reclaimprotocol) was part of [YCombinator W2021](https://www.ycombinator.com/companies/reclaim-protocol).
+
+_**You can think of this as Screenshots, but cryptographically tamper resistant.**_
+
+# The tech behind this breakthrough
+The beauty of Reclaim Protocol lies in the fact that all the computation happens on the user's device, and yet it is tamper resistant. Privacy preserving _and_ tamper resistant! This is possible because of a new paradigm in cryptography called [Zero Knowledge Proofs](https://blog.reclaimprotocol.org/posts/zk-for-the-uninitiated). [Here is the whitepaper](https://link.reclaimprotocol.org/whitepaper-draft) on how Reclaim Protocol works. [Here is the research paper](https://eprint.iacr.org/2024/733) reviewing the soundness and security of the protocol. If you prefer a podcast, here's an [excellent breakdown](https://zeroknowledge.fm/podcast/362/).
+
+Reclaim Protocol's flagship product is its SDKs. Using these SDKs, you can ask users to verify information about themselves from within your app. It takes about [10 lines to integrate](https://docs.reclaimprotocol.org).
+
+# That's cool technology - but who cares? 
+The reason this is relevant is because this makes the user data verification compliant. You don't have to deal with user's username passwords and all the compliance that comes with it. You can read about [how data flows in Reclaim Protocol](https://blog.reclaimprotocol.org/posts/data-flow) and what makes it a compliant way to collect user credentials.
+
+# Who should use Reclaim Protocol?
+Technically, you can verify information from any website. As along as the user can login into the website, Reclaim Protocol can make data on that website sharable in a tamper resistant way. Infact we have a very easy to use [Dev Tool](https://dev.reclaimprotocol.org) where even a non-technical person can develop what is called a provider. Once a provider is created for a website, a user can verify information about themselves for that website.
+
+But there are a few verticals we focus on. 
+
+## Student verification
+Student verification is extremely useful for retail brands to give discounts, lenders to give educational loans, companies to hire efficiently and so on. Most universities have a student portal. We ask the users to login into their student portal. Once they login, Reclaim Protocol verifies the information on their profile - name, graduation year and, field of study. 
+
+The challenge is every university has a different website. So, every university would need a different provider. There are 25k universities in the world. Reclaim Protocol uses [AI to support verifying student status](https://blog.reclaimprotocol.org/posts/zktls-ai) from over 20k universities. You can try our [open-beta product here](https://link.reclaimprotocol.org/universities). This is the solution with the widest coverage around the world.
+
+## Employment verification
+Employment verification is useful for lenders, employers and many other usecases. Reclaim Protocol helps verify a user's employment. We do so by asking the user to login into their Payroll System like ADP, Workday, Gusto etc and make sure that they have been paid by the company, they claim to have been paid by, in the last 30 days. 
+
+There are over 50k employers. This is the only one stop solution works for every employer around the world. You can request [early access here](mailto:madhavan@reclaimprotocol.org). You don't need to go to services like Workday and pay them $100+ per verification. You can just use Reclaim Protocol.
+
+## Loyalty verification
+You can verify if customers have been loyal customers on other websites and apps. If they have been purchasing certain items or subscriptions, you can sell them better deals and discounts. But this information is usually held up in silos. Websites don't share information between each other. They don't expose APIs. Loyalty Verification can power deals, discounts and [Status Matches](https://www.youtube.com/watch?v=NLYJjBBnoWA&feature=youtu.be).
+
+You can access a user's spending history and loyalty across various retail organizations around the world. You can [check them out here](https://reclaimprotocol.org/loyalty). If you want any other brand you want added, [feel free to contact us](mailto:subhash@reclaimprotocol.org?subject=Requesting new provider for loyalty). 
+
+## Finance and IDV
+This is the trickiest of the solutions. Many countries have something like an Open Banking API that provides access to most data about a user held by a bank. And in many cases that is actually pretty exhaustive. However, there are usecases where a user wouldn't want to login into their bank. For example, if a user is trying to prove that they are over 18 to access a gaming website - linking a bank using Open Banking APIs might be an overkill. At the same time, there are usecases like address verification, professional licenses, ratings on gig platforms etc that are important, valuable and not provided by Banks. That's a usecase for Reclaim Protocol. We are happy to work with you to identify the source of the website and build a provider for your particular usecase. Don't hesitate to [contact us](mailto:harsha@reclaimprotocol.org?subject=Finance and IDV provider Request).
+
+# Demo
+Check out this [demo video](https://link.reclaimprotocol.org/demo-video) to see it in practice. Or you can [play around](https://try.reclaimprotocol.org) with it yourself.
+
+# Let's talk!
+If you have any questions or would like to discuss synergies, we'd love to talk - [email](mailto:madhavan@reclaimprotocol.org), [linkedin](https://linkedin.com/in/madhavanmalolan), [call](https://calendly.com/madhavanmalolan/call)! Looking forward to hearing from you! 
