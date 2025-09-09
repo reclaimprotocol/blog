@@ -1,0 +1,111 @@
+---
+title: "Deepfake Scams Are Exploding - Can You Trust a Video Call?"
+description: "Deepfakes are no longer just funny internet tricks — they’re powering multimillion-dollar scams. Here’s how zero-knowledge proofs could add a verification layer to stop them before they happen."
+date: 2025-09-08
+tags: ["deepfake", "security", "zero-knowledge-proofs", "reclaim-protocol", "identity", "AI"]
+img: "https://i.postimg.cc/d1XJnwsB/Warning-Deepfake-Risks-in-Video-Calls.png"
+author: Rohit Goswami
+published: true
+---
+
+# Your Boss on Video Conference Might Be a Deepfake
+
+Imagine you’re on a video call with your boss over Google or Zoom. The meeting feels routine, until suddenly you’re asked to transfer a huge sum of money. You agree, only to later realize it wasn’t your boss at all, but a deepfake. If a simple video call can drain millions, how can we ever be sure who’s really on the other side of the screen?
+
+Well, something similar happened last year in Hong Kong. A finance worker at a multinational was tricked into wiring $25 million after joining a video call filled with fake colleagues, every single face on the call was a deepfake. There’re many such incidents happening over the past few years along with the advancement of rising AI models. Every AI companies is chasing to achieve generating close to reality content using AI, while that’s a big technological feat, it also brings dangerous security risks.
+
+For those you don’t know about deepfake, Deepfake is a fake video or audio made using AI to look and sound real. It can make people seem like they said or did something they didn’t.
+
+Today, it takes only a few seconds to generate deepfake videos, from celebrities dancing to bizarre songs, to politicians doing ramp walks, or just about any funny scenario you can imagine.
+
+Remember when the internet was a place where *seeing was believing*? Well, those days are gone. Thanks to deepfakes, reality is now negotiable. With a few clicks, anyone can clone your face, steal your voice, or puppet your identity into saying things you never said. What started as funny filters and viral TikToks has turned into one of the scariest fraud tools of our time.
+
+and the worst part: most people can’t tell the difference.
+
+A recent study by Finder asked 2,000 Brits to spot the difference between real and fake celebrity clips. The results? Only **3.7%** got all of them right. A whopping **69% of people thought a fake Tom Cruise video was real**, and **43% mistook a real Dua Lipa video for fake**. In other words, nearly everyone is vulnerable.
+
+Worse, **1 in 5 Brits say they’ve already been targeted by a deepfake scam**. That’s about **3.4 million people** who have fallen victim.
+
+![](https://i.postimg.cc/GhsrkBZ4/image-3.png)
+
+In past few years, we’ve seen a quite a few deepfake detection tools promising real-time protection, from hardware-based scanners inside devices to live meeting detectors that plug into video conferencing tools, and large-scale monitoring systems scanning social media. They’re clever, often boasting 80–90% accuracy in controlled tests.
+
+But most of them only work well in labs. In the messy real world - poor lighting, noisy audio, compressed videos, or custom-made fakes - their accuracy plummets.  Detection always comes **after** the fake is already live, meaning the damage (panic, scams, lost money) is often done before the flag goes up. 
+
+Honestly, the rise of such tools is impressive, but what we really need is a way to stop scammers even before they generate deepfake videos , for example, through attestation or proof of content origin.
+
+**Verification before Trust**
+
+Instead of trying to chase deepfakes after they spread, ZKPs (Zero-Knowledge Proofs) let us prove the authenticity of content or identity at the moment of creation or sharing - without exposing private data. Governments and companies are already experimenting with ZKPs for identity, finance, and supply chain use cases. Applied to deepfakes, they can act as a protective layer, ensuring that what you’re seeing or hearing truly came from the source it claims to.
+
+Let's see how the recent deepfake scams happening around the globe could have been stopped or avoided.
+
+**Deepfake Job Interviews in the U.S.**
+
+Several U.S. companies reported job candidates using AI to fake video interviews. Behind the fake camera feed was someone else, often trying to infiltrate firms to steal data.
+
+Candidates could provide **proof-of-personhood credentials** tied to government IDs or verified profiles. Companies wouldn’t need to see the private data — just a cryptographic confirmation: *this is a real person, not an AI deepfake.*
+
+**The Tom Hanks Ad Scam**
+
+A deepfake ad featuring **Tom Hanks** promoted a dental insurance product he had nothing to do with. Thousands of viewers believed it because, well, who wouldn’t trust Forrest Gump?
+
+Brands and celebrities could publish content only if attached to a **ZKP proof of authorship.** Viewers could check in one click if the video truly came from Tom Hanks’ verified channel.
+
+**UK Politician Clones**
+
+In the UK, deepfake robocalls imitating politicians circulated during elections, urging people not to vote. Free democracy, meet free AI.
+
+Politicians could anchor official speeches with **cryptographic attestations**. Any unauthenticated video without a ZKP tag would raise red flags on platforms before going viral.
+
+**The Fake Celebrity Love Story** 
+
+A woman in Los Angeles believed she was dating *General Hospital* star Steve Burton. Scammers used deepfake videos of the actor to “talk” to her, gaining trust over months. Eventually, she sent over $81,000 in cash and even sold her condo worth $350,000, all to fund her “relationship.”
+
+Imagine if she could’ve asked: *“Prove this message really came from Steve’s verified Instagram.”*
+
+**The Fake Finance Minister**
+
+In India, a person was tricked into investing ₹66 lakh (~$80,000) after seeing a deepfake of a finance minister “endorsing” an investment scheme.
+
+Government officials could publish videos with cryptographic proofs attached: *“This video was uploaded from an official gov.in account.”*
+
+The investor would have spotted the scam instantly, instead of trusting a fake minister’s words.
+
+While you're reading this blog post, thousands of deepfake videos are being generated, and scammers are actively trying to leverage them to deceive people.
+
+I’d like to finish this blog post where we started, with the example of the deepfake CFO video conference that led to a $25 million scam.
+
+### How a $25 Million Deepfake Scam Could Have Been Stopped
+
+One of the most chilling examples of deepfake fraud happened in 2023, when scammers tricked a Hong Kong employee into transferring **$25 million**. They used AI-generated video and voice to impersonate the company’s CFO during a call. Everyone on screen looked real, sounded real, and gave convincing instructions. By the time the truth surfaced, the money was gone.
+
+Why did this succeed? Because today’s video calls rely on trust by appearance. If someone looks and sounds like your CFO, you believe them. But AI now makes appearance and voice meaningless.
+
+### Adding a ZKP Layer: How Reclaim Protocol Could Have Saved the Day
+
+Now imagine the same Google Meet call with one extra step:
+
+1. The Person clicks the meeting link.
+2. Just before joining, a **popup appears**:
+    
+    *“Deepfake Verification Required – Please verify your official email.”*
+    
+3. This triggers a  **Reclaim flow**. The participant logs into their corporate Gmail.
+4. Without sharing any inbox data, Reclaim generates a **Zero-Knowledge Proof** that:
+    - The email exists.
+    - It’s an official company domain (`@bigcompany.com`).
+    - It belongs to the person trying to join.
+5. The person enters the meeting—and a **small checkmark** appears on their video frame:
+    
+    *“Verified with Reclaim.”*
+
+Now the employee doesn’t just see a face that “looks” like their CFO. They see **cryptographic proof** that this person is indeed logging in from the CFO’s verified corporate identity.
+
+The scam collapses instantly.
+
+Watch this demo video to see how it works in practice - verifying official email credentials just before joining the call.
+
+![](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanRyZXo3ajY0czlodnAwM3ZmazVoOWpvNHk2Mm1qZmVzZHE3NjVyNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/M6EibzKIEJwzcWlTx5/giphy.gif)
+
+Deepfakes aren’t going anywhere, in fact, they’ll only get sharper and harder to spot. But scams don’t have to win. Instead of chasing fakes after they spread, zero-knowledge proofs give us a way to verify before we trust. With advanced use of ZKPs in technologies like zkTLS, the internet can move from “seeing is believing” to “verified is believing.”
