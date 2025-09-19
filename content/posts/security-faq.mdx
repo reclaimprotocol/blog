@@ -1,0 +1,269 @@
+---
+title: Is Reclaim Secure? 
+description: Answers to frequently asked questions regarding Reclaim Protocol's security and how it protects user data
+date: 2025-09-20
+tags: ["security", "explanation", "business", "faq"]
+img: "/blog/posts/security-faq/defense.png"
+author: Mushaheed Syed
+published: true
+---
+
+# The BIG question: Is Reclaim **Secure**?
+
+Our Fullstack, including the SDKs & App, have been [audited by Zellic](https://drive.google.com/file/d/1t8f3EwlRUnOPbf1p_s2ncwXvuwhW1OKV/view?usp=sharing) and [ZK Circuits have been audited by ZKSecurity](https://www.zksecurity.xyz/blog/posts/reclaim/). At the time of writing this, we are also undergoing SOC2 and CERT-In certifications.
+
+The key take-home message is Reclaim Protocol, or any other entity can never see the encrypted data exchanged between the user’s device and the source website. We take various measures to enforce this, which we’ll explain in this document.
+
+## What is the Reclaim Protocol?
+
+With Reclaim Protocol, a user can prove things about themselves using data from any website, without ever giving up control of their privacy. It is an intermediary between users and applications, facilitating secure data verification. 
+
+A user initiates the verification process, and Reclaim assists them in selecting the exact data an application requires from any website. Reclaim then generates a secure verifiable proof of this data, which the user shares with the application to complete the verification. This means user provides only the necessary data, ensuring their underlying information and session remains confidential.
+
+## What are proofs, how are you proving?
+
+Reclaim Protocol uses **proofs** to verify that shared data comes directly from the intended website and remains unaltered. 
+
+1. The user's client application interacts with an attestor, which logs encrypted data sent through a secure tunnel to the target server.
+2. Sensitive information is protected using TLS and zero-knowledge proofs.
+3. Once the data exchange is complete, the user creates a **claim**, a structured record of the interaction and submits it to the attestor.
+4. The attestor validates the claim by decrypting only the necessary data portions, verifying its integrity, and signing the claim.
+5. This signed claim proves that the user accessed the resource without revealing sensitive details such as login credentials and access tokens.
+
+**Sequence diagram**
+
+![Sequence diagram](/blog/posts/security-faq/sequence_diagram.png)
+
+## How is Reclaim selecting data for the client that's required by the applications?
+
+To start a verification journey, application tells Reclaim which data provider should be used. During user's verification journey, this data provider has information that helps Reclaim identify which user information should be selected for verification.
+
+Check out [this document to know more about the data flow of user's verification journey](/blog/posts/security-faq/dfd.pdf).
+
+## How is this not a Web Scraping Tool?
+
+Web scraping tools, such as those using automated browser environments like Puppeteer, often operate by mimicking user behaviour. They achieve this in two potentially dangerous ways:
+
+1. **Session Hijacking via Cookies**: By obtaining a user's session cookies, these tools can impersonate the user without requiring login credentials.  
+2. **Plaintext Credential Collection**: Some tools request users to provide their usernames and passwords directly, often in plaintext form.
+
+Both methods pose significant security and privacy risks, granting the scraper complete control over the user's account. This level of access can lead to several malicious activities, including:
+
+* **Data Theft**: Extracting sensitive information that the user intended to keep private.  
+* **Unauthorised Account Changes**: Altering account settings, locking users out, or making purchases without consent.  
+* **Exploitation**: Using the account to impersonate the user for further phishing or fraudulent activities.
+
+Such practices are extremely dangerous, leaving users vulnerable to privacy violations, financial loss, and unauthorised access to their personal accounts.
+
+Reclaim protocol complies with national regulations, guidelines, and GDPR laws regarding data privacy. To be secure and ensure the data wasn't tampered with, Reclaim Protocol also generates cryptographic proof using Reclaim's Data Provider & Attestor to verify the data originated from the intended HTTP source. This proof is the key feature that sets us apart from other tools on the market and makes the data shared by the user, which you receive, trustable.
+
+To learn more about [legal considerations and how Reclaim is safe to use, read this blog](/posts/legal-considerations).
+
+## What is a Reclaim Data Provider?
+
+A **data provider** in Reclaim's context is a structured set of instructions that guides the attestor through formatting requests and validating responses to prove a specific claim. For instance, a "google-login" provider might verify ownership of a Google account by validating a response from Google's servers.
+
+### **Key Components:**
+
+1. **Provider Structure**:  
+   Each provider consists of:  
+   * **Public Parameters**: Schema defining user-supplied data, such as email addresses, used in requests.  
+   * **Secret Parameters**: Schema for sensitive authentication details, like access tokens, hidden from the attestor.  
+2. **Provider Functionality** :  
+   * **Request Construction**:  
+     Providers define how to create API requests securely.  
+     **Example**: For a "google-login" provider, the request might include the email address (public parameter) and access token (secret parameter) to validate ownership of a Google account.  
+   * **Response Redaction**:  
+     Sensitive portions of the server's response are redacted before sharing with the attestor.  
+     **Example**: The provider could redact everything except the verified email address for an API returning user details.  
+   * **Validation**:  
+     The attestor validates the response against the defined rules to ensure the claim's authenticity.  
+     **Example**: If verifying a birth date, the attestor might confirm the response includes a matching regex for a date format (e.g., `YYYY-MM-DD`).  
+3. **Adding New Providers**:  
+   Developers can use the [Reclaim DevTool](https://dev.reclaimprotocol.org/) to create providers without manually managing schema files or generating types. This tool streamlines the setup process for both public and secret parameters, ensuring correctness and consistency.
+
+## Is the attestor a proxy? Can it see the HTTP traffic between the client and the server?
+
+An attestor operates as an **opaque proxy** by facilitating communication between the client device and the target HTTPS server while ensuring complete privacy of the exchanged data. Here’s how it works in the context of TLS (Transport Layer Security) to guarantee the attestor cannot access any user data:
+
+1. **End-to-End Encryption with TLS**:  
+    The communication between the client device and the HTTPS server is encrypted using TLS. This encryption ensures that only the client device and the target server have the keys to decrypt the data. The attestor handles the encrypted traffic but cannot access the TLS private keys, making it impossible to decrypt or view the data.
+
+2. **Pass-Through TLS Traffic**:  
+    As an opaque proxy, the attestor does not terminate the TLS session. Unlike a traditional proxy, which decrypts traffic to inspect or modify it, an opaque proxy simply forwards the encrypted packets between the client and the server. This approach maintains the integrity and confidentiality of the communication.
+
+3. **SSL/TLS Certificate Validation**:  
+    While the attestor cannot view the data, it can perform security checks, such as verifying the server's SSL/TLS certificate. This ensures the client connects to a legitimate server and protects against man-in-the-middle attacks. The attestor ensures the server's certificate matches the expected domain and is issued by a trusted Certificate Authority (CA).
+
+4. **Cryptographic Proofs**:  
+    In the proof generation process, the attestor can include cryptographic evidence that confirms it has not tampered with the traffic. It can validate and pass along signatures or hashes to demonstrate the integrity of the session without requiring access to the plaintext data.
+
+5. **Keyless Operation**:  
+    The attestor operates without access to session keys or private keys used in the TLS handshake. The Diffie-Hellman key exchange (used in modern TLS) ensures that the encryption keys cannot be derived even if the attestor observes the handshake process.
+
+6. **Compliance with Privacy Standards**:  
+   By design, the opaque proxy architecture aligns with privacy principles. It ensures compliance with security best practices by maintaining end-to-end encryption and refraining from logging or decrypting sensitive user data.
+
+This architecture allows the attestor to play a crucial role in securing the communication (e.g., by validating certificates or preventing malicious activity) without compromising the confidentiality or privacy of the user's data.
+
+## What is a Reclaim Verifier App? Is it like a website?
+
+The Reclaim Verifier App is a native mobile application that is involved in user's verification journey where it generates and shares proofs. What makes it unique is its seamless accessibility through **App Clips** (iOS) or **Instant Apps** (Android), which allow users to use the verifier app’s functionality more easily without needing to follow separate steps for downloading or installing it from the App Store or Play Store. Instead, users can simply open a URL to launch the app instantly, eliminating the traditional friction of downloading a complete application.
+
+Despite its lightweight nature, the Reclaim Verifier App includes all the necessary features for proof generation and sharing, delivering a complete user experience within this compact, mini-app environment. By embedding all functionality within this instant format, the app simplifies the user experience and removes the usual steps associated with app store installations.
+
+App Clips and Instant Apps also go through the same rigorous approval, distribution, and security checks as regular apps. This ensures that the verifier app adheres to the same high privacy, security, and reliability standards as any native application. With this design, the Reclaim Verifier App provides a fast, secure, and hassle-free way for users to engage with the verification process—no downloads, no delays, just instant access.
+
+## As an alternative to the Reclaim Verifier App, we have Reclaim InApp SDKs. What are they?
+
+The InApp SDKs can be integrated directly into your application, bringing Reclaim’s HTTP proof generation ability to your app. This way, you can skip redirection to our Reclaim Verifier app during a user's verification journey. The InApp SDKs work with all mobile app development SDKs like Flutter, SwiftUI, React Native, etc. and go through the same level of the code review process as the Reclaim Verifier App. 
+
+## Why should an end user trust that Reclaim does not store their login session or credentials (i.e password)?
+
+Because Reclaim uses a native mobile app with Webviews in their verification journey, Reclaim InApp SDK (or the Verifier App) has great control over the webpage including access to secure and http only cookies and ability to run any arbitrary javascript at any moment. This capability is also with any browsers like Chrome, Firefox, & Safari. 
+
+We are architected to be blind to any credentials and session data. Just like browsers, sensitive information like passwords and session cookies are processed exclusively on the end user’s device and never sent to our servers. We can't store what we never receive. This is verified by independent security audits, and our In-app SDKs are open source for everyone to review. 
+
+For verification of an HTTP request, HTTP providers from devtool provide the In App SDK with instructions to select the request from http traffic happening inside the webview locally on the device and then only the selected request is used in the verification process. The encrypted data that is sent to the server for this selected HTTP request is created on device http client and this encrypted data along with parameters that need to be verified is shared with attestor proxy that finally sends it the recipient server and co-ordinates with the In App SDK running on end user’s device for generating a proof.
+
+HTTP providers here can affect the javascript running in the webview. To understand more about this and how this can be prevented, please refer: [Can HTTP Providers or Reclaim Verifier Leak Data](#can-http-providers-or-reclaim-verifier-app-leak-data).
+
+## Can HTTP Providers or Reclaim Verifier App leak data?
+
+HTTP providers help the Verifier App identify which request needs to be proven and what data should be revealed and shared with you from the user. A compromised app or malicious provider could leak information outside the app to unknown sources.
+
+**Solving HTTP Provider data leak**: The HTTP provider’s ability to send data outside the app is disabled and requires a review from the Reclaim verifier team even to add a feature that remotely has this ability. Any app developer or SDK consumer can directly verify the HTTP provider being used in the app through dev tools for any malicious activity. Alternatively, the HTTP provider can be directly provided by you to the Verifier app.
+
+**Solving compromised Reclaim Verifier for data leak**: The application source code and every update are carefully reviewed against security issues by our team and can also be reviewed by you. Or we can fork this application source code and create an alternate version for you where every change to modify the application goes through a careful review process by you and us. 
+
+## You are open source; what if a dependency you use in your software is malicious? How are you preventing security problems from such dependencies?
+
+At Reclaim, we take the security of our software and the dependencies we use very seriously. We rely exclusively on reputable dependencies from well-known and trusted sources. We choose libraries and packages that are widely used, regularly maintained and have a strong security track record. This significantly reduces the risk of introducing malicious code into our software ecosystem.
+
+We monitor all security updates for the dependencies we use to stay ahead of potential security vulnerabilities. Whenever a new security patch or update is released for any dependency, our team ensures that the latest versions are promptly applied to all Reclaim projects. We have automated systems in place that help us track the status of our dependencies, allowing us to receive real-time alerts if any security issues or updates arise. This proactive approach ensures that our software always uses the most secure and up-to-date versions of libraries.
+
+Additionally, our source code undergoes thorough audits with respect to these dependencies. This includes internal reviews and external third-party audits, ensuring that any potential security risks that dependencies introduce are caught early. By maintaining a vigilant and proactive stance toward dependency management and security, we are able to minimise the risk of a malicious dependency affecting the integrity of our products.
+
+In summary, our approach to dependency security includes:
+
+1. **Using reputable, widely trusted dependencies** with active and consistent maintenance.  
+2. **Automate security updates** and monitor dependency vulnerabilities, ensuring patches are applied quickly.  
+3. **Regularly auditing our source code** and dependencies, leveraging internal and third-party security audits.  
+4. **Engaging with the open-source community** to stay informed about the latest security practices and issues.
+
+This multi-layered strategy allows us to maintain the highest level of security while using open-source dependencies.
+
+## Is Reclaim storing any user data?
+
+Sometimes, yes. Following is the data we store:
+
+### 1. The Generated proof:  
+
+This is the data you get as an output of Reclaim’s verification process.
+
+It data is stored during the following conditions: 
+
+1. When the “Reuse proofs” feature is enabled for your app:  
+    1. This is enabled by default. This feature can be ***remotely disabled*** for your application.  
+    2. Reclaim Verifier encrypts the proof using a User-side on-device private key. This private key is stored in the user's mobile OS keychain.   
+    3. This ***only happens*** when the Reclaim Verifier app is involved in the verification journey. This ***doesn’t happen*** when using ***Reclaim InApp SDK*** in your mobile app.  
+
+2. When you don’t have a custom callback set:  
+    1. This is enabled by default when creating a verification request with Reclaim SDK. This can be ***disabled by setting a custom hook callback*** to receive proof on your server when you create a verification request with Reclaim SDK.  
+    2. In this case, when enabled, proof is stored on Reclaim servers for ***up to 3 days*** in ***plaintext*** and can be accessed for **https://api.reclaimprotocol.org/api/sdk/session/:session_id**.   
+    3. This ***only happens*** when the Reclaim Verifier app is involved in the verification journey. This ***doesn’t happen*** when using ***Reclaim InApp SDK*** in your mobile app.  
+
+### 2. Logs & performance reports:
+
+1. By default, ***logs doesn’t have any PII data*** except user’s IP, device model details, and an application-scoped unique identifier  
+2. This is used by Reclaim for debugging purposes.  
+3. We store this data for ***up to 3 days.***  
+
+### 3. Session identifiers and analytics: 
+
+1. Short randomly generated strings used for user verification journey identification.  
+2. Also used by reclaim to track verifications for your app and to track status of verification journeys like pending,  success and failures.
+
+## How do I check whether the proof is tampered or fake? What if the proof shared is for another http request where the proof can be correct but not the one we wanted?
+
+We recommend that the proof should be verified & validated with expectations.
+
+### 1. Is the proof tampered?
+
+The proof contains HTTP request information and the location of data. The verifyProof function from our SDKs that can be used on YOUR backend can verify the request used in the proofs and the data that was proved. The verification function in the SDK is just a hash check of data and HTTP request mentioned in the proof, you can also write a logic to do this on your own.
+
+Sharing a sample verification logic used in one of our SDKs (To improve readability, the implementation details of the functions are not shown.): 
+
+```py
+async def verify_proof(proof):
+    claim_data = ClaimInfo(
+        parameters=proof.claimData.parameters,
+        provider=proof.claimData.provider,
+        context=proof.claimData.context,
+    )
+    # Generate a unique identifier from claim info
+    calculated_identifier = get_identifier_from_claim_info(claim_data)
+    if calculated_identifier != proof.identifier:
+        raise ProofNotVerifiedError("Identifier Mismatch")
+    signed_claim = SignedClaim(
+        claim=proof.claim_data,
+        signatures=[
+            bytes.fromhex(sig.replace("0x", "")) for sig in proof.signatures
+        ],
+    )
+    # Retrieves the list of witnesses for a given claim
+    witnesses = await get_witnesses_for_claim(
+        proof.claimData.epoch, proof.identifier, proof.claimData.timestampS
+    )
+    # checks that a signed claim is valid by checking if all expected witnesses have signed
+    return is_valid_signed_claim(signed_claim, witnesses)
+```
+
+### 2. Is this the proof the application requested?
+
+Next step is validating the data provider claim parameters in the proof by checking url, http method, response match, redaction, and other claim creation parameters with expected values.
+
+It should be fairly easy to write a code to verify this with your own implementation. Right now we don't have a function to do this in our SDKs.
+
+## What are the points where bad actors can try to compromise the system? What has Reclaim done to solve it?
+
+**Malicious websites**: A user could use a malicious version of a website to generate a fake attestation. Reclaim Protocol incorporates mechanisms like **provider hashes to** address this risk, ensuring that the proof the user is submitting matches the proof the app initially requested. This adds a layer of validation, making it difficult for bad actors to forge or manipulate attestations. By verifying the integrity of the proof, Reclaim ensures that the data shared by the user is legitimate and originates from a trusted source.
+
+**Man-in-the-middle attackers**: Man-in-the-middle (MITM) attacks could occur if an adversary intercepts communication between the user and the website, potentially tampering with data or proofs. While MITM attacks on the network path are a theoretical concern, executing such attacks is highly challenging. First, the attacker must compromise network infrastructure like routers or switches, typically secured by strong measures such as authentication, access controls, and real-time monitoring systems. Even if an attacker manages to intercept traffic, maintaining synchronisation between the Attestor and the Website, tracking packet sequence numbers, and mimicking response times is difficult. Any discrepancies—such as timing delays, packet loss, or corrupted data, would immediately trigger security alerts, breaking the session or notifying monitoring tools.
+
+Reclaim Protocol emphasises a layered approach to security, including secure communication channels and robust validation mechanisms, to ensure the integrity of the data exchanged.
+
+Reclaim Protocol has implemented additional protection regarding malicious traffic rerouting (e.g., BGP Hijacking). While BGP hijacking attacks are theoretically possible, Reclaim leverages tools like the RIPE Routing Information Service (RIS) to monitor BGP announcements globally. If suspicious BGP rerouting is detected during the proof creation, the connection is dropped, and the user is asked to generate the proof again. This mechanism significantly reduces the risk of BGP hijacking affecting Reclaim's security. Furthermore, the likelihood of a successful BGP hijacking attack is minimised with the increasing adoption of security measures like Resource Public Key Infrastructure (RPKI) and advanced traffic monitoring. As a result, Reclaim considers BGP hijacking a very unlikely and infeasible attack.
+
+**Attestor compromise**: A compromised attestor could generate fake proofs or steal user data. Compromised Attestor cannot steal user data (other than the data the User shares willingly) because of zero-knowledge proofs and the fact that Attestor sees only encrypted data. The only protection against fake proofs here is decentralisation or self-hosting of the attestor. Otherwise, we must trust the Attestor.
+
+**The Reclaim Verifier App compromise**: A compromised app can generate proof for an incorrect request for any reason or send the HTTP requests outside the app to other malicious sources. The proof contains HTTP request information and the location of data. Our client-side SDKs that run on YOUR backend can verify the request used in the proofs and the data that was proved.  
+
+**HTTP Provider compromise**: A compromised HTTP Provider can send information outside the app to unknown sources or trigger proof generation of a different request/data. The proof contains HTTP request information and the location of data. Our SDKs that run on YOUR backend can verify the request used in the proofs and the data that was proved. Another question below answers the data leak issue. 
+
+**Compromised SDK:** A compromised SDK could lead to issues like incorrect verification, proof/data manipulation, or data leaks. However, since the SDK is open-source, you can audit it anytime or rewrite the verification logic. The verification function in the SDK is essentially a hash check of data and the HTTP request specified in the proof, so you can implement your logic if needed.
+
+Additionally, good security practices when publishing code packages include regularly reviewing and updating dependencies, signing code to verify authenticity, and ensuring proper access controls for repositories. Since the code is open on GitHub, anyone can inspect and contribute to it, which promotes transparency and security through community oversight.
+
+**DNS Arp Poisoning:** This is the DNS itself being compromised or the Arp being compromised. That is when the node is booting up, a computer on the same local area network can send an ARP message that says the IP address of the DNS is compromised before the correct IP address of DNS is received.  
+**/etc/resolv.conf,** while for others, it requires the attacker to be on the same  
+physical network as the node that is randomly selected during proof  
+generation \- making it impossible to predict the location where the attacking  
+hardware should be set up.
+
+# Conclusion
+
+Reclaim Protocol prioritises user privacy and data security. By employing cryptographic proofs, secure communication channels, and trusted intermediaries, Reclaim Protocol empowers users to reclaim their data with confidence. This FAQ aims to address shared security concerns.
+
+To read more about Reclaim's Security, I'll encourage you to read our following blogs:
+1. [Addressing Fake Website Attacks](/posts/fake-website-attack)
+2. [Unpacking a Theoretical Attack on Reclaim Protocol (And Why It Doesn’t Stand a Chance)](/posts/one-theoretical-attack)
+3. [Use of OPRF to derive unique IDs](/posts/oprf-id-for-proofs)
+
+To learn more about [legal considerations and how Reclaim is safe to use, read this blog](/posts/legal-considerations).
+
+If you have any further questions, please don't hesitate to contact Reclaim Protocol.
+
+---
+
+For more information, please visit [Reclaim Protocol](https://reclaimprotocol.org)
