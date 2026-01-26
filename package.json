@@ -39,7 +39,7 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.1.2",
-    "pnpm": "^10.15.1",
+    "pnpm": "^10.28.2",
     "postcss": "^8",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.13.0",
