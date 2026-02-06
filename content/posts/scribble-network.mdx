@@ -1,0 +1,161 @@
+---
+title: How Scribble Network Gets Creator Data Without APIs or Scraping
+description: How Scribble Network uses Reclaim Protocol to access deep creator analytics through user consent instead of expensive API agreements or legally risky scraping
+date: 2026-02-06
+tags: ["Social Media Verification", "Clipping", "Marketing", "UGC"]
+author: Adithya
+published: true
+---
+
+## What does Scribble do?
+
+Scribble Network is a creator marketplace. They connect brands with creators across X, Instagram, TikTok, LinkedIn, YouTube. Over 50,000 creators. 80+ brand partnerships.
+
+To match the right creator with the right brand, you need real data:
+
+- Audience demographics
+- Watch time analytics
+- Engagement patterns
+- Geographic distribution
+
+Follower counts alone don't cut it.
+
+That's all you need to know about Scribble for this post.
+
+## The data access problem
+
+Getting creator data from social platforms is surprisingly hard. There are really only two paths, and neither works well.
+
+### Path 1: Official APIs
+
+The traditional route. Apply for API access from each platform individually.
+
+Here's what that looks like in practice:
+
+- LinkedIn requires enterprise agreements and extensive KYB (Know Your Business) procedures
+- Instagram's API has been increasingly restricted since the Cambridge Analytica fallout
+- Each platform dictates exactly what data you can access, and it's rarely what you actually need
+- The process takes months per platform
+- Costs can run six figures annually, per platform
+
+For a marketplace working across five or six platforms, this route doesn't make sense. The costs add up, it takes forever, and you still don't get the data you actually need.
+
+### Path 2: Scraping
+
+The alternative most companies turn to. Pull data directly from platforms without permission.
+
+Scraping requires session handling, cookie storage, and accessing data without user consent. GDPR and similar privacy regulations have made this a liability minefield. Beyond legality, scraped data is unreliable. Platforms actively fight scrapers, and one update can break months of development work overnight.
+
+Neither option works for what Scribble needed.
+
+## How does Reclaim solve this?
+
+Here's the insight: the problem isn't that the data doesn't exist. It's that platforms gatekeep access to it.
+
+But the creator can see their own data. They can log into Instagram and see their audience demographics. They can open YouTube Studio and see their watch time analytics. The data is right there on their screen.
+
+What if the creator could just share that data directly?
+
+That's exactly what Reclaim enables.
+
+Instead of Scribble requesting data from platforms (APIs) or taking it without permission (scraping), creators share their own data. They log into their social platform, see exactly what will be shared, and explicitly consent. Reclaim generates a cryptographic proof of that data that's verifiable and tamper-proof.
+
+The creator owns their data and chooses to share it. That's it.
+
+## What data can Scribble now access?
+
+| Platform | Data Accessible |
+|----------|----------------|
+| X / Twitter | Follower demographics, engagement analytics, impression data, audience interests |
+| Instagram | Audience age/gender breakdown, reach metrics, story views, geographic distribution |
+| YouTube | Watch time analytics, subscriber demographics, unique views, retention curves |
+| TikTok | Video performance, audience demographics, trending metrics, follower growth |
+| LinkedIn | Professional demographics, industry breakdown, engagement by job title |
+
+Getting this through official API programs would cost six figures annually per platform, if they even allowed access. With Reclaim, Scribble gets it through direct creator consent.
+
+## How does it work technically?
+
+Here's what happens when a creator onboards:
+
+1. Creator logs into their social platform through Scribble's onboarding. Credentials go directly to Twitter/Instagram/LinkedIn's official login pages. Reclaim never sees passwords.
+
+2. Once logged in, the system pulls relevant analytics from the creator's dashboard.
+
+3. Creator reviews exactly what will be shared and explicitly consents.
+
+4. Reclaim generates a cryptographic proof and shares it with Scribble.
+
+The technology uses Trusted Execution Environments (secure hardware enclaves) and cryptographic attestation. This guarantees the data actually came from the platform and hasn't been tampered with.
+
+If you want the deep technical details, check out our [architecture docs](https://docs.reclaimprotocol.org/architecture).
+
+## Why this is legally sound
+
+Reclaim isn't scraping. All the cryptographic work (TLS capture, selective redaction, proof generation) happens entirely on the user's device. Reclaim's attestor sees only encrypted packets and the final proof. It never learns credentials, session cookies, or plaintext content.
+
+This architecture aligns with data portability rights across major privacy frameworks:
+
+**GDPR (EU)** explicitly grants users the right to obtain and transmit their personal data to another controller (Article 20). Data minimization, purpose limitation, and encryption-in-transit are native to the protocol.
+
+**CCPA (California)** requires purpose limitation and data minimization. The user retains control, no "sale" of personal data occurs, and proofs hold only the minimum information needed.
+
+**DPDP (India)** requires reasonable security safeguards. End-to-end encryption and selective disclosure meet these duties.
+
+Unlike traditional web scraping services, which store user credentials and run headless bots that continuously harvest full pages, Reclaim operates only when an individual explicitly initiates a single proof. Credentials and raw data stay confined to the user's browser or mobile device. Nothing beyond the user-selected fact is disclosed.
+
+Because the session is user-driven, transient, and privacy-minimized, it aligns with data portability rights and avoids the large-scale, automated extraction behavior that triggers contractual issues with aggregators.
+
+For more detail on legal considerations across different jurisdictions and use cases, see our [full legal analysis](https://blog.reclaimprotocol.org/posts/legal-considerations).
+
+## What's the impact?
+
+Once Scribble had access to real creator data, they could actually match brands with the right creators.
+
+### Before Reclaim
+
+- Surface metrics only (followers, likes)
+- Individual API negotiations per platform
+- Months of KYB and legal review
+- Platform-dictated data restrictions
+- Six-figure annual API costs
+
+### After Reclaim
+
+- Deep analytics (demographics, watch time, retention)
+- Single integration, all platforms
+- Creator onboarding in minutes
+- Full analytics with user consent
+- Fraction of the cost
+
+### Campaign results
+
+| Campaign | Impressions | Creators | Engagement |
+|----------|-------------|----------|------------|
+| Mantle Network | 1.97M | 1,274 | 5% |
+| Camp Network | 1.14M | 1,154 | 4% |
+| Runwago | 1.01M | 917 | 6.25% |
+| Viction | 812K | 505 | 5% |
+| Flare | 788K | 337 | 4% |
+
+These engagement rates are consistently 2-3x higher than industry averages. When you can actually match creators to brands based on real audience data, campaigns perform better.
+
+## What does this mean for the broader ecosystem?
+
+Right now, platforms control all the creator data. They sell access at premium rates or just don't let you have it. Brands end up running campaigns without knowing who they're actually reaching. Creators can't prove what their audience looks like because it's all locked inside platform dashboards.
+
+Reclaim changes this by letting creators share their own data with whoever they want.
+
+Marketplaces like Scribble can now make decisions based on real information. Brands get campaigns built on actual audience data. Creators can finally show what they're worth.
+
+That's what the post-API world looks like.
+
+---
+
+## Learn more
+
+**Scribble Network**: [scribble.network](https://scribble.network) | [@scribble_dao](https://twitter.com/scribble_dao)
+
+**Reclaim Protocol**: [reclaimprotocol.org](https://reclaimprotocol.org) | [Documentation](https://docs.reclaimprotocol.org)
+
+For questions about integrating Reclaim for data access, reach out to **[Madhavan Malolan on Telegram](https://t.me/primarata)**.
