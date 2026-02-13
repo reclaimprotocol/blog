@@ -1,0 +1,122 @@
+---
+title: How ClipStake Verifies 400M+ Creator Views Without Platform APIs
+description: How ClipStake uses Reclaim Protocol to verify creator performance metrics through cryptographic proofs instead of expensive API agreements or legally risky scraping
+date: 2026-02-13
+tags: ["Social Media Verification", "Performance Marketing", "UGC", "Payments"]
+img: "/blog/posts/clipstake.jpg"
+author: Adithya
+published: true
+---
+
+## What does ClipStake do?
+
+ClipStake is a performance-based creator marketing platform. Brands and agencies list campaigns, any creator can participate, and payment only happens per 1,000 verified views.
+
+Founded by [Felix](https://x.com/Felix_Haas) (CEO) and [Alexandre](https://x.com/almacium), ClipStake won the Alliance MVP Hackathon in San Francisco and took 1st place at the 2025 Colosseum Hackathon in the consumer category. They graduated from ALL15 in November and are now raising a $2M seed.
+
+Since launching their beta in August, ClipStake has:
+
+- Processed $195,000 in ad spend
+- Delivered over 400M verified views
+- Maintained a 32% take rate
+- Enabled instant global payouts via stablecoins and SPL tokens
+
+That's the background. Here's the problem they had to solve.
+
+## Why clipping is taking over short-form distribution
+
+Before we get into the technical challenge, it's worth understanding why clipping has become the dominant growth strategy for creator-led brands.
+
+Creators like Neon, Jorogin, and iShowSpeed didn't build massive audiences by posting everything themselves. They built clip armies - networks of creators who cut, remix, and redistribute their content across platforms. The math is simple: one livestream becomes hundreds of short-form clips, each reaching different audiences on TikTok, YouTube Shorts, and Instagram Reels.
+
+If your product is people, clipping is the only way to do it at scale.
+
+This is exactly the model ClipStake productizes. Instead of creators manually managing clipping networks through DMs and spreadsheets, ClipStake turns it into an open marketplace. Brands and creators list campaigns, clippers participate, and everyone gets paid based on verified performance.
+
+But "verified" is the key word. When you're paying per view across thousands of clippers, you need to know those views are real.
+
+## The verification problem
+
+Performance marketing only works if you can verify performance. When you're paying creators per 1,000 views, you need to know those views are real.
+
+But verifying creator metrics from social platforms is surprisingly difficult. There are really only two paths, and neither works well for what ClipStake needed.
+
+The traditional route is official APIs - apply for access from each platform individually. But each platform dictates what data you can access, and surface-level view counts are rarely enough. Detailed analytics like audience demographics, view sources, and watch time are either restricted or unavailable entirely. The process takes months per platform and can cost six figures annually per integration. For a performance marketing platform that needs to verify engagement quality across multiple platforms in near real-time, this route doesn't scale.
+
+The alternative is scraping - pulling data directly from platforms without permission. But scraping means session handling, cookie storage, and accessing data without user consent. GDPR and similar privacy regulations have made this a liability minefield. Beyond legality, scraped data is unreliable. Platforms actively fight scrapers, and one update can break months of development work overnight.
+
+Neither option works when your entire business model depends on accurate, real-time verification of creator performance.
+
+## How does Reclaim solve this?
+
+Here's the insight: the data ClipStake needs already exists. Creators can see it. They can open their TikTok analytics dashboard and see exactly where their views came from, how long people watched, and what their audience looks like.
+
+The problem isn't that the data doesn't exist. It's that platforms gatekeep access to it.
+
+What if the creator could just share that data directly, with cryptographic proof that it's real?
+
+That's exactly what Reclaim enables.
+
+Instead of ClipStake requesting data from platforms (APIs) or taking it without permission (scraping), creators share their own verified analytics. They log into their social platform, see exactly what will be shared, and explicitly consent. Reclaim generates a cryptographic proof of that data that's verifiable and tamper-proof.
+
+The creator owns their data and chooses to share it. ClipStake gets the verification it needs. That's it.
+
+With Reclaim, ClipStake can now access verified view counts for accurate cost-per-view billing, audience demographics for geographic targeting, source of views for detecting fake or bot-driven engagement, average watch time for measuring engagement quality, geographic distribution for regional campaign verification, and deeper engagement metrics for quality scoring beyond vanity numbers. Getting this level of analytics through official API programs would cost six figures annually per platform - if they even allowed access. With Reclaim, ClipStake gets it through direct creator consent.
+
+## The user flow
+
+The experience for creators is straightforward. When a creator submits campaign performance on ClipStake, they log into their social platform through ClipStake's verification flow - credentials go directly to TikTok, Instagram, or YouTube's official login pages, and Reclaim never sees passwords. Once logged in, the system pulls relevant analytics from the creator's dashboard: view counts, audience demographics, watch time, and view sources. The creator reviews exactly what will be shared and explicitly consents. Reclaim then generates a cryptographic proof and shares it with ClipStake, confirming the data actually came from the platform and hasn't been tampered with. The underlying technology uses Trusted Execution Environments (secure hardware enclaves) and cryptographic attestation, guaranteeing the analytics data is authentic - not screenshots, not self-reported numbers, but verified platform data.
+
+## Why this matters for performance marketing
+
+Performance marketing has a fraud problem. Fake views, bot engagement, and inflated metrics cost advertisers billions annually. The industry has been stuck between trusting self-reported creator metrics or paying for expensive third-party verification tools that still can't access platform-level data.
+
+Reclaim flips this. Instead of trying to estimate engagement quality from the outside, ClipStake verifies it directly from the source - the platform's own analytics - with cryptographic proof.
+
+This enables things that weren't possible before:
+
+**Fake engagement detection.** When you can see view sources and audience demographics, bot-driven views become obvious. Brands only pay for real human engagement.
+
+**Geographic targeting.** Brands running regional campaigns can verify that views actually came from their target markets, not random global traffic.
+
+**Quality-based pricing.** With verified watch time data, ClipStake can differentiate between a 2-second scroll-past and a fully-watched 60-second video. Performance marketing finally means what it says.
+
+## Why this is legally sound
+
+Reclaim isn't scraping. All the cryptographic work (TLS capture, selective redaction, proof generation) happens entirely on the user's device. Reclaim's attestor sees only encrypted packets and the final proof. It never learns credentials, session cookies, or plaintext content.
+
+This architecture aligns with data portability rights across major privacy frameworks:
+
+**GDPR (EU)** explicitly grants users the right to obtain and transmit their personal data to another controller (Article 20). Data minimization, purpose limitation, and encryption-in-transit are native to the protocol.
+
+**CCPA (California)** requires purpose limitation and data minimization. The user retains control, no "sale" of personal data occurs, and proofs hold only the minimum information needed.
+
+Because the session is user-driven, transient, and privacy-minimized, it aligns with data portability rights and avoids the large-scale, automated extraction behavior that triggers contractual issues with aggregators.
+
+For more detail on legal considerations across different jurisdictions and use cases, see our [full legal analysis](https://docs.reclaimprotocol.org).
+
+## What's the impact?
+
+Once ClipStake had access to verified creator analytics, the results spoke for themselves.
+
+Since launching their beta in August, ClipStake has processed $195,000 in ad spend and delivered over 400M verified views, maintaining a 32% take rate. Every single view is verified through Reclaim's cryptographic proofs, meaning brands only pay for real, authenticated engagement. Payouts to creators happen instantly and globally through stablecoins and SPL tokens, removing the delays and friction of traditional payment rails.
+
+By combining verified analytics with crypto-native payments, ClipStake has built the infrastructure for performance marketing that's transparent, instant, and global.
+
+## What does this mean for the broader ecosystem?
+
+Performance marketing has always had a trust gap. Brands don't know if they're paying for real engagement. Creators can't prove their audience is valuable. Platforms sit in the middle, controlling the data and charging premium rates for limited access.
+
+Reclaim closes that gap by letting creators share their own verified data with whoever they want.
+
+Platforms like ClipStake can now pay creators based on verified performance, not estimates. Brands get campaigns where every view is accounted for. Creators get paid fairly for real engagement - instantly, anywhere in the world.
+
+That's what the post-API world looks like for performance marketing.
+
+## Learn more
+
+**ClipStake:** [clipstake.com](https://clipstake.com)
+
+**Reclaim Protocol:** [reclaimprotocol.org](https://reclaimprotocol.org) | [Documentation](https://docs.reclaimprotocol.org)
+
+For questions about integrating Reclaim for analytics verification, reach out to [Madhavan Malolan on Telegram](https://t.me/madhavanmalolan).
