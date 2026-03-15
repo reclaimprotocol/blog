@@ -1,0 +1,99 @@
+---
+title: The state of Airline Status Match in 2026
+description: Status Match as we know it is disrupted by AI
+date: 2026-03-15
+tags: ["Usecases", "Loyalty", "Retail"]
+img: "/blog/posts/state-of-statusmatch-2026/banner.png"
+author: Madhavan Malolan
+published: true
+---
+
+Status Match on most airlines is broken because of how good AI has gotten at generating fake documents and screenshots. Practically, anyone can get an upgrade on any airlines without having a single airline mile.
+
+Status Match on almost all Airlines is completely broken as of March 2026.
+
+This post explores some case studies where Status Match can easily be broken, and also how one may fix it using [Reclaim Protocol](https://reclaimprotocol.org/status-match).
+
+# Why is it easy to break Status Match programs
+## Industry leaders and open source models
+In late 2025, Google launched it's image generator - Nano Banana. With that, the image generation competition became more mainstream and competitive. As of today, OpenAI's ImageGen and Google's Nano Banana are the industry leaders. Fast followed by numerous open weight models like FLUX.2 and Wan. When there are performant open source models, developers are motivated to push the performance to the limits. Take for instance [Fal](https://fal.ai). Fal is one of the top performing open source models. It is a finetuned version of another open source model FLUX.2 which by itself is up there on the [leaderboard](https://huggingface.co/spaces/ArtificialAnalysis/Text-to-Image-Leaderboard). Fal not only improves the quality of the output, but does so considerably cheaper and faster. Lastly, because of the nature of open source innovation, the open source models are able to match the benchmarks set by closed source models in a few months - and that catchup time is plummeting for newer iterations.
+
+All of this is a long way of saying, competition is red hot. Industry leaders, currently closed-sourced USA based labs, are pushing the boundaries of what is possible. While open sourced models, largely coming out of labs in China, are just as good. All of these models are capable of generating fake documents with just one prompt.
+
+## Aren't AI models improving to catch these fakes?
+Short answer : no.
+
+The only way to detect if a document is fake is to look for visual cues in a document. Is the font slightly different? Is the text alignment off by a few pixels? Is the text a little too blurred or little too clear - as compared to the resolution of the document? But these are all strictly visual cues. Historically, an expert photoshopper hired over the Dark Web could easily create a very authentic looking fake document. 
+
+Until early 2025, most image generation models used a technique called [diffusion](https://en.wikipedia.org/wiki/Diffusion_model). This technique was great at generating art and even photorealistic images - but struggled with text and hence with documents. And even if they were able to generate coherent text, it was really hard to make them stick to rules that are typically seen on a document. 
+
+However, since ChatGPT's ImageGen 1.5, models have started adopting token prediction and tool calls to create documents rather than trying to paint them using diffusion. So now, a model is capable of using tools akin to photoshop to generate a pixel perfect document exactly the same way a Dark Web hire would. Think of it as looking at a document, reverse engineering it's layout and creating a new document with the exactly correct layout but different text.
+
+Since these documents visually are exactly identical pixel to pixel to the original document, barring the values, an AI model is incapable of detecting any anomalies - because they simply don't exist any more. The AI based document fraud detection is in it's last innings. We generated a fake document using ChatGPT, and in a new chat gave it the same image and [asked it to detect](https://chatgpt.com/share/69b08790-e158-8003-9cdc-bd718b87a92a) whether it is a fake or not.
+
+> I can’t prove with certainty from a single screenshot, but nothing in this image clearly indicates AI or Photoshop manipulation. It looks like a normal mobile app screenshot.
+
+# Some case studies of broken Status Match programs
+Some Status Match programs we spoke to said "We don't only use visual cues, we use many more signals". We call bullshit on that. Maybe there are a few other signals like IP addresses and known fraudsters, but that's only a long tail protection. Majority of the fraud detection still depends on visual cues. 
+
+But then, we decided to give the benefit of doubt. Maybe there are some additional signals that could catch a fraud even if the AI models for document fraud detection is completely meaningless.
+ 
+We randomly sampled a few Status Match programs and decided to put their systems to test.
+
+## Breaking JetBlue's Status Match program
+We simply googled a screenshot of a user with a Silver Medallion Status on JetBlue's app. Ofcourse, we found one.
+![Jetblue Original Silver Medallion Screenshot](/blog/posts/state-of-statusmatch-2026/original.png)
+
+The next step was giving this to Google's Nano Banana with the following prompt
+> In this image, change "Cameron Bellamy" to "Subhash Karri". Replaced the blurred number right next to Silver Medallion # with "6606017207", year 2022 with 2026.
+
+Nano Banana obliged :
+![Jetblue Fake Silver Medallion Screenshot](/blog/posts/state-of-statusmatch-2026/fake.png)
+
+And lastly, we just had to upload the generated screenshot to JetBlue's Status Match portal.
+And in a few minutes, we received this email saying we've successfully been upgraded!
+![Jetblue Confirmation Silver Medallion Screenshot](/blog/posts/state-of-statusmatch-2026/confirmation.jpg)
+
+So easy!
+
+## Confirming our thesis with Southwest's Status Match
+Just to make sure it wasn't just a fluke with JetBlue's Status Match program, we tried the same with Southwest's Status Match program.
+
+No surprises. Exactly the same result. We got an upgrade.
+![Southwest Confirmation Silver Medallion Screenshot](/blog/posts/state-of-statusmatch-2026/confirmation2.png)
+
+
+_If you are affiliated with JetBlue or Southwest, we would love to work with you to have these accounts downgraded. [Please reach out](https://app.reclaim.ai/m/subhash/clients), as they were strictly for education purposes._
+
+# How to prevent fraudsters from getting an upgrade
+## Let's wait, the AI models will get better
+As we saw earlier, this is a losing battle. No matter how good AI gets from this point, it will **not** be able to detect fraud using visual cues. It could get a little better, but the fraudsters' AI will also get better. Arguably, the attacker's AI will improve faster than the defender's. That is the unfortunate reality we have to adapt to. This has historically not been true. 
+
+No matter how good the defensive AI is, as this paper showed, an attacker could query the system 1000 times to learn everything there is to learn about the AI's internals even when the system is closed source. Once done, they could generate a document or image that will fool the defensive AI every single time.
+
+So, no - defensive AI models are not getting better than offensive AI models. In this battle, [attack is cheaper than defense](https://vitalik.eth.limo/general/2025/07/10/2027.html). This is a major shift in cyber security, where historically [defense was cheaper than attack](https://en.wikipedia.org/wiki/Kerckhoffs%27s_principle).
+
+## OpenAI and Google will install guardrails to prevent fraudsters
+This maybe partially true. Even in our experiment, when we tried to generate a fake document on ChatGPT we were presented by a wall saying this is against the website's policies. Google's Nano Banana didn't have the same guardrails. 
+
+There are two problems in relying on better guardrails. Firstly, there are [numerous](https://arxiv.org/pdf/2504.11168v3) [studies](https://arxiv.org/pdf/2506.10597v2) showing even if there are guardrails, they are fairly simple to go around. This is a consequence of the architecture LLMs use. There are no guardrails at the time of training. Guardrails are added at the end as a bandaid fix. So no matter how good the guardrails, someone motivated enough will be able to find a way around.
+
+Further, even if the guard rails are perfect, there are always open source models that have no guardrails whatsoever. Even if there are [no new open source models](https://www.reddit.com/r/LocalLLaMA/comments/1llrywd/meta_planning_to_develop_closed_source_models/) released by leading labs, the genie is out of the bottle. The current open source image models are already so good, and keep getting better by sheer will of the open source community. Ofcourse, there are no signs to suggest that open source models will go out of fashion any time soon - especially among the Chinese labs.
+
+## The only way to fight fraud is to not rely on visual cues at all
+If the attackers have gotten impeccably good at making fraudulent document that fools our best fraud detection AI systems, the only defense we have is to change the playing field all together. Make the battle assymetric.
+
+If attackers are faking the documents - don't even look at the documents.
+
+Instead, use [Reclaim Protocol](https://reclaimprotocol.org/status-match). Here's the core thesis - that is, when asking for a document or screenshot, you're asking the user to login into their airline's website or app. Once they're there, they take a screenshot, come back to your app, and upload the said screenshot.
+
+The trouble is in the fact that you have no control on what the user does from the time they've taken to the screenshot until they have uploaded it on your website. Did they morph it using AI in between? There's no way to know.
+
+Reclaim Protocol cuts that step altogether. When the user logs in into their airline's website, Reclaim Protocol can verify their status then and there. To make it 100% tamper resistant, it uses [advance cryptography](https://blog.reclaimprotocol.org/posts/zk-in-zktls) to make sure the data matches exactly character-to-character what the website sent - as secured by HTTPS Certificates. There is no way to fake a system like this. Further, it requires no coordination or permission from the other airline's website. As long as a website is shown to the user, Reclaim Protocol can verify what was shown in a tamper resistant manner.
+
+As the Head of Loyalty solutions at [SAS Airlines](https://www.flysas.com/en), [Peter Gustavsson](https://www.linkedin.com/in/guson/) [mentioned](https://www.linkedin.com/feed/update/urn:li:activity:7437025710571114496?commentUrn=urn%3Ali%3Acomment%3A%28activity%3A7437025710571114496%2C7437216593899835392%29&replyUrn=urn%3Ali%3Acomment%3A%28activity%3A7437025710571114496%2C7437222649237262336%29&dashCommentUrn=urn%3Ali%3Afsd_comment%3A%287437216593899835392%2Curn%3Ali%3Aactivity%3A7437025710571114496%29&dashReplyUrn=urn%3Ali%3Afsd_comment%3A%287437222649237262336%2Curn%3Ali%3Aactivity%3A7437025710571114496%29) :
+
+>  You have a great solution for that area and it indeed make status matches hard to fake ✅👌 
+
+If you would like to upgrade the security of your Status Match program, and not be obliterated by fake document generating AI agents - we'd love to [talk to you](https://app.reclaim.ai/m/subhash/clients).
+
