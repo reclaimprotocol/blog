@@ -1,0 +1,126 @@
+---
+title: What OFCOM means by "highly effective" and how to actually comply
+description: A guide for balancing accuracy, UX and liability
+date: 2026-04-03
+tags: ["Age Verification", "Identity", "Regulation"]
+img: "/blog/posts/ofcom-highly-effective-how-to-comply/banner.png"
+author: Madhavan Malolan
+published: true
+---
+
+Almost every digital product needs to verify user's age. Likely your product too. The question really comes down to - what are my options, how should I pick? This post is designed to be helpful to the product lead who has to make a decision quickly.
+
+The leading regulations you want to worry about are OFCOM (UK) and GDPR (EU). If you comply with these, you're likely good in most jurisdictions. These are the strictest. Both of them need to work for you in tandem.
+
+# WTF is OFCOM?
+OFCOM evaluates your age verification system on the following [four criteria (2025)](https://www.ofcom.org.uk/online-safety/illegal-and-harmful-content/age-assurance) :
+1. **Technical Accuracy** - can your system even determine the age?
+2. **Robustness** - can a minor bypass it?
+3. **Reliability** - does it work in real-world conditions?
+4. **Fairness** - does it avoid bias across demographics?
+
+You must satisfy all four. OFCOM requires evidence that the system was tested for these criteria.
+
+When it comes to implementing an Age Verification solution, it doesn't suffice to look at OFCOM in isolation. You have to also make sure you don't end up violating GDPR in the process.
+
+# The GDPR issue no-one talks about
+Every age verification method processes personal data. The question is, for each of your age verification service providers, how much data, what kind and for how long?
+
+Under GDPR, personal data collected must be _"adequate, relevant and limited to what is necessary" (Article 5(1)(c), the data minimisation principle)_. If you collect a selfie to check age, you've collected biometric data. If you scan a Govt ID, you've collected an identity document. Both go far beyond what's necessary to determine "is this person over 18?". 
+
+# Which regulation do you want to breach? Hopefully, neither.
+Now this is where the age verification service you choose needs to play a balancing act. And in the case of some service providers, make a choice on which regulation you want to violate.
+
+For example, if you deploy a selfie-based age check to satisfy OFCOM's accuracy criterion. You now hold biometric data to satisfy GDPR's accountability requirement. You now need explicit consent, a DPIA, retention policies, breach procedures, and a lawful basis that holds up under scrutiny.
+
+**Reclaim Protocol satisfies both OFCOM and GDPR guidelines.** See below for the breakdown, and how it compares with other providers.
+
+## Technical Accuracy
+> OFCOM : "Can your system correctly determine age?"
+
+> GDPR : "Did you need to collect all that data to do it?"
+
+### Selfie based age estimation (e.g. Yoti) - cannot support "18+?" checks, only "21+?" checks
+Does the AI correctly estimate a 17 year old as under 18? The failure mode is the margin of error near the threshold age. A mature looking minor gets through, young looking adults get blocked. Yoti's own [blog reports](https://www.yoti.com/blog/age-estimation-approved-kjm-highest-age-assurance-level-18-adult-content/) 0.6% minors aged 13-17 pass through incorrectly. What this means for you is if you are using Yoti, you will need to set your [threshold to 21, not 18](https://www.yoti.com/blog/age-estimation-approved-kjm-highest-age-assurance-level-18-adult-content/). Just because selfie based age estimations are poor at the threshold - thereby blocking out a large set of young adults from your platform.
+
+### Document based verification (e.g. Persona, Veriff) - documents have more information than just age
+Both methods create a GDPR problem that has nothing to do with accuracy. To answer "Is this person over 18?", Persona collects a government-issued ID which contains name, date of birth, address, document number.
+
+Spain's AEPD demonstrated the consequences. In March 2026, they [fined Yoti €950,000](https://idtechwire.com/spains-aepd-fines-yoti-950000-euros-for-gdpr-violations-in-digital-id-app/) for three GDPR violations:
+- €500,000 for unlawful processing of biometric data under Article 9
+- €200,000 for invalid consent for R&D processing under Article 7
+- €250,000 for excessive data retention — geolocation data stored for five years, liveness detection video recordings kept for 30 days
+
+Things get uglier when you go deeper into GDPR. If your platform directs users to Yoti's Digital ID app, and Yoti processes their biometric data in ways that violate GDPR, a regulator can come after you too.
+
+### How Reclaim Protocol handles this - verification from source
+Firstly, we don't _estimate_ age. We verify it. We don't collect biometrics or scan documents. We verify directly from the source.
+
+The user logs in into an authoritative source that already knows their age. This could be a bank, NHS in UK, Aadhaar in India, SSA in USA. These institutions have already verified the user's identity and thereby age. Reclaim Protocol asks the user to login into the said portal, and observes the encrypted traffic, but cannot read it. Then, the user creates a [zero-knowledge proof](https://blog.reclaimprotocol.org/posts/zk-for-the-uninitiated) that the decrypted response contatined an age-confirming field. 
+
+The accuracy is the accuracy of the source institution. No estimation model. No margin of error. And from a GDPR perspective: no biometric data processed, no documents collected, no special category data, no DPIA required for biometric processing, no retention period to defend.
+
+## Robustness
+> OFCOM : "Can a determined minor bypass it?"
+
+> GDPR : "When the data you collected to prevent bypass gets breached, what happens?"
+
+### Selfie based age estimation - Need more data than just one selfie
+Yoti's own [CEO acknowledged](https://www.yoti.com/blog/yoti-response-ofcom-final-guidance-highly-effective-age-assurance-part-5-pornography-providers/) the challenge directly: _"Some of the methods that Ofcom has said can be highly effective, could be easily spoofed by children... Using facial age estimation with liveness detection [is essential]. Otherwise, it is unnecessarily easy to circumvent."_
+
+But robustness through more data collection creates more GDPR exposure. More liveness checks mean more video recordings. More document verification means more stored IDs. And the track record on securing that data isn't good as we saw in the previous section. But it's not a shot at Yoti's data security, it's the nature of data. If it's valuable, it'll get attacked. Especially in today's day and age where just one selfie is enough to create [convincing deepfakes](https://www.cbsnews.com/texas/news/deepfakes-ai-fraud-elon-musk/).
+
+### Document based verification - Document leaks are way worse
+Documents contain lot of essential information. In USA, leaking the image of your license and SSN is enough for a scammer to get a loan on your name.
+
+And documents get leaked all the time
+- Persona : In October 2025, roughly 70,000 government-issued ID images were exposed via a customer service vendor. NBC News reported: "Hackers may have stolen the government ID photos of around 70,000 Discord users." Discord publicly cut ties with Persona.
+- Veriff : In December 2025, a breach via Total Wireless exposed customer data. Veriff notified Total Wireless on December 10, 2025, confirming that "an external threat actor had obtained customer data from its systems." Three class action lawsuits followed.
+
+If you are taking users through age verification using document verification, you are setting their identities and documents up to be leaked.
+
+### How Reclaim Protocol handles this - minors would need access to adult's MFA
+The one thing AI cannot fake today is cryptography. You cannot deepfake a TLS connection with NHS.gov.uk. A minor trying to bypass Reclaim needs real login credentials for an adult's bank account. Most government and bank portals already enforce MFA. The government portal and bank's fraud detection is your first line of defense. 
+
+ The user can't redirect the connection to a fake server. [Our blog](https://blog.reclaimprotocol.org/posts/fake-website-attack) covers the attack vectors in depth.
+
+## Reliability
+> OFCOM : "Does it work in real-world conditions?"
+
+> GDPR : "Is the processing proportionate to the purpose?"
+
+Selfie systems struggle with lighting, camera quality, and skin tone variation in real-world conditions. Document systems struggle with damaged documents, glare, and unsupported ID types. Both have completion-rate problems. You'd have faced this problem yourself!
+
+### How Reclaim Protocol handles this - fully digital verification, no lighting issues
+The user logs into a website they already use. No photo. No physical document. No good lighting required. Just a phone and an existing account. Coverage: [97% of UK adults](https://www.ukfinance.org.uk/our-expertise/personal-banking/transactional-banking) have a bank account. Over [87% have NHS login](https://digital.nhs.uk/data-and-information/publications/statistical/nhs-app-statistics/march-2026) credentials.
+
+## Fairness
+> OFCOM : "Does it avoid bias?"
+
+> GDPR : "Are you  processing sensitive data that could lead to discrimination?"
+
+OFCOM says any age assurance relying on AI or machine learning must be "trained on diverse data reflecting the target population" and must not "produce significant bias or discriminatory outcomes."
+
+Selfie-based age estimation has a documented bias problem. Facial analysis systems show accuracy differences across age groups, skin tones, and gender. If your system is less accurate for dark-skinned users, you have both an OFCOM fairness problem and a GDPR fairness problem.
+
+### How Reclaim Protocol handles this - fully deterministic, no AI
+Reclaim Protocol asks : "Can you login into an account at an institution that verified your identity?". The question is not affected by skintone, gender or appearance. There is no bias, because there is no _estimation_. The answer to the question is either a yes or no. Never a maybe, never a probability.
+
+# Summary
+| | Yoti | Persona | Veriff | Reclaim |
+|---|---|---|---|---|
+| **OFCOM: Accuracy** | AI estimation — margin of error near threshold | Document + selfie — OCR/fraud risk | Document + selfie — OCR/fraud risk | Source verification — accuracy of the bank/NHS |
+| **OFCOM: Robustness** | Deepfakes bypass without liveness (per Yoti's own CEO) | 70K govt IDs exposed; Discord cut ties | Breach via Total Wireless, Dec 2025 | Can't deepfake a bank login + TLS session |
+| **OFCOM: Fairness** | Bias across skin tone, age, gender documented | Bias inherited from AI models | Bias inherited from AI models | No AI. No estimation. No bias vector. |
+| **GDPR: Data collected** | Facial biometrics (special category) | Govt ID + selfie | Govt ID + selfie | Nothing |
+| **GDPR: Retention** | Biometric pattern for years; geolocation 5 years; liveness video 30 days (per AEPD ruling) | Claims 3-day deletion | Stored per retention policy | Nothing stored. Ever. |
+| **GDPR: Fines/incidents** | €950K (Spain AEPD, March 2026) | 70K IDs exposed (Oct 2025); Discord cut ties (Feb 2026) | Data breach (Dec 2025); 3 class actions filed | None |
+| **Your liability if vendor is breached** | You're the data controller. Biometrics are special category. | You're the data controller. ID docs are personal data. | You're the data controller. | No personal data processed. No liability. |
+
+# What this means for you
+OFCOM compliance and GDPR compliance aren't separate problems. They're the same problem.
+If you choose a method that stores biometric data to satisfy OFCOM's robustness criterion, you've taken on GDPR special category obligations.
+
+We chose a different architecture. Not because privacy is trendy. Because it's the only approach that satisfies all four OFCOM criteria without creating new GDPR liability.
+
+If you are looking to add secure, compliant and privacy preserving age verification system, we'd love to speak to you! [Setup a call](https://calendly.com/madhavanmalolan/call)
