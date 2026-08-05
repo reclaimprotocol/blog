@@ -40,7 +40,7 @@ For example, if you deploy a selfie-based age check to satisfy OFCOM's accuracy 
 
 > GDPR : "Did you need to collect all that data to do it?"
 
-### Selfie based age estimation (e.g. Yoti) - cannot support "18+?" checks, only "21+?" checks
+### Selfie based age estimation  - cannot support "18+?" checks, only "21+?" checks
 Does the AI correctly estimate a 17 year old as under 18? The failure mode is the margin of error near the threshold age. A mature looking minor gets through, young looking adults get blocked. Yoti's own [blog reports](https://www.yoti.com/blog/age-estimation-approved-kjm-highest-age-assurance-level-18-adult-content/) 0.6% minors aged 13-17 pass through incorrectly. What this means for you is if you are using Yoti, you will need to set your [threshold to 21, not 18](https://www.yoti.com/blog/age-estimation-approved-kjm-highest-age-assurance-level-18-adult-content/). Just because selfie based age estimations are poor at the threshold - thereby blocking out a large set of young adults from your platform.
 
 ### Document based verification (e.g. Persona, Veriff) - documents have more information than just age
@@ -51,7 +51,6 @@ Spain's AEPD demonstrated the consequences. In March 2026, they [fined Yoti €9
 - €200,000 for invalid consent for R&D processing under Article 7
 - €250,000 for excessive data retention — geolocation data stored for five years, liveness detection video recordings kept for 30 days
 
-Things get uglier when you go deeper into GDPR. If your platform directs users to Yoti's Digital ID app, and Yoti processes their biometric data in ways that violate GDPR, a regulator can come after you too.
 
 ### How Reclaim Protocol handles this - verification from source
 Firstly, we don't _estimate_ age. We verify it. We don't collect biometrics or scan documents. We verify directly from the source.
@@ -68,7 +67,7 @@ The accuracy is the accuracy of the source institution. No estimation model. No 
 ### Selfie based age estimation - Need more data than just one selfie
 Yoti's own [CEO acknowledged](https://www.yoti.com/blog/yoti-response-ofcom-final-guidance-highly-effective-age-assurance-part-5-pornography-providers/) the challenge directly: _"Some of the methods that Ofcom has said can be highly effective, could be easily spoofed by children... Using facial age estimation with liveness detection [is essential]. Otherwise, it is unnecessarily easy to circumvent."_
 
-But robustness through more data collection creates more GDPR exposure. More liveness checks mean more video recordings. More document verification means more stored IDs. And the track record on securing that data isn't good as we saw in the previous section. But it's not a shot at Yoti's data security, it's the nature of data. If it's valuable, it'll get attacked. Especially in today's day and age where just one selfie is enough to create [convincing deepfakes](https://www.cbsnews.com/texas/news/deepfakes-ai-fraud-elon-musk/).
+But robustness through more data collection creates more GDPR exposure. More liveness checks mean more video recordings. More document verification means more stored IDs. And the track record on securing that data isn't good as we saw in the previous section. But it's not a shot at a vendor's data security, it's the nature of data. If it's valuable, it'll get attacked. Especially in today's day and age where just one selfie is enough to create [convincing deepfakes](https://www.cbsnews.com/texas/news/deepfakes-ai-fraud-elon-musk/).
 
 ### Document based verification - Document leaks are way worse
 Documents contain lot of essential information. In USA, leaking the image of your license and SSN is enough for a scammer to get a loan on your name.
