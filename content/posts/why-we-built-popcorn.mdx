@@ -79,7 +79,7 @@ The flow is simple: a user starts a session, and the control plane chooses a poo
 
 <PopcornFleetFlowDiagram />
 
-The implementation lives in the regional [pool manager](https://github.com/reclaimprotocol/popcorn-oss/tree/main/services/pool-manager), the Agones [browser-fleet chart](https://github.com/reclaimprotocol/popcorn-oss/tree/main/charts/browser-fleet), and the [GKE node prescaler](https://github.com/reclaimprotocol/popcorn-oss/blob/main/charts/platform/files/gke-node-prescaler.py).
+The implementation lives in the regional [pool manager](https://github.com/reclaimprotocol/popcorn-oss/tree/main/services/pool-manager), the Agones [browser-fleet chart](https://github.com/reclaimprotocol/popcorn-oss/tree/main/charts/browser-fleet), and the GKE node prescaler.
 
 Together, these pieces gave us a repeatable way to bring up a secure browser cluster in a new region, keep browsers ready, and serve users from a location close to them.
 
