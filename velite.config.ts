@@ -49,7 +49,6 @@ export default defineConfig({
           behavior: "wrap",
           properties: {
             className: ["subheading-anchor"],
-            ariaLabel: "Link to section",
           },
         },
       ],
