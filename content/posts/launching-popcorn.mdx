@@ -1,0 +1,66 @@
+---
+title: "Launching Popcorn: Open-Source Browser Infrastructure in an Isolated Enclave"
+description: "Give your AI agent a fast, open-source browser that runs inside a trusted execution environment—and that nobody else can look inside."
+date: 2026-08-09
+tags: ["engineering", "popcorn", "open source", "TEE"]
+img: "/blog/posts/popcorn/launching-popcorn.png"
+author: Abdul Rashid Reshamwala
+published: true
+---
+
+Give your AI agent a browser that nobody can look inside. Not the cloud provider. Not us.
+
+We tried every product that gives agents a hosted browser. We had a short list of hard requirements, and no single vendor met all of them. So we built our own stack, and today we're open-sourcing it: [reclaimprotocol/popcorn-oss](https://github.com/reclaimprotocol/popcorn-oss).
+
+Popcorn is not a v0.1. It is the infrastructure our core business runs on today: **93,756 sessions and 10,000+ hours of browser time in the last 30 days, with a ready browser allocated in 460 ms at the median (783 ms p95)**. The full story of how it's built is in [Why We Built Popcorn](https://popcorn.reclaimprotocol.org/posts/why-we-built-popcorn).
+
+## What we needed
+
+- Browsers that run inside an **isolated enclave**, so session contents are invisible to everyone, including the operator
+- The ability to **change the browser image** when our use case demanded it
+- Browsers **geographically close to users**, for the moments a human needs to step in
+- **Pay-as-you-go with no lock-in**
+
+We evaluated Browserbase, Browserless, and Kernel. Each did some of these well. None offered all four.
+
+## The enclave is the point
+
+If your agent logs into websites, its browser holds credentials, cookies, and session tokens. In an ordinary browser cloud, the operator controls the machine your session runs on.
+
+Most vendors answer this with SOC 2: there is a *policy* that nobody looks. A policy is not a guarantee, and policies [get violated](https://www.bbc.com/news/articles/ce8vedz4yk7o). That was not acceptable to us, because privacy is [our business](https://reclaimprotocol.org).
+
+So every Popcorn browser runs inside a Trusted Execution Environment. The hardware isolates the session's memory from the host, and attestation gives you cryptographic evidence of what is running, so you verify the environment instead of trusting the operator. You wouldn't accept a keylogger on your own laptop; don't accept one on your agent's browser.
+
+<LaunchEnclaveAnimation />
+
+## Shoutout to Kernel
+
+Popcorn started as a fork of [Kernel](https://kernel.sh)'s open-source browser images. Kernel to Popcorn, get it? We were genuinely happy with their product, we've contributed fixes back to their repo, and we'll keep doing so. For use cases without strict privacy requirements, Kernel is a fine choice. Ours stopped being one of those use cases, especially when our clients' users began logging into sensitive portals. The full technical journey is in [Why We Built Popcorn](https://popcorn.reclaimprotocol.org/posts/why-we-built-popcorn).
+
+## Human handoff
+
+Agents get stuck: a login, a 2FA prompt, a captcha, a judgment call. When that happens, the human takes over the agent's browser from their phone, and it feels native—real keyboard input, pinch-to-zoom, gestures, sharp text—because we host browsers near users and rebuilt the interaction layer for mobile over high-latency networks.
+
+If your agent never needs a human, a far-away data center is fine. The moment it does, latency and touch UX *are* the product. We haven't seen anyone else treat the handoff as a first-class feature.
+
+<LaunchHandoffAnimation />
+
+## Bots acting for humans
+
+Much of today's bot protection was built to stop botnets, not an agent acting on the explicit instructions of a signed-in human. We think the answer to that mismatch is identity, not disguise, and emerging standards like Web Bot Auth are heading the same way. In the meantime, Popcorn ships a mainstream browser that websites treat as what it is: a real Chromium, operated on a real person's behalf, within what the site was designed for.
+
+## Use it today
+
+### Open source (AGPL-3.0)
+
+The [Popcorn repository](https://github.com/reclaimprotocol/popcorn-oss) is AGPL-3.0. It's free to use and self-host, full stop. What copyleft adds: if you modify Popcorn and offer it to others as a network service, you share those changes. If you'd rather build on it without that obligation, that's exactly what the hosted service is for.
+
+### Hosted, metered, keyless (x402)
+
+Or skip the clusters and use our hosted fleet—the same one our core product runs on. There is no signup, no API key, and no credit card: your agent pays per use in USDC over the [x402 standard](https://x402.org/). One request, about a cent, and it has a browser. Integration docs: [popcorn.reclaimprotocol.org](https://popcorn.reclaimprotocol.org/#x402).
+
+<LaunchX402Animation />
+
+## Try it
+
+If your agents log into websites or touch personal data, don't settle for a policy. Run them in a browser you can verify: [popcorn.reclaimprotocol.org](https://popcorn.reclaimprotocol.org) · [reclaimprotocol/popcorn-oss](https://github.com/reclaimprotocol/popcorn-oss)

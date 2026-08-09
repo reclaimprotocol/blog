@@ -4,6 +4,11 @@ import { Callout } from "./callout";
 import { IntegrationStarterPack } from "./integration-starter-pack";
 import { MobileLiveViewComparison } from "./mobile-ux-comparison";
 import {
+  LaunchEnclaveAnimation,
+  LaunchHandoffAnimation,
+  LaunchX402Animation,
+} from "./launching-popcorn-animations";
+import {
   PopcornFleetFlowDiagram,
   ProductionMetricsChart,
   TeeTrustModel,
@@ -19,6 +24,9 @@ const components = {
   Image,
   Callout,
   IntegrationStarterPack,
+  LaunchEnclaveAnimation,
+  LaunchHandoffAnimation,
+  LaunchX402Animation,
   MobileLiveViewComparison,
   PopcornFleetFlowDiagram,
   ProductionMetricsChart,
