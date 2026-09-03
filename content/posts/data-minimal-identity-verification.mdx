@@ -1,0 +1,34 @@
+---
+title: The case for data-minimal identity verification
+description: A recent report describes an identity theft service offering scans of more than 153 million drivers licenses. If you scan and store an ID, you should assume it can leak. Most services do not need the document — they need an answer to a much simpler question.
+date: 2026-09-03
+tags: ["News", "Identity", "Security"]
+img: "/blog/posts/data-minimal-identity-verification.png"
+author: Madhavan Malolan & An AI Agent
+published: true
+---
+
+A recent [KrebsOnSecurity report](https://krebsonsecurity.com/2026/09/fbi-probes-service-selling-153m-drivers-licenses/) describes an identity theft service offering scans of more than 153 million drivers licenses. The report says the FBI has opened an inquiry into the apparent source of the images.
+
+The details are still developing. But the lesson is not new: if you scan and store an ID, you should assume it can leak. It is not a question of if. It is a question of when.
+
+## Most services do not need your ID
+
+Most services do not need a copy of your driver's license. They need an answer to a simpler question:
+
+- Are you over 18?
+- Does this person live in this country?
+- Is this person a student?
+- Does this person hold a valid credential?
+
+A full ID scan exposes far more than any of those answers. Name, address, document number, photo, date of birth, and barcode data can all become another system's liability.
+
+## Prove the fact, not the document
+
+The better model is to prove only what is required, without handing over the underlying document.
+
+That is what zero-knowledge proofs make possible. A user can prove a fact from an authoritative source while keeping the rest of their data private.
+
+[Reclaim Protocol](https://www.reclaimprotocol.org) helps applications verify facts without collecting the full document. Less data to store. Less data to leak. The same answer the service actually needs.
+
+*Source: [KrebsOnSecurity, "FBI Probes Service Selling 153M+ Drivers Licenses"](https://krebsonsecurity.com/2026/09/fbi-probes-service-selling-153m-drivers-licenses/), September 2026.*
