@@ -57,9 +57,9 @@ export function MainPostItem({
             })}
         </div>
         <div className={!tagCheck ? "mt-4" : ""}>
-          <h2 className="text-lg font-semibold leading-snug tracking-tight mt-4 dark:text-white">
+          <h2 className="text-lg font-medium font-mono tracking-tight mt-4">
             <Link href={slug}>
-              <span className="bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900">
+              <span className="post-title-link bg-[length:0px_2px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_2px] group-hover:bg-[length:100%_2px]">
                 {title}
               </span>
             </Link>
@@ -120,9 +120,9 @@ export function PostItem({
             })}
         </div>
         <div className={!tagCheck ? "mt-4" : ""}>
-          <h2 className="text-lg font-semibold leading-snug tracking-tight mt-2 dark:text-white line-clamp-1">
+          <h2 className="text-lg font-medium font-mono tracking-tight mt-2 line-clamp-1">
             <Link href={slug}>
-              <span className="bg-gradient-to-r from-green-200 to-green-100 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-purple-800 dark:to-purple-900">
+              <span className="post-title-link bg-[length:0px_2px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_2px] group-hover:bg-[length:100%_2px]">
                 {title}
               </span>
             </Link>

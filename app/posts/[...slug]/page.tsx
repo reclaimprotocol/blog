@@ -83,7 +83,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <article className="container py-6 prose dark:prose-invert max-w-3xl mx-auto">
-      <h1 className="mb-2 text-center">{post.title}</h1>
+      <h1 className="page-title mb-2 text-center">{post.title}</h1>
       <div className="text-center">
         <div>{post.author}</div>
         <div>{formatDate(post.date)}</div>

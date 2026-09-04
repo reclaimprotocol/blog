@@ -3,105 +3,291 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+ :root {
+ /* surfaces */
+ --surface: #F7F7FB;
+ --panel: #FFFFFF;
+ --panel-2: #FAFAFD;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+ /* ink */
+ --ink: #121212;
+ --ink-2: #333333;
+ --ink-3: rgba(18, 18, 18, 0.55);
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+ /* lines */
+ --line: #E6E6EE;
+ --line-2: #CCCCCC;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+ /* accent — racing blue */
+ --acc: #0000EE;
+ --acc-soft: rgba(0, 0, 238, 0.06);
+ --racing-blue: #0000EE;
+ --racing-mid: #6666FF;
+ --spec: #6666FF;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+ /* status */
+ --ok: #2C5F18;
+ --warn: #7A3B0E;
+ --bad: #8A0F4A;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+ /* code */
+ --code-bg: #121212;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+ /* type */
+ --font-mono: "IBM Plex Mono", monospace;
+ --font-sans: "IBM Plex Sans", system-ui, sans-serif;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+ /* motion */
+ --ease-out: cubic-bezier(0.2, 0.6, 0.2, 1);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+ /* shadcn-style tokens mapped to the spec */
+ --background: var(--surface);
+ --foreground: var(--ink);
 
-    --radius: 0.5rem;
-  }
+ --card: var(--panel);
+ --card-foreground: var(--ink);
 
-  .dark {
-    --background: 0 0% 13%; /* Dark gray for background */
-    --foreground: 0 0% 100%; /* White for foreground text */
+ --popover: var(--panel);
+ --popover-foreground: var(--ink);
 
-    --card: 0 0% 15%; /* Slightly darker gray for card backgrounds */
-    --card-foreground: 0 0% 100%; /* White for card text */
+ --primary: var(--acc);
+ --primary-foreground: #FFFFFF;
 
-    --popover: 0 0% 15%; /* Slightly darker gray for popover backgrounds */
-    --popover-foreground: 0 0% 100%; /* White for popover text */
+ --secondary: var(--panel-2);
+ --secondary-foreground: var(--ink-2);
 
-    --primary: 0 0% 100%; /* White for primary elements */
-    --primary-foreground: 0 0% 20%; /* Dark gray for primary text */
+ --muted: var(--panel-2);
+ --muted-foreground: var(--ink-3);
 
-    --secondary: 0 0% 30%; /* Medium gray for secondary elements */
-    --secondary-foreground: 0 0% 100%; /* White for secondary text */
+ --accent: var(--acc-soft);
+ --accent-foreground: var(--acc);
 
-    --muted: 0 0% 50%; /* Light gray for muted elements */
-    --muted-foreground: 0 0% 20%; /* Dark gray for muted text */
+ --destructive: var(--bad);
+ --destructive-foreground: #FFFFFF;
 
-    --accent: 0 0% 30%; /* Medium gray for accent elements */
-    --accent-foreground: 0 0% 100%; /* White for accent text */
+ --border: var(--line-2);
+ --input: var(--line-2);
+ --ring: var(--acc);
 
-    --destructive: 0 0% 0%; /* Black for destructive elements */
-    --destructive-foreground: 0 0% 100%; /* White for destructive text */
+ --radius: 2px;
+ }
 
-    --border: 0 0% 33%; /* Gray for borders */
-    --input: 0 0% 30%; /* Medium gray for input fields */
-    --ring: 0 0% 60%; /* Lighter gray for focus rings */
-  }
+ .dark {
+ /* surfaces */
+ --surface: #040A20;
+ --panel: #08102E;
+ --panel-2: #0B1638;
+
+ /* ink */
+ --ink: #FFFFFF;
+ --ink-2: #CCCCFF;
+ --ink-3: rgba(204, 204, 255, 0.55);
+
+ /* lines */
+ --line: rgba(204, 204, 255, 0.14);
+ --line-2: rgba(204, 204, 255, 0.24);
+
+ /* accent — racing blue */
+ --acc: #6666FF;
+ --acc-soft: rgba(102, 102, 255,  0.12);
+
+ /* status */
+ --ok: #9BE38A;
+ --warn: #F0B979;
+ --bad: #FF9EC4;
+
+ /* code */
+ --code-bg: #02061A;
+
+ /* shadcn-style tokens mapped to the spec */
+ --background: var(--surface);
+ --foreground: var(--ink);
+
+ --card: var(--panel);
+ --card-foreground: var(--ink);
+
+ --popover: var(--panel);
+ --popover-foreground: var(--ink);
+
+ --primary: var(--acc);
+ --primary-foreground: #FFFFFF;
+
+ --secondary: var(--panel-2);
+ --secondary-foreground: var(--ink-2);
+
+ --muted: var(--panel-2);
+ --muted-foreground: var(--ink-3);
+
+ --accent: var(--acc-soft);
+ --accent-foreground: var(--acc);
+
+ --destructive: var(--bad);
+ --destructive-foreground: #FFFFFF;
+
+ --border: var(--line-2);
+ --input: var(--line-2);
+ --ring: var(--acc);
+
+ --radius: 2px;
+ }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+ * {
+ @apply border-border;
+ }
+ html {
+ scroll-behavior: smooth;
+ }
+ body {
+ @apply bg-background text-foreground antialiased;
+ font-variant-numeric: tabular-nums;
+ }
+}
+
+/* Typography — mono carries structure (headings, labels, identifiers), sans carries explanation */
+h1, h2, h3, h4 {
+ font-family: var(--font-mono);
+ font-weight: 500;
+ letter-spacing: -0.01em;
+}
+h5, h6 {
+ font-family: var(--font-mono);
+}
+
+/* Identifiers, meta, labels are mono */
+time, code, pre, .eyebrow {
+ font-family: var(--font-mono);
+}
+
+.mono-nums {
+ font-variant-numeric: tabular-nums;
+ font-feature-settings: "tnum" 1;
+}
+
+/* Focus — never removed, never a glow */
+:focus-visible {
+ outline: 2px solid var(--acc);
+ outline-offset: 2px;
+ border-radius: 2px;
+}
+
+@layer components {
+ /* Primary button: fills with the racing-blue gradient, mono 700 */
+ .btn-primary-gradient {
+ background-image: linear-gradient(#0000EE 0%,#6666F5 100%);
+ color: #FFFFFF;
+ font-family: var(--font-mono);
+ font-weight: 700;
+ transition: transform 90ms var(--ease-out), box-shadow 160ms var(--ease-out);
+ }
+ .btn-primary-gradient:hover {
+ box-shadow: 0 1px 3px rgba(18, 18, 18, 0.15);
+ filter: brightness(1.03);
+ }
+ .btn-primary-gradient:active {
+ transform: scale(0.965);
+ }
+
+ /* spec pill — tags and status */
+ .tag-pill {
+ display: inline-block;
+ border: 1px solid var(--line);
+ background: var(--acc-soft);
+ color: var(--acc);
+ border-radius: 999px;
+ padding: 2px 9px;
+ font-family: var(--font-mono);
+ font-size: 10.5px;
+ font-weight: 600;
+ letter-spacing: 0.1em;
+ text-transform: uppercase;
+ line-height: 1.4;
+ }
+
+ /* spec card — 2px radius, hairline border, 24px padding */
+ .spec-card {
+ border: 1px solid var(--line-2);
+ background: var(--card);
+ color: var(--card-foreground);
+ border-radius: 2px;
+ transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+ }
+ .spec-card:hover {
+    transform: translateY(-2px);
+ box-shadow: 0 6px 18px rgba(18, 18, 18, 0.08);
+ }
+
+ /* the grain tile — subtle surface texture */
+ .noise-bg {
+ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+ background-size: 200px 200px;
+ background-attachment: fixed;
+ }
 }
 
 .one:after {
-  display: block;
-  transform: scaleX(0);
-  transition: transform 250ms ease-in-out;
+ display: block;
+
+ transform: scaleX(0);
+ transition: transform 250ms var(--ease-out);
 }
 .one:hover:after {
   transform: scaleX(1);
 }
 
+.one {
+ position: relative;
+}
+.one:after {
+ content: "";
+ position: absolute;
+ left: 0; bottom: 0;
+ width: 100%;
+ height: 1px;
+ background: currentColor;
+}
+
 .axhover:hover {
-  mask-image: linear-gradient(
-    -75deg,
+ mask-image: linear-gradient(
+ -75deg,
     rgba(0, 0, 0, 0.6) 30%,
-    #000 50%,
-    rgba(0, 0, 0, 0.6) 70%
-  );
-  -webkit-mask-size: 200%;
-  mask-size: 200%;
-  animation: shine 2s infinite;
+ #000 50%,
+    rgba(0, 0, 0, 0.6) 70%,
+ );
+ -webkit-mask-size: 200%;
+ mask-size: 200%;
+ animation: shine 2s infinite;
 }
 
 @keyframes shine {
-  from {
-    -webkit-mask-position: 150%;
-  }
+ from { -webkit-mask-position: 150%; }
+ to { -webkit-mask-position: -50%; }
+}
+/* Post titles — a racing-blue underline that draws on hover, mono voice per the spec */
+.post-title-link {
+  background-image: linear-gradient(var(--acc), var(--acc));
+}
 
-  to {
-    -webkit-mask-position: -50%;
-  }
+/* Page titles carry the mono structure voice */
+.page-title {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* Article prose — identifiers in mono, titles understated */
+.prose h1, .prose h2, .prose h3 {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* Site nav links — spec muted ink, racing-blue hover */
+.nav-link {
+  color: var(--ink-3);
+}
+.nav-link:hover {
+  color: var(--acc);
 }
