@@ -27,8 +27,8 @@ export function MainPostItem({
   tags,
 }: PostItemProps) {
   return (
-    <div className="group cursor-pointer">
-      <div className=" overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105 dark:bg-gray-800">
+    <div className="group cursor-pointer glass rounded-[2px] p-4">
+      <div className="overflow-hidden rounded-[2px] bg-black/5 transition-all hover:scale-[1.02]">
         <Link className="relative block aspect-video" href={slug}>
           <img
             alt="Thumbnail"
@@ -91,8 +91,8 @@ export function PostItem({
 }: PostItemProps) {
   return (
 
-    <div className="group cursor-pointer">
-      <div className=" overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105dark:bg-gray-800">
+    <div className="group cursor-pointer glass rounded-[2px] p-4">
+      <div className="overflow-hidden rounded-[2px] bg-black/5 transition-all hover:scale-[1.02]">
         <Link className="relative block aspect-square" href={slug}>
           <img
             alt="Thumbnail"
