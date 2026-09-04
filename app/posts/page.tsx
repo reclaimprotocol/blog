@@ -31,7 +31,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
   return (
     <Container>
       <div className="flex flex-col items-center justify-center pb-8 gap-3">
-        <h1 className="text-4xl font-bold ">All blogs</h1>
+        <h1 className="page-title text-4xl">All blogs</h1>
         <p>See all blogs we have ever written.</p>
       </div>
       <div>

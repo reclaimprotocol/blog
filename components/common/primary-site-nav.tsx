@@ -9,7 +9,7 @@ const PrimarySiteNav = () => {
         <div className="order-1 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row md:justify-end">
           <Link
             href={"https://reclaimprotocol.org"}
-            className="px-5 py-2 text-base font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+            className="px-5 py-2 text-base font-medium nav-link"
           >
             Home
           </Link>
@@ -17,7 +17,7 @@ const PrimarySiteNav = () => {
             href={"https://dev.reclaimprotocol.org/dashboard"}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2 text-base font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+            className="px-5 py-2 text-base font-medium nav-link"
           >
             Dashboard
           </a>
@@ -25,7 +25,7 @@ const PrimarySiteNav = () => {
             href={"https://t.me/protocolreclaim"}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2 text-base font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+            className="px-5 py-2 text-base font-medium nav-link"
           >
             Community
           </a>
@@ -39,7 +39,7 @@ const PrimarySiteNav = () => {
         <div className="order-2 hidden w-full flex-col items-center justify-start md:order-none md:flex md:w-auto md:flex-1 md:flex-row">
           <Link
             href={"/"}
-            className="px-5 py-2 text-base font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+            className="px-5 py-2 text-base font-medium nav-link"
           >
             Blogs
           </Link>
@@ -47,7 +47,7 @@ const PrimarySiteNav = () => {
             href={"https://www.reclaimprotocol.org/whitepaper"}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2 text-base font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+            className="px-5 py-2 text-base font-medium nav-link"
           >
             Whitepaper
           </a>
@@ -55,7 +55,7 @@ const PrimarySiteNav = () => {
             href="https://docs.reclaimprotocol.org/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2 text-base font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400"
+            className="px-5 py-2 text-base font-medium nav-link"
           >
             Docs
           </a>

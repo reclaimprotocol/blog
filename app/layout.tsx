@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Lora } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import { cx } from "@/lib/utils";
 import "./globals.css";
 import "katex/dist/katex.min.css";
@@ -8,14 +8,16 @@ import { Providers } from "@/components/providers";
 import PrimarySiteNav from "@/components/common/primary-site-nav";
 import PrimarySiteFooter from "@/components/common/primary-site-footer";
 
-const inter = Inter({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-mono",
 });
 
-const lora = Lora({
+const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  variable: "--font-lora",
+  weight: ["400", "500"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -39,12 +41,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cx(inter.variable, lora.variable)}
+      className={cx(ibmPlexMono.variable, ibmPlexSans.variable)}
       suppressHydrationWarning
     >
       <head>
       </head>
-      <body className="antialiased text-gray-800 dark:bg-black dark:text-gray-400">
+      <body className="antialiased font-sans">
         <Providers>
           <PrimarySiteNav />
           <main>{children}</main>
