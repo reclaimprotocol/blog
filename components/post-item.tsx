@@ -93,7 +93,7 @@ export function PostItem({
 
     <div className="group cursor-pointer glass rounded-[2px] p-4">
       <div className="overflow-hidden rounded-[2px] bg-black/5 transition-all hover:scale-[1.02]">
-        <Link className="relative block aspect-square" href={slug}>
+        <Link className="relative block aspect-video" href={slug}>
           <img
             alt="Thumbnail"
             decoding="async"
