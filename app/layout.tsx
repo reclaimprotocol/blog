@@ -46,12 +46,20 @@ export default function RootLayout({
     >
       <head>
       </head>
-      <body className="antialiased font-sans">
-        <Providers>
-          <PrimarySiteNav />
-          <main>{children}</main>
-          <PrimarySiteFooter />
-        </Providers>
+            <body className="antialiased font-sans">
+        <div aria-hidden className="page-atmosphere">
+          <div className="glow-a" />
+          <div className="glow-b" />
+          <div aria-hidden className="guilloche" />
+        </div>
+        <div className="relative z-10">
+          <Providers>
+            <PrimarySiteNav />
+            <main>{children}</main>
+            <PrimarySiteFooter />
+          </Providers>
+        </div>
+        <div aria-hidden className="grain-overlay" />
       </body>
     </html>
   );
