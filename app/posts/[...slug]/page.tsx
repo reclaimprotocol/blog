@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import "@/styles/mdx.css";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
-import { Tag } from "@/components/tag";
 
 interface PostPageProps {
   params: {
@@ -95,9 +94,6 @@ export default async function PostPage({ params }: PostPageProps) {
         width={1920}
         height={1080}
       />
-      <div className="flex gap-2 mb-2">
-        {post.tags?.map((tag) => <Tag tag={tag} key={tag} />)}
-      </div>
       <MDXContent code={post.body} />
     </article>
   );

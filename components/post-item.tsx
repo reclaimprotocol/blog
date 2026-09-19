@@ -1,9 +1,5 @@
-import { Calendar } from "lucide-react";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
-import { cn, formatDate, getRandomTailwindColor } from "@/lib/utils";
-import { Tag } from "./tag";
-import Image from "next/image";
+import { formatDate } from "@/lib/utils";
 
 interface PostItemProps {
   slug: string;
@@ -12,8 +8,6 @@ interface PostItemProps {
   img?: string;
   author?: string;
   date: string;
-  tagCheck?: boolean;
-  tags?: Array<string>;
 }
 
 export function MainPostItem({
@@ -23,8 +17,6 @@ export function MainPostItem({
   img = "/images/notfound.png",
   date,
   author,
-  tagCheck = true,
-  tags,
 }: PostItemProps) {
   return (
     <div className="group cursor-pointer glass rounded-[2px] p-4">
@@ -49,14 +41,7 @@ export function MainPostItem({
         </Link>
       </div>
       <div className="">
-        <div className="flex gap-3">
-          {tagCheck &&
-            tags &&
-            tags.map((tag) => {
-              return <Tag key={tag} tag={tag} />;
-            })}
-        </div>
-        <div className={!tagCheck ? "mt-4" : ""}>
+        <div>
           <h2 className="text-lg font-medium font-mono tracking-tight mt-4">
             <Link href={slug}>
               <span className="post-title-link bg-[length:0px_2px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_2px] group-hover:bg-[length:100%_2px]">
@@ -86,8 +71,6 @@ export function PostItem({
   img = "/images/notfound.png",
   date,
   author,
-  tagCheck = true,
-  tags,
 }: PostItemProps) {
   return (
 
@@ -112,14 +95,7 @@ export function PostItem({
         </Link>
       </div>
       <div className="">
-        <div className="flex gap-3">
-          {tagCheck &&
-            tags &&
-            tags.map((tag) => {
-              return <Tag key={tag} tag={tag} />;
-            })}
-        </div>
-        <div className={!tagCheck ? "mt-4" : ""}>
+        <div>
           <h2 className="text-lg font-medium font-mono tracking-tight mt-2 line-clamp-1">
             <Link href={slug}>
               <span className="post-title-link bg-[length:0px_2px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_2px] group-hover:bg-[length:100%_2px]">
