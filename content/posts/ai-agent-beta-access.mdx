@@ -1,0 +1,41 @@
+---
+title: Opening up beta access for AI Agents
+description: A fully redesigned SDK for use exclusively by AI coding agents - so you don't need to write any code
+date: 2026-10-26
+tags: ["Code", "Agents"]
+author: Madhavan Malolan
+img: "/blog/posts/ai-agent-beta-access-banner.png"
+published: true
+---
+
+# We are deprecating dev.reclaimprotocol.org
+If you have been using dev.reclaimprotocol.org for your integration, you might need to update soon.
+
+Historically, if you needed to integrate verification into your app - you would go to the [Reclaim Protocol Dev Tools](https://dev.reclaimprotocol.org) and look for _Providers_ built by the community for the usecase you need. A _Provider_ is a configuration that tells Reclaim Protocol how to verify information from a certain source. E.g. if you need to verify the [employee details from their HRMS platform](https://docs.google.com/forms/d/e/1FAIpQLSdOwwOf9S_2b0gOqgh5BX-HT9ysEYC-wT1PbbAl11sGU41KRw/viewform?usp=publish-editor) in your hiring pipeline or you need to [verify the delivery address of the last order on a food delivery app](https://dev.reclaimprotocol.org/provider/details/50fccb9e-d81c-4894-b4d1-111f6d33c7a0) as an address proof. Which website to use, where on the website the required data exists, how to extract them, how to cryptographically verify them - are all part of the configuration that a _Provider_ entails.
+
+If you've [created a provider](https://dev.reclaimprotocol.org/provider-builder) before, you know it's not particularly easy. It's not rocket science, but it does require a lot of trial-and-error. It also helps if you've had some basic reverse engineering experience like using Chrome Dev Tools.
+
+What we observed was that the people who were building applications - builders - had a different skillset from the people who were interested and efficient at building _Providers_ - hackers. So we built a marketplace, so that the hackers from the community could build providers, that the builders can then use in their application. At the time of this writing, there are over 25k _Providers_ that have been built by our community of hackers and builders, collectively developers.
+
+**But that's so 2025.**
+
+# Designed for AI agents
+AI agents completely changed the dynamics of who were using our SDKs and how.
+
+To begin with, a lot of non technical folks started prototyping using Claude Code. It became unreasonable to ask these non technical folks, who might not even be aware Chrome Devtools exist, to build a _Provider_. 
+
+Secondly, the skillset that was rare in hackers - that of reverse engineering - became abundantly available in the form of Claude Code and other coding agents. These agents are better than most, if not all, the developers who built -Providers_ on our marketplace. These agents are all knowing, patient in trying various options, and are able to make guesses based on information it has which makes the trial and error actually pretty efficient. 
+
+Arguably, these AI agents are better than any single developer at building _Providers_. 
+
+We are launching a skill you can provide your AI coding agent - and it can build the _Provider_ and integrate the verification flow in the right place in the app all with a single prompt. That you can copy paste, ofcourse.
+
+# From days to minutes
+Though Reclaim Protocol integration was not crazy hard, if often used to take a couple days - especially when one is stuck - basically waiting for an engineer from our team to get up and respond. 
+
+This AI coding agent first is so much more efficient. Using something like GPT 6.1 Sol would take you about 8 minutes to integrate verifications in your product end to end. 
+
+Today, we are opening up early access to our SDK for AI coding agents. If you are interested, do sign up - we will follow up with instructions!
+
+**[Sign up for Beta Access here](https://docs.google.com/forms/d/e/1FAIpQLSdOwwOf9S_2b0gOqgh5BX-HT9ysEYC-wT1PbbAl11sGU41KRw/viewform?usp=publish-editor)**
+
