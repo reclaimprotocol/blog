@@ -1,0 +1,101 @@
+---
+title: Common terms of service phrases and how it applies to Reclaim Protocol
+description: A phrase by phrase breakdown
+date: 2026-10-26
+tags: ["Legal"]
+author: Madhavan Malolan
+img: "/blog/posts/common-tos-banner.png"
+published: true
+---
+
+# For legal teams
+If you are evaluating Reclaim Protocol and are evaluating legal implications - this blog is for you.
+
+If you are not a legal professional, you can copy-paste this blog into your AI agent for analysis.
+
+We go over the top 10 common phrases we see on Terms of Service pages on various websites. You should however review each Terms of Service individually - this post is not a blanket protection. But it does provide guidance on how to interpret ToS in the context of Reclaim Protocol. 
+
+**Glossary**
+| Term | Meaning |
+| :--  | :--     |
+| User | The human using Reclaim Protocol |
+| Source | The website where the user is logging in to generate a verification |
+| Customer | A company integrating Reclaim Protocol in their company |
+| RP Co.| Reclaim Protocol, the Company - not the product. |
+| Reclaim Protocol | Reclaim Protocol - the technical product |
+
+## 1. Third-party account access or facilitating access
+**What this phrase usually protects against.** Unauthorized account access, credential delegation and services acting through a member’s account.
+
+**A common misconception about Reclaim.** Generating a verification gives the user’s credentials or continuing access to their account - to either RP Co. or its customers.
+
+**How Reclaim addresses this concern.** A user can authenticate directly with the source and authorize a limited verification without giving the customer or RP Co. continuing access to the account. The customer receives no password, one-time code, reusable session cookie, bearer token or browser-control capability. Possession of the proof does not let the customer log in, fetch more account information or act through the user's session.
+
+
+## 2. Automated access, monitoring or collection
+**What this phrase usually protects against.** Unapproved software access, monitoring and collection, particularly bulk scraping and repeated polling. 
+
+**A common misconception about Reclaim.** Every verification requires an autonomous agent to navigate, scrape and repeatedly retrieve account data.
+
+**How Reclaim addresses this concern.** A configuration can require the user to navigate manually and disable automated navigation completely. The Source's response arrives as part of the user's normal browsing, and the proof process works from that exchange without issuing another request to the Source. Further, the requests are scope limited to what is required by the verification - there are no crawlers and scrapers that collect any unauthorized data in an automated manner.
+
+## 3. Manual copying, screenshots and one-time extraction
+**What this phrase usually protects against.** Copying or extracting website content outside permitted uses.
+
+**A common misconception about Reclaim.** Verifying one fact necessarily entails copying and redistributing the complete page.
+
+**How Reclaim addresses this concern.** Established screenshot-based verification also supports an argument that a user supplying evidence about their own account is an ordinary, legitimate use. 
+
+## 4. Commercial use or benefit
+**What this phrase usually protects against.** Use outside the website’s permitted personal purposes, including commercial exploitation, redistribution and competing services.
+
+**A common misconception about Reclaim.** Verifying a user's account necessarily means building and selling a database of other people’s information for commercial use. When actually, Reclaim Protocol doesn't store any verifications for any commercial use.
+
+**How Reclaim addresses this concern.** By means of an example, a traveler requesting a status match seeks a benefit for themselves and supplies evidence about their own membership. A limited, member-initiated verification supports characterizing the traveler’s activity as personal.
+
+## 5. Sharing, transmitting or republishing account information
+**What this phrase usually protects against.** Use of account information beyond the website’s permitted recipients or purposes.
+
+**A common misconception about Reclaim.** The customer must receive the entire account page to verify eligibility.
+
+**How Reclaim addresses this concern.** Selective disclosure reduces what the customer learns. For example, an eligibility proof can disclose that the user meets an eligibility while withholding account details. 
+
+## 6. Password, credential and session confidentiality
+**What this phrase usually protects against.** Exposure of passwords, one-time codes, session cookies and other secrets that allow account access.
+
+**A common misconception about Reclaim.** The customer needs to receive or retain the user’s login secrets.
+
+**How Reclaim addresses this concern.** The customer or RP Co. receives no reusable credentials, session tokens or remote browser control, provable using [cryptographic attestations](https://trust.reclaimprotocol.org) from the hardware.
+
+
+## 7. Circumvention, interference and excessive traffic
+**What this phrase protects against.** Bypassing access controls, evading blocks, disrupting service and imposing excessive load.
+
+**A common misconception about Reclaim.** Verification necessarily requires bypassing the Source’s authentication or bot defenses.
+
+**How Reclaim addresses this concern.** An integration doesn't bypass the authentication, rate limits and access restrictions throughout the flow. The user completing captchas themselves is part of that behavior. The Source website is accessed from a regular Chromium browser.
+
+## 8. Interception of communications
+**What this phrase usually protects against.** Unauthorized interception or diversion of communications and access to information in transit.
+
+**A common misconception about Reclaim.** Reclaim Protocol must receive the user’s decrypted account contents to authenticate a proof.
+
+**How Reclaim addresses this concern.** The browser is the entity that receives and decrypts responses in the session; Reclaim Protocol processes information within the stated local or protected remote environment to construct the verification. That processing is different from from RP Co. observing or relaying communications in transit - this is not different from what a third party can observe over the network on the internet.
+
+## 9. Unapproved AI or agent use
+**What this phrase usually protects against.** Use of AI tools or autonomous agents without the website’s approval, including their access to website content.
+
+**A common misconception about Reclaim.** Cryptographic verification inherently requires AI to operate the source account.
+
+**How Reclaim addresses this concern.** An AI-specific restriction may not apply where the integration uses no AI within its prohibited scope. Deterministic proof generation is separate from AI-assisted operation of the source. The customer can turn off AI mode in their integration.
+
+## 10. Deep links, framing and branding
+**What this phrase protects against.** Unapproved linking, embedding, copying of website interfaces and misleading use of a brand or implied endorsement.
+
+**A common misconception about Reclaim.** Verification necessarily embeds the source website inside the customer’s interface or presents the source as a partner.
+
+**How Reclaim addresses this concern.** Opening the genuine source page in a new browser and clearly communicates that the user is accessing the website inside the said browser - with no endorsements or affiliations to the customer.
+
+
+----
+If you have any questions, feel free to reach out to us [over email](mailto:support@reclaimprotocol.org). We are happy to review your usecase in specific and provide guidance based on what we have seen so far.
