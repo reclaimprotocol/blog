@@ -1,0 +1,45 @@
+---
+title: A simpler way to integrate verifications
+description: Just copy paste the prompt to integrate verifications, using our MCPs
+date: 2026-11-04
+tags: ["Code", "Integrations"]
+author: Madhavan Malolan
+img: "/posts/launching-builder-banner.png"
+published: true
+---
+
+Today, we are launching an update making AI coding agents first class citizens when integrating verifications using [Reclaim Protocol](https://reclaimprotocol.org)
+
+We realized no human is integrating by hand any way. So we migrated to a simple MCP based integration flow, where a coding agent will be able to integrate end to end. 
+
+You can see integration instructions on our [Docs Page](https://docs.reclaimprotocol.org)
+
+There really isn't much instructions to follow, but to sign up to the [Build Tool](https://build.reclaimprotocol.org) and write a [good prompt](https://docs.reclaimprotocol.org/good-prompt).
+ 
+You can see the whole integration flow in this short 90s video :
+
+<iframe
+  className="aspect-video w-full"
+  src="https://www.youtube.com/embed/H21ach_-o60"
+  title="Reclaim Protocol integration walkthrough"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerPolicy="strict-origin-when-cross-origin"
+  allowFullScreen
+></iframe>
+
+Once you copy paste the prompt, it gives your AI coding agent a skill that it can use. This skill has all the required information on how to integrate Reclaim Protocol.
+
+Majorly, the MCP features :
+1. Building a provider
+  - When the developer has a login credential : if you, as the developer, have login credentials for the website from which you want to verify information - we recommend creating _provider_. This way you know deterministically how the users are going to verify once you integrate and launch. This is our recommended flow, and the one that is most stable. 
+  - [Beta] When developer doesn't have a login credential : Sometimes, as a developer, you don't have the login credentials to the website you need to verify from. In such cases, we need to rely on AI at run time to figure of how to extract and verify the required information. If this is your requirement, please contact us for [Beta Access](mailto:support@reclaimprotocol.org).
+2. Integrating Reclaim Protocol 
+  - The skill teaches your AI agent on how to integrate Reclaim Protocol using the latest packages
+  - It also creates the appropriate callbacks, so that you can safely and securely receive the verified information
+3. Troubleshooting
+  - Some basic errors are already included in the skill, to help your AI coding agent to navigate and fix issues.
+  - In some cases, when your AI coding agent is trying to build a provider before integrating - it might need to try a few different options on the website to determine the best way to extract & verify information. In some cases it gets it right in the first attempt (a few seconds), in some cases it might take a few tries. Just allow the agent to try out a few options on your sandboxed browser instance. 
+  - Finally, Reclaim Protocol is [open sourced](https://github.com/reclaimprotocol). So if your agent gets stuck in something gnarly, the skill file is tuned to look up the source code of the protocol to figure out a fix. This is usually the last resort, but it is incredible that agents are consistently able to unblock themselves by looking at the OSS code.
+
+If inspite of this you feel stuck, you can always [contact humans at Reclaim Protocol](mailto:support@reclaimprotocol.org) to help you unblock! 
